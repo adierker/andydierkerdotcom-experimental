@@ -1,10 +1,10 @@
 import Head from 'next/head'
-// import { motion } from 'framer-motion' // not using this yet but soon
 
 import {Lock} from 'icons/Icons'
 import {Modal, useModal} from 'components/Modal'
 
 export default function Home() {
+  const {openModal} = useModal()
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -20,7 +20,10 @@ export default function Home() {
           <h1 className="text-drkr-yellow">dot</h1>
           <h1 className="text-drkr-orange">com</h1>
         </div>
-        <Lock className="text-drkr-green h-14 w-14 lg:h-24 lg:w-24 mb-12 lg:mb-16"/>
+        <Lock 
+          onClick={openModal}
+          className="text-drkr-green h-14 w-14 lg:h-24 lg:w-24 mb-12 lg:mb-16 cursor-pointer"
+        />
       </main>
 
       <Modal title="headline here">
