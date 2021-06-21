@@ -1,7 +1,11 @@
 import Head from 'next/head'
+// import { motion } from 'framer-motion' // not using this yet but soon
+
 import {Lock} from 'icons/Icons'
+import {Modal, useModal} from 'components/Modal'
 
 export default function Home() {
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
@@ -18,6 +22,12 @@ export default function Home() {
         </div>
         <Lock className="text-drkr-green h-14 w-14 lg:h-24 lg:w-24 mb-12 lg:mb-16"/>
       </main>
+
+      <Modal title="headline here">
+        <div className="body">
+          why did don yell at peggy
+        </div>
+      </Modal>
     </div>
   )
 }
