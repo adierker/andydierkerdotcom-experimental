@@ -1,42 +1,18 @@
-import {useState, useCallback, useRef, Fragment, ReactNode} from 'react'
-// import { motion } from 'framer-motion' // not using this yet but soon
+import {useRef, Fragment} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 import {PlainX} from 'icons/Icons'
 
 interface ModalProps {
-  title?: string
-  children: ReactNode
-}
-
-const useModal = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  const closeModal = useCallback(() => setIsOpen(false), [setIsOpen])
-  const openModal = useCallback(() => {
-    console.log('openModal')
-    setIsOpen(true)
-  }, [setIsOpen])
-  const toggleModal = useCallback(() => setIsOpen(!isOpen), [isOpen, setIsOpen])
-
-  return {
-    isOpen,
-    setIsOpen,
-    closeModal,
-    openModal,
-    toggleModal
-  }
+  isOpen: boolean
+  closeModal: () => any
 }
 
 const Modal = ({
-  title,
-  children
+  isOpen,
+  closeModal
 }: ModalProps) => {
-  const {isOpen, closeModal} = useModal()
-
   const cancelButtonRef = useRef(null)
-
-  console.log('isOpen?', isOpen)
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -131,4 +107,4 @@ const Modal = ({
   )
 }
 
-export {Modal, useModal}
+export {Modal}

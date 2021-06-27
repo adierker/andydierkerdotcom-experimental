@@ -1,10 +1,11 @@
 import Head from 'next/head'
 
 import {Lock} from 'icons/Icons'
-import {Modal, useModal} from 'components/Modal'
+import {Modal} from 'components/Modal/Modal'
+import {useModal} from 'components/Modal/Modal.hooks'
 
 export default function Home() {
-  const {openModal} = useModal()
+  const {openModal, isOpen, closeModal} = useModal()
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -26,11 +27,7 @@ export default function Home() {
         />
       </main>
 
-      <Modal title="headline here">
-        <div className="body">
-          why did don yell at peggy
-        </div>
-      </Modal>
+      <Modal isOpen={isOpen} closeModal={closeModal}/>
     </div>
   )
 }
