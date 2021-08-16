@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'drkr-white': '#fffaf0',
-        'drkr-black': '#3c3c3c',
+        'drkr-white': '#ffffff', // #e7e1d3 matches the image
+        'drkr-black': '#3e3e40',
         'drkr-dark-green': '#264653',
         'drkr-green': '#2a9d8f',
         'drkr-yellow': '#e9c46a',
