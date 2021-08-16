@@ -10,29 +10,22 @@ export default function Home() {
   const {openModal, isOpen, closeModal} = useModal()
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex min-h-screen">
       <Head>
         <title>andydierker</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col flex-1 items-center justify-start w-full px-20 text-drkr-black">
-        <BreakpointHelper/>
+      <BreakpointHelper/>
 
-        <div className="mt-20 max-w-lg">
+      <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 mt-20 text-drkr-black">
+        <div className="max-w-md">
           <img className="rounded-full border-8 border-drkr-black" src="/me4.jpg"/>
         </div>
-
-
-        <div className="text-center mt-12 text-drkr-black">
-          <h1 className="text-5xl lg:text-8xl headline">andy dierker</h1>
-          <h4 className="text-2xl mt-6 body">frontend software type of guy</h4>
-          {/* <h1 className="text-drkr-green">andy</h1>
-          <h1 className="text-drkr-dark-green">dierker</h1>
-          <h1 className="text-drkr-yellow">dot</h1>
-          <h1 className="text-drkr-orange">com</h1> */}
+        <div className="mt-4 sm:mt-8 text-center text-drkr-black">
+          <h1 className="text-4xl xs:text-5xl sm:text-6xl headline">andy dierker</h1>
+          <h2 className="text-1xl xs:text-2xl body mt-4">frontend software type of guy</h2>
         </div>
-
       </main>
 
       <Modal isOpen={isOpen} closeModal={closeModal}/>

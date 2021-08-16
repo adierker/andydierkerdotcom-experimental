@@ -1,3 +1,5 @@
+const {screens} = require('tailwindcss/defaultTheme')
+
 module.exports = {
   mode: 'jit',
   purge: [
@@ -5,6 +7,11 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    // we can't EXTEND screens, have to re-create them: https://github.com/tailwindlabs/tailwindcss/issues/1319
+    screens: {
+      'xs': '480px',
+      ...screens,
+    },
     extend: {
       colors: {
         'drkr-white': '#ffffff', // #e7e1d3 matches the image
@@ -14,7 +21,7 @@ module.exports = {
         'drkr-yellow': '#e9c46a',
         'drkr-orange': '#f4a261',
         'drkr-red': '#e76f51',
-      }
+      },
     },
   },
   variants: {
