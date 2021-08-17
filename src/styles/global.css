@@ -5,21 +5,20 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #ffffff;
+body { 
+  background-color: #ffffff; 
 }
 
-.headline {
-  letter-spacing: -0.12312rem;
-  font-family: 'Montserrat', sans-serif;
-}
+@layer utilities {
+  /* typography */
+  .body { font-family: 'Open Sans', sans-serif; }
+  .headline { letter-spacing: -0.12312rem; font-family: 'Montserrat', sans-serif; }
+  .headline-spaced { font-family: 'Montserrat', sans-serif; }
 
-.headline-spaced {
-  font-family: 'Montserrat', sans-serif;
-}
-
-.body {
-  font-family: 'Open Sans', sans-serif;
+  @variants responsive {
+    /* max-width */
+    .max-w-xxs { max-width: 16rem; }
+  }
 }
 
 
