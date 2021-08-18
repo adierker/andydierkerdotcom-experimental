@@ -1,22 +1,26 @@
 import {useState, useCallback} from 'react'
 
-const useModal = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+const MODALS = {
+  ABOUT: 'ABOUT',
+  CONTACT: 'CONTACT',
+  PROJECTS: 'PROJECTS'
+}
 
-  const closeModal = useCallback(() => setIsOpen(false), [setIsOpen])
-  const openModal = useCallback(() => {
-    console.log('openModal')
-    setIsOpen(true)
-  }, [setIsOpen])
-  const toggleModal = useCallback(() => setIsOpen(!isOpen), [isOpen, setIsOpen])
+type ModalKeys = keyof typeof MODALS
+type ModalValues = typeof MODALS[ModalKeys]
+export type ModalTypes = ModalValues | null
+
+const useModal = () => {
+  const [currentModal, setCurrentModal] = useState<ModalTypes>(null)
+
+  const openModal = useCallback((modal: ModalTypes) => setCurrentModal(modal), [setCurrentModal])
+  const closeModal = useCallback(() => setCurrentModal(null), [setCurrentModal])
 
   return {
-    isOpen,
-    setIsOpen,
-    closeModal,
     openModal,
-    toggleModal
+    closeModal,
+    currentModal
   }
 }
 
-export {useModal}
+export {useModal, MODALS}

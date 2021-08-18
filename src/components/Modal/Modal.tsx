@@ -1,25 +1,22 @@
 import {useRef, Fragment} from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import {Dialog, Transition} from '@headlessui/react'
 
+import {ModalTypes} from 'components/Modal/Modal.hooks'
 interface ModalProps {
-  isOpen: boolean
+  currentModal: ModalTypes
   closeModal: () => any
 }
 
-const Modal = ({
-  isOpen,
-  closeModal
-}: ModalProps) => {
-
+const Modal = ({currentModal, closeModal}: ModalProps) => {
   const modalRef = useRef(null)
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root show={!!currentModal} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed z-10 inset-0 overflow-y-auto"
-        open={isOpen}
+        open={!!currentModal}
         onClose={closeModal}
         initialFocus={modalRef}
       >
