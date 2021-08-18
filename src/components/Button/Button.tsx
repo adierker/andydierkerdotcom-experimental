@@ -12,9 +12,9 @@ const defaults = {
   border: 'rounded-md border border-transparent shadow-sm',
   focus: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-drkr-green',
   padding: 'px-4 py-2',
-  typography: 'text-xl font-medium',
-  colors: 'bg-drkr-green text-drkr-white',
-  hover: 'hover:bg-opacity-75',
+  typography: 'text-xl headline-spaced',
+  colors: 'bg-drkr-black text-drkr-white',
+  hover: 'hover:bg-opacity-80',
 }
 
 const defaultStyles = Object.values(defaults).join(' ')

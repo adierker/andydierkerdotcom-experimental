@@ -2,13 +2,59 @@ import {useRef, Fragment} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
 import {ModalTypes} from 'components/Modal/Modal.hooks'
+import {Button} from 'components/Button/Button'
+import {MODALS} from 'components/Modal/Modal.hooks'
+
 interface ModalProps {
   currentModal: ModalTypes
   closeModal: () => any
 }
 
+interface ModalContentProps {
+  title: string
+  texts: string[]
+  buttons: typeof Button[] | null
+}
+
 const Modal = ({currentModal, closeModal}: ModalProps) => {
   const modalRef = useRef(null)
+
+  const MODAL_TO_CONTENT_MAPPING = {
+    [MODALS.ABOUT]: {
+      title: "Hello, I'm Andy",
+      texts: [
+        "I'm a software engineer in Seattle. I work at Invitae (the genetics company), where I'm the tech lead for the marketing site, responsible for deployments and building out the CMS system and component libraries.",
+        "Engineering-wise, my areas of expertise are in Javascript, React, HTML and CSS. This site is built using NextJS, React Hooks and context, and TailwindCSS."
+      ],
+      buttons: [
+        <Button onClick={closeModal} text="Nice to meet you"/>
+      ]
+    },
+    [MODALS.CONTACT]: {
+      title: "Contact",
+      texts: [
+        "E-mail is the best way to reach me. Shoot me a message at:",
+        "dierker[at]gmail[dot]com"
+      ],
+      buttons: [
+        <Button onClick={closeModal} text="Sounds good, thanks"/>
+      ]
+    },
+    [MODALS.PROJECTS]: {
+      title: "My projects",
+      texts: [
+        "I like to cook and take photos.",
+        "The recipes below are mostly just a place for my wife and I to keep the recipes we like. If you try to edit any of the recipes, it will ask you for a password... I don't want you messing my stuff up! Most of these are slight variations of recipes I found online, so some of them may look familiar to you already.",
+        "I take a lot of photos too, but I'm kinda shy about sharing them online. You can check out my Instagram for a lot more of my photos, but I'll post a few photos that I like in my photos section."
+      ],
+      buttons: [
+        <Button onClick={closeModal} text="Recipes"/>,
+        <Button onClick={closeModal} text="Photos"/>
+      ]
+    }
+  }
+
+  const modalContent = MODAL_TO_CONTENT_MAPPING[currentModal]
 
   return (
     <Transition.Root show={!!currentModal} as={Fragment}>
@@ -33,9 +79,8 @@ const Modal = ({currentModal, closeModal}: ModalProps) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-drkr-dark-green bg-opacity-75 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-drkr-black bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           {/* This element is to trick the browser into centering the modal contents. */}
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
@@ -52,38 +97,24 @@ const Modal = ({currentModal, closeModal}: ModalProps) => {
             <div className="inline-block align-bottom bg-drkr-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-drkr-white p-4">
                 <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                  <Dialog.Title as="h3" className="text-2xl leading-6 headline-spaced text-drkr-dark-green mt-2">
-                    hi, i'm a dev
+                  <Dialog.Title as="h3" className="text-3xl headline-spaced text-drkr-black mt-2">
+                    {modalContent.title}
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-drkr-dark-green body">
-                      who cares words words words
-                    </p>
+                    {modalContent.texts.map(text => {
+                      return (
+                        <p className="text-sm text-drkr-dark-green body mb-5">
+                          {text}
+                        </p>
+                      )
+                    })}
                   </div>
                 </div>
               </div>
               <div className="bg-drkr-white p-4 sm:flex sm:flex-row justify-end">
-                <button
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-drkr-yellow text-base font-medium text-drkr-white hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-drkr-yellow sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={closeModal}
-                >
-                  my linkedin
-                </button>
-                <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-drkr-green text-base font-medium text-drkr-white hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-drkr-green sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={closeModal}
-                >
-                  admin section
-                </button>
-                <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-drkr-orange text-base font-medium text-drkr-white hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-drkr-orange sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={closeModal}
-                >
-                  okay, bye bye
-                </button>
+                {modalContent.buttons.map(button => {
+                  return button
+                })}
               </div>
             </div>
           </Transition.Child>
