@@ -14,7 +14,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        'drkr-white': '#ffffff', // #e7e1d3 matches the image
+        'drkr-white': '#ffffff',
+        'drkr-gray': '#f2f2f2',
         'drkr-black': '#3e3e40',
         'drkr-dark-green': '#264653',
         'drkr-green': '#2a9d8f',

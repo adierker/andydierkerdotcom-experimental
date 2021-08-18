@@ -26,10 +26,15 @@ export default function Home() {
           <h1 className="text-4xl xs:text-5xl sm:text-6xl headline">Andy Dierker</h1>
           <h2 className="text-2xl xs:text-2xl body mt-2 xs:mt-4">frontend software type of guy</h2>
         </div>
-        <div className="flex flex-row justify-between w-1/2 max-w-xxs min-w-max mt-6">
-          <Github className="h-8 w-8 xs:h-10 xs:w-10 flex-1" url="https://github.com/adierker"/>
-          <LinkedIn className="h-8 w-8 xs:h-10 xs:w-10 flex-1" url="https://www.linkedin.com/in/dierker/"/>
-          <Instagram className="h-8 w-8 xs:h-10 xs:w-10 flex-1" url="https://www.instagram.com/dierker/"/>
+        <div className="flex flex-col xs:flex-row justify-between w-full md:w-1/2 mt-4 headline-spaced text-2xl underline">
+          <a className="text-center" href="/thing">about</a>
+          <a className="text-center mt-2 xs:mt-0" href="/thing">contact</a>
+          <a className="text-center mt-2 xs:mt-0" href="/thing">projects</a>
+        </div>
+        <div className="flex flex-row justify-between w-3/4 xs:w-1/2 min-w-max max-w-xxs mt-8 xs:mt-6">
+          <Github className="h-10 w-10 flex-1" url="https://github.com/adierker"/>
+          <LinkedIn className="h-10 w-10 flex-1" url="https://www.linkedin.com/in/dierker/"/>
+          <Instagram className="h-10 w-10 flex-1" url="https://www.instagram.com/dierker/"/>
         </div>
       </main>
 
