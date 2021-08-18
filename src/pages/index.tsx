@@ -2,8 +2,7 @@ import Head from 'next/head'
 
 import {LinkedIn, Instagram, Github} from 'icons/Social'
 import {Modal} from 'components/Modal/Modal'
-import {useModal} from 'components/Modal/Modal.hooks'
-import {Button} from 'components/Button/Button'
+import {useModal, MODALS} from 'components/Modal/Modal.hooks'
 import {BreakpointHelper} from 'components/BreakpointHelper/BreakpointHelper'
 
 export default function Home() {
@@ -26,12 +25,13 @@ export default function Home() {
           <h1 className="text-4xl xs:text-5xl sm:text-6xl headline">Andy Dierker</h1>
           <h2 className="text-2xl xs:text-2xl body mt-2 xs:mt-4">frontend software type of guy</h2>
         </div>
-        <div className="flex flex-col xs:flex-row justify-between w-full md:w-1/2 mt-4 headline-spaced text-2xl underline">
-          <a className="text-center" href="/thing">about</a>
-          <a className="text-center mt-2 xs:mt-0" href="/thing">contact</a>
-          <a className="text-center mt-2 xs:mt-0" href="/thing">projects</a>
+        <div className="flex flex-col sm:flex-row justify-between w-full md:w-3/4 lg:w-1/2 mt-4 headline-spaced text-2xl underline">
+          <button className="text-center" onClick={() => openModal()}>about</button>
+          <button className="text-center mt-2 sm:mt-0">resume</button>
+          <button className="text-center mt-2 sm:mt-0">contact</button>
+          <button className="text-center mt-2 sm:mt-0">projects</button>
         </div>
-        <div className="flex flex-row justify-between w-3/4 xs:w-1/2 min-w-max max-w-xxs mt-8 xs:mt-6">
+        <div className="flex flex-row justify-between w-3/4 sm:w-1/2 min-w-max max-w-xxs mt-8 sm:mt-6">
           <Github className="h-10 w-10 flex-1" url="https://github.com/adierker"/>
           <LinkedIn className="h-10 w-10 flex-1" url="https://www.linkedin.com/in/dierker/"/>
           <Instagram className="h-10 w-10 flex-1" url="https://www.instagram.com/dierker/"/>
