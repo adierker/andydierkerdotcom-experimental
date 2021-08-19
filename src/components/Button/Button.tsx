@@ -14,7 +14,7 @@ const defaults = {
   padding: 'px-4 py-2',
   typography: 'text-xl headline-spaced',
   colors: 'bg-drkr-black text-drkr-white',
-  hover: 'hover:bg-opacity-80',
+  hover: 'hover:bg-drkr-green',
 }
 
 const defaultStyles = Object.values(defaults).join(' ')

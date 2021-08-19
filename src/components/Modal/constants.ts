@@ -1,0 +1,5 @@
+export const MODALS = {
+  ABOUT: 'ABOUT',
+  CONTACT: 'CONTACT',
+  PROJECTS: 'PROJECTS'
+}

@@ -1,11 +1,8 @@
+import {openInNewTab} from 'utils/utils'
+
 interface SocialIconProps {
   className?: string
   url: string
-}
-
-const openInNewTab = (url: string) => {
-  const newWindow = window.open(url, '_blank', 'noopener, noreferrer')
-  if (newWindow) newWindow.opener = null
 }
 
 // these social links are from https://iconmonstr.com/

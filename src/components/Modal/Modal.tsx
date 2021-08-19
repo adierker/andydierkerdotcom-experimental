@@ -1,9 +1,8 @@
 import {useRef, Fragment} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
-import {ModalTypes} from 'components/Modal/Modal.hooks'
-import {Button} from 'components/Button/Button'
-import {MODALS} from 'components/Modal/Modal.hooks'
+import {Button} from 'components/Button'
+import {ModalTypes, MODALS} from 'components/Modal'
 
 interface ModalProps {
   currentModal: ModalTypes
@@ -16,7 +15,7 @@ interface ModalContentProps {
   buttons: typeof Button[] | null
 }
 
-const Modal = ({currentModal, closeModal}: ModalProps) => {
+export const Modal = ({currentModal, closeModal}: ModalProps) => {
   const modalRef = useRef(null)
 
   const MODAL_TO_CONTENT_MAPPING = {
@@ -123,5 +122,3 @@ const Modal = ({currentModal, closeModal}: ModalProps) => {
     </Transition.Root>
   )
 }
-
-export {Modal}
