@@ -1,14 +1,7 @@
-import {useState, useCallback, ComponentProps} from 'react'
+import {useState, useCallback} from 'react'
 
-import {Button} from 'components'
 import {MODALS} from 'consts'
-import {ModalTypes} from 'types'
-
-export interface ModalContent {
-  title: string
-  texts: string[]
-  buttons: ComponentProps<typeof Button>[]
-}
+import {ModalTypes, ModalContent} from 'types'
 
 export const useModal = () => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
@@ -48,8 +41,6 @@ export const useModal = () => {
         setModalContent(null)
     }
   }, [setModalContent])
-
-
 
   return {
     openModal,
