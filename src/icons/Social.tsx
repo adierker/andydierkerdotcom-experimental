@@ -1,4 +1,4 @@
-import {openInNewTab} from 'utils/utils'
+import {openInNewTab} from 'utils'
 
 interface SocialIconProps {
   className?: string

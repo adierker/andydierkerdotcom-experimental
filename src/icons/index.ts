@@ -5,6 +5,7 @@ import {
   CircleX,
   ArrowLeft
 } from 'icons/Icons'
+
 import {
   LinkedIn,
   Instagram,

@@ -1,4 +1,4 @@
-import {MODALS} from 'components/Modal'
+import {MODALS} from 'consts'
 
 type ModalKeys = keyof typeof MODALS
 type ModalValues = typeof MODALS[ModalKeys]

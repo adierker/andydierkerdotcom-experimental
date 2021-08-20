@@ -3,7 +3,6 @@ import classnames from 'classnames'
 interface ButtonProps {
   text: string
   onClick: () => void
-  color?: string
   customClasses?: string
 }
 
@@ -17,20 +16,18 @@ const defaults = {
   hover: 'hover:bg-drkr-green',
 }
 
-const defaultStyles = Object.values(defaults).join(' ')
+const defaultClasses = Object.values(defaults).join(' ')
 
 export const Button = ({
   text,
   onClick,
-  color,
   customClasses,
 }: ButtonProps) => {
   return (
     <button
       type="button"
       className={classnames(
-        defaultStyles,
-        color,
+        defaultClasses,
         customClasses
       )}
       onClick={onClick}
