@@ -7,7 +7,7 @@ import {useModal} from 'hooks'
 import {openInNewTab} from 'utils'
 
 export default function Home() {
-  const {openModal, closeModal, currentModal, modalContent} = useModal()
+  const {openModal, closeModal, modalContent} = useModal()
 
   return (
     <div className="flex min-h-screen">
@@ -68,11 +68,10 @@ export default function Home() {
 
       </main>
 
-      {!!currentModal && (
+      {!!modalContent && (
         <Modal 
-          currentModal={currentModal} 
+          modalContent={modalContent} 
           closeModal={closeModal} 
-          modalContent={modalContent}
         />
       )}
     </div>

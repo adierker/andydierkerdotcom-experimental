@@ -1,25 +1,24 @@
-import {useRef, Fragment, ComponentProps} from 'react'
+import {useRef, Fragment} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
 import {Button} from 'components'
-import {ModalTypes} from 'types'
 import {ModalContent} from 'hooks/useModal'
 
 interface ModalProps {
-  currentModal: ModalContent
+  modalContent: ModalContent
   closeModal: () => any
 }
 
-export const Modal = ({currentModal, closeModal}: ModalProps) => {
+export const Modal = ({modalContent, closeModal}: ModalProps) => {
   const modalRef = useRef(null)
 
   return (
-    <Transition.Root show={!!currentModal} as={Fragment}>
+    <Transition.Root show={!!modalContent} as={Fragment}>
       <Dialog
         as="div"
         static
         className="fixed z-10 inset-0 overflow-y-auto"
-        open={!!currentModal}
+        open={!!modalContent}
         onClose={closeModal}
         initialFocus={modalRef}
       >
@@ -55,17 +54,17 @@ export const Modal = ({currentModal, closeModal}: ModalProps) => {
               <div className="bg-drkr-white p-4">
                 <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                   <Dialog.Title as="h3" className="text-3xl headline-spaced text-drkr-black mt-2">
-                    {currentModal.title}
+                    {modalContent.title}
                   </Dialog.Title>
                   <div className="mt-2">
-                    {currentModal.texts.map(text => (
+                    {modalContent.texts.map(text => (
                       <p>{text}</p>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="bg-drkr-white p-4 sm:flex sm:flex-row justify-end">
-                {currentModal.buttons.map(button => <Button text={button.text} onClick={button.onClick}/>)}
+                {modalContent.buttons.map(button => <Button text={button.text} onClick={button.onClick}/>)}
               </div>
             </section>
           </Transition.Child>

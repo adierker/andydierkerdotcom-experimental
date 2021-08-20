@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect, ComponentProps} from 'react'
+import {useState, useCallback, ComponentProps} from 'react'
 
 import {Button} from 'components'
 import {MODALS} from 'consts'
@@ -11,14 +11,14 @@ export interface ModalContent {
 }
 
 export const useModal = () => {
-  const [currentModal, setCurrentModal] = useState<ModalContent | null>(null)
+  const [modalContent, setModalContent] = useState<ModalContent | null>(null)
 
-  const closeModal = useCallback(() => setCurrentModal(null), [setCurrentModal])
+  const closeModal = useCallback(() => setModalContent(null), [setModalContent])
 
   const openModal = useCallback((modalType: ModalTypes) => {
     switch (modalType) {
       case MODALS.ABOUT:
-        setCurrentModal({
+        setModalContent({
           title: 'about',
           texts: ['hi', 'another'],
           buttons: [
@@ -27,7 +27,7 @@ export const useModal = () => {
         })
         break
       case MODALS.CONTACT:
-        setCurrentModal({
+        setModalContent({
           title: 'about',
           texts: ['hi', 'another'],
           buttons: [
@@ -36,7 +36,7 @@ export const useModal = () => {
         })
         break
       case MODALS.PROJECTS:
-        setCurrentModal({
+        setModalContent({
           title: 'about',
           texts: ['hi', 'another'],
           buttons: [
@@ -45,15 +45,15 @@ export const useModal = () => {
         })
         break
       default:
-        setCurrentModal(null)
+        setModalContent(null)
     }
-  }, [setCurrentModal])
+  }, [setModalContent])
 
 
 
   return {
     openModal,
     closeModal,
-    currentModal
+    modalContent
   }
 }

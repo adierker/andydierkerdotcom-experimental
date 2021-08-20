@@ -1,5 +1,5 @@
 import {MODALS} from 'consts'
 
-type ModalKeys = keyof typeof MODALS
-type ModalValues = typeof MODALS[ModalKeys]
-export type ModalTypes = ModalValues | null
+type ModalTypesKeys = keyof typeof MODALS
+type ModalTypesValues = typeof MODALS[ModalTypesKeys]
+export type ModalTypes = ModalTypesValues | null
