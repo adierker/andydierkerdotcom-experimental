@@ -1,7 +1,6 @@
-import {LinkedIn, Instagram, Github} from 'icons'
 import {HomeContent} from 'types'
 
-export const Home = ({heading, subheading, links}: HomeContent) => {
+export const Home = ({heading, subheading, links, socials}: HomeContent) => {
   return (
     <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 text-drkr-black">
       <section id="avatar" className="max-w-xxs xs:max-w-xs mt-10 sm:mt-20">
@@ -17,11 +16,11 @@ export const Home = ({heading, subheading, links}: HomeContent) => {
         </h2>
       </section>
 
-      <section id="links" className="flex flex-col sm:flex-row justify-center w-full mt-4 headline-spaced-font text-2xl underline">
+      <section id="links" className="flex flex-col sm:flex-row items-center justify-center w-full mt-4 headline-spaced-font text-2xl underline ">
         {links.map((link, index) => (
           <button 
             type="button"
-            className={`text-center hover:text-drkr-green ${link.classes}`}
+            className={`text-center drkr-focus ${link.classes}`}
             onClick={link.onClick}
             key={`link-${index}`}
           >
@@ -31,9 +30,13 @@ export const Home = ({heading, subheading, links}: HomeContent) => {
       </section>
 
       <section id="socials" className="flex flex-row mt-8 sm:mt-6">
-        <Github className="h-10 w-10 flex-1 mr-6 sm:mr-10 hover:text-drkr-green" url="https://github.com/adierker"/>
-        <LinkedIn className="h-10 w-10 flex-1 mr-6 sm:mr-10 hover:text-drkr-green" url="https://www.linkedin.com/in/dierker/"/>
-        <Instagram className="h-10 w-10 flex-1 hover:text-drkr-green" url="https://www.instagram.com/dierker/"/>
+        {socials.map((social, index) => (
+          <social.icon 
+            classes={`h-10 w-10 flex-1 drkr-focus ${social.classes}`} 
+            url={social.url}
+            key={`social-${index}`}
+          />
+        ))}
       </section>
     </main>
   )

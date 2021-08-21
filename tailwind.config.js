@@ -23,7 +23,7 @@ module.exports = {
         'drkr-orange': '#f4a261',
         'drkr-red': '#e76f51',
       },
-    },
+    }
   },
   variants: {
     extend: {},

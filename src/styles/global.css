@@ -21,4 +21,10 @@ body {
   }
 }
 
+@layer components {
+  .drkr-focus {
+    @apply hover:text-drkr-green focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-drkr-green rounded-md;
+  }
+}
+
 

@@ -2,6 +2,7 @@ import {ComponentProps, ReactNode} from 'react'
 
 import {MODALS} from 'consts'
 import {Button} from 'components'
+import {LinkedIn, Instagram, Github} from 'icons'
 
 type ModalTypeKeys = keyof typeof MODALS
 type ModalTypeValues = typeof MODALS[ModalTypeKeys]
@@ -11,6 +12,16 @@ export type OpenModalType = (x: ModalType) => void
 export type CloseModalType = () => void
 
 export type ButtonPropsType = ComponentProps<typeof Button>
+
+export interface IconProps {
+  classes?: string
+  onClick?: () => void
+}
+
+export interface SocialIconProps {
+  classes?: string
+  url: string
+}
 
 export interface ModalContent {
   title: string
@@ -25,5 +36,9 @@ export interface HomeContent {
     text: string
     onClick: () => void
     classes: string
-  }[]
+  }[],
+  socials: (
+    {icon: typeof LinkedIn | typeof Instagram | typeof Github} 
+    & SocialIconProps
+  )[]
 }

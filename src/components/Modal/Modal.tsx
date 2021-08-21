@@ -1,4 +1,4 @@
-import {useRef, Fragment} from 'react'
+import {Fragment, useEffect} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
 import {Button} from 'components'
@@ -10,8 +10,6 @@ interface ModalProps {
 }
 
 export const Modal = ({modalContent, closeModal}: ModalProps) => {
-  const modalRef = useRef(null)
-
   return (
     <Transition.Root show={!!modalContent} as={Fragment}>
       <Dialog
@@ -20,10 +18,9 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
         className="fixed z-10 inset-0 overflow-y-auto"
         open={!!modalContent}
         onClose={closeModal}
-        initialFocus={modalRef}
+        // initialFocus={null} // this seems to be bugged, it always selects the first element no matter what i put here
       >
         <div
-          ref={modalRef}
           className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
         >
           <Transition.Child
@@ -61,7 +58,7 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-drkr-white p-4 sm:flex sm:flex-row justify-end">
+              <div className="bg-drkr-white p-4 flex flex-col md:flex-row justify-end">
                 {modalContent.buttons.map(({text, onClick, classes}: ButtonPropsType, index) => (
                   <Button text={text} onClick={onClick} classes={classes} key={`button-${index}`}/>
                 ))}
