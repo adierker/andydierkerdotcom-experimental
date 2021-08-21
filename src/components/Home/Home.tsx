@@ -20,7 +20,7 @@ export const Home = ({heading, subheading, links, socials}: HomeContent) => {
         {links.map((link, index) => (
           <button 
             type="button"
-            className={`text-center drkr-focus ${link.classes}`}
+            className={`text-center drkr-focus text-drkr-hover ${link.classes}`}
             onClick={link.onClick}
             key={`link-${index}`}
           >
@@ -32,7 +32,7 @@ export const Home = ({heading, subheading, links, socials}: HomeContent) => {
       <section id="socials" className="flex flex-row mt-8 sm:mt-6">
         {socials.map((social, index) => (
           <social.icon 
-            classes={`h-10 w-10 flex-1 drkr-focus ${social.classes}`} 
+            classes={`h-10 w-10 flex-1 drkr-focus text-drkr-hover ${social.classes}`} 
             url={social.url}
             key={`social-${index}`}
           />

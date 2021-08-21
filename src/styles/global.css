@@ -23,7 +23,13 @@ body {
 
 @layer components {
   .drkr-focus {
-    @apply hover:text-drkr-green focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-drkr-green rounded-md;
+    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-drkr-green rounded-md transition duration-300;
+  }
+  .text-drkr-hover {
+    @apply hover:text-drkr-green transition duration-300;
+  }
+  .bg-drkr-hover {
+    @apply hover:bg-drkr-green transition duration-300;
   }
 }
 
