@@ -15,6 +15,11 @@ body {
   .headline-font { letter-spacing: -0.12312rem; font-family: 'Montserrat', sans-serif; }
   .headline-spaced-font { font-family: 'Montserrat', sans-serif; }
 
+  *::selection {
+    color: #fff;
+    background: #2a9d8f;
+  }
+
   @variants responsive {
     /* max-width */
     .max-w-xxs { max-width: 16rem; }
