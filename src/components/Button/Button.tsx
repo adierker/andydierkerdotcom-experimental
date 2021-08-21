@@ -11,7 +11,7 @@ const defaults = {
   border: 'rounded-md border border-transparent shadow-sm',
   focus: 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-drkr-green',
   padding: 'px-4 py-2',
-  typography: 'text-xl headline-spaced',
+  typography: 'text-xl headline-spaced-font',
   colors: 'bg-drkr-black text-drkr-white',
   hover: 'hover:bg-drkr-green',
 }

@@ -9,15 +9,15 @@ export const Home = ({heading, subheading, links}: HomeContent) => {
       </section>
 
       <section id="heading" className="mt-4 sm:mt-8 text-center text-drkr-black">
-        <h1 className="text-4xl xs:text-5xl sm:text-6xl headline">
+        <h1 className="text-4xl xs:text-5xl sm:text-6xl headline-font">
           {heading}
         </h1>
-        <h2 className="text-2xl xs:text-2xl body mt-2 xs:mt-4">
+        <h2 className="text-2xl xs:text-2xl body-font mt-2 xs:mt-4">
           {subheading}
         </h2>
       </section>
 
-      <section id="links" className="flex flex-col sm:flex-row justify-center w-full mt-4 headline-spaced text-2xl underline">
+      <section id="links" className="flex flex-col sm:flex-row justify-center w-full mt-4 headline-spaced-font text-2xl underline">
         {links.map((link, index) => (
           <button 
             type="button"

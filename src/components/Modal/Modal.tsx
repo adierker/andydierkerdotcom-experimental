@@ -2,7 +2,7 @@ import {useRef, Fragment} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
 import {Button} from 'components'
-import {ModalContent} from 'hooks/useModal'
+import {ModalContent, ButtonPropsType} from 'types'
 
 interface ModalProps {
   modalContent: ModalContent
@@ -53,18 +53,18 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
             <section id="modal-content" className="inline-block align-bottom bg-drkr-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-drkr-white p-4">
                 <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                  <Dialog.Title as="h3" className="text-3xl headline-spaced text-drkr-black mt-2">
+                  <Dialog.Title as="h3" className="text-3xl headline-spaced-font text-drkr-black mt-2">
                     {modalContent.title}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    {modalContent.texts.map(text => (
-                      <p>{text}</p>
-                    ))}
+                  <div className="mt-4 body-font">
+                    {modalContent.content}
                   </div>
                 </div>
               </div>
               <div className="bg-drkr-white p-4 sm:flex sm:flex-row justify-end">
-                {modalContent.buttons.map(button => <Button text={button.text} onClick={button.onClick}/>)}
+                {modalContent.buttons.map(({text, onClick, classes}: ButtonPropsType, index) => (
+                  <Button text={text} onClick={onClick} classes={classes} key={`button-${index}`}/>
+                ))}
               </div>
             </section>
           </Transition.Child>

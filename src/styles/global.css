@@ -11,9 +11,9 @@ body {
 
 @layer utilities {
   /* typography */
-  .body { font-family: 'Open Sans', sans-serif; }
-  .headline { letter-spacing: -0.12312rem; font-family: 'Montserrat', sans-serif; }
-  .headline-spaced { font-family: 'Montserrat', sans-serif; }
+  .body-font { font-family: 'Open Sans', sans-serif; }
+  .headline-font { letter-spacing: -0.12312rem; font-family: 'Montserrat', sans-serif; }
+  .headline-spaced-font { font-family: 'Montserrat', sans-serif; }
 
   @variants responsive {
     /* max-width */

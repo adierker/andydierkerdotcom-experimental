@@ -1,45 +1,21 @@
 import {useState, useCallback} from 'react'
 
-import {MODALS} from 'consts'
-import {ModalTypes, ModalContent} from 'types'
+import {
+  ModalType,
+  ModalContent,
+  OpenModalType,
+  CloseModalType
+} from 'types'
+import {getModalContent} from 'content'
 
 export const useModal = () => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
 
-  const closeModal = useCallback(() => setModalContent(null), [setModalContent])
+  const closeModal: CloseModalType = useCallback(() => setModalContent(null), [setModalContent])
 
-  const openModal = useCallback((modalType: ModalTypes) => {
-    switch (modalType) {
-      case MODALS.ABOUT:
-        setModalContent({
-          title: 'about',
-          texts: ['hi', 'another'],
-          buttons: [
-            {text: 'yo', onClick: closeModal}
-          ]
-        })
-        break
-      case MODALS.CONTACT:
-        setModalContent({
-          title: 'about',
-          texts: ['hi', 'another'],
-          buttons: [
-            {text: 'yo', onClick: closeModal}
-          ]
-        })
-        break
-      case MODALS.PROJECTS:
-        setModalContent({
-          title: 'about',
-          texts: ['hi', 'another'],
-          buttons: [
-            {text: 'yo', onClick: closeModal}
-          ]
-        })
-        break
-      default:
-        setModalContent(null)
-    }
+  const openModal: OpenModalType = useCallback((modalType: ModalType) => {
+    const modalContent = getModalContent(modalType, closeModal)
+    setModalContent(modalContent)
   }, [setModalContent])
 
   return {

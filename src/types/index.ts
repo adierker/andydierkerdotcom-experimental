@@ -1,16 +1,21 @@
-import {ComponentProps} from 'react'
+import {ComponentProps, ReactNode} from 'react'
 
 import {MODALS} from 'consts'
 import {Button} from 'components'
 
-type ModalTypesKeys = keyof typeof MODALS
-type ModalTypesValues = typeof MODALS[ModalTypesKeys]
-export type ModalTypes = ModalTypesValues | null
+type ModalTypeKeys = keyof typeof MODALS
+type ModalTypeValues = typeof MODALS[ModalTypeKeys]
+export type ModalType = ModalTypeValues | null
+
+export type OpenModalType = (x: ModalType) => void
+export type CloseModalType = () => void
+
+export type ButtonPropsType = ComponentProps<typeof Button>
 
 export interface ModalContent {
   title: string
-  texts: string[]
-  buttons: ComponentProps<typeof Button>[]
+  content: ReactNode
+  buttons: ButtonPropsType[]
 }
 
 export interface HomeContent {
