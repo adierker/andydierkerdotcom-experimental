@@ -47,23 +47,28 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <section id="modal-content" className="inline-block align-bottom bg-drkr-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-drkr-white p-4">
-                <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                  <Dialog.Title as="h3" className="text-3xl headline-spaced-font text-drkr-black mt-2">
-                    {modalContent.title}
-                  </Dialog.Title>
-                  <div className="mt-4 body-font">
-                    {modalContent.content}
+            {/* the ternary below is a bit of a hack. we display the modal if modalContent exists, but when we wipe the modalContent to close the modal, we need to leave time for the transition animations above to work */}
+            {/* Transition.Child is rendering as a Fragment, so it will throw an error if modalContent is null and nothing is rendered within it */}
+            {/* so we make it a ternary and render an empty span instead so that it has time to finish its animation */}
+            {modalContent ? (
+              <section id="modal-content" className="inline-block align-bottom bg-drkr-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div className="bg-drkr-white p-4">
+                  <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
+                    <Dialog.Title as="h3" className="text-3xl headline-spaced-font text-drkr-black mt-2">
+                      {modalContent.title}
+                    </Dialog.Title>
+                    <div className="mt-4 body-font">
+                      {modalContent.content}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-drkr-white p-4 flex flex-col md:flex-row justify-end">
-                {modalContent.buttons.map(({text, onClick, classes}: ButtonPropsType, index) => (
-                  <Button text={text} onClick={onClick} classes={classes} key={`button-${index}`}/>
-                ))}
-              </div>
-            </section>
+                <div className="bg-drkr-white p-4 flex flex-col md:flex-row justify-end">
+                  {modalContent.buttons.map(({text, onClick, classes}: ButtonPropsType, index) => (
+                    <Button text={text} onClick={onClick} classes={classes} key={`button-${index}`}/>
+                  ))}
+                </div>
+              </section>
+            ) : <span/>} 
           </Transition.Child>
         </div>
       </Dialog>

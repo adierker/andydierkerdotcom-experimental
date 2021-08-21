@@ -11,12 +11,10 @@ export const ModalContextProvider = ({children}) => {
   return (
     <ModalContext.Provider value={{openModal, closeModal, modalContent}}>
       {children}
-      {!!modalContent && (
-        <Modal 
-          modalContent={modalContent} 
-          closeModal={closeModal} 
-        />
-      )}
+      <Modal 
+        modalContent={modalContent} 
+        closeModal={closeModal} 
+      />
     </ModalContext.Provider>
   )
 }
