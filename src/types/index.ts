@@ -18,11 +18,6 @@ export interface IconProps {
   onClick?: () => void
 }
 
-export interface SocialIconProps {
-  classes?: string
-  url: string
-}
-
 export interface ModalContent {
   title: string
   content: ReactNode
@@ -37,13 +32,14 @@ export interface HomePageContent {
     onClick: () => void
     classes: string
   }[],
-  socials: (
-    {icon: typeof LinkedIn | typeof Instagram | typeof Github} 
-    & SocialIconProps
-  )[]
+  socials: {
+    icon: typeof LinkedIn | typeof Instagram | typeof Github
+    classes: string
+    url: string
+  }[]
 }
 
-export interface RecipeContent {
+export interface RecipePageContent {
   name: string
   path: string
   description: ReactNode

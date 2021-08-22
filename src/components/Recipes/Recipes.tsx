@@ -1,9 +1,9 @@
-import {HomePageContent} from 'types'
+import {RecipePageContent} from 'types'
 
-export const Home = ({heading, subheading, links, socials}: HomePageContent) => {
+export const Recipes = ({}: RecipePageContent) => {
   return (
     <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 text-drkr-black">
-      <section id="avatar" className="max-w-xxs xs:max-w-xs mt-10 sm:mt-20">
+      {/* <section id="avatar" className="max-w-xxs xs:max-w-xs mt-10 sm:mt-20">
         <img className="rounded-full border-4 border-drkr-black" src="/me.jpg"/>
       </section>
 
@@ -37,7 +37,7 @@ export const Home = ({heading, subheading, links, socials}: HomePageContent) => 
             key={`social-${index}`}
           />
         ))}
-      </section>
+      </section> */}
     </main>
   )
 }

@@ -31,11 +31,17 @@ export const Home = ({heading, subheading, links, socials}: HomePageContent) => 
 
       <section id="socials" className="flex flex-row mt-8 sm:mt-6">
         {socials.map((social, index) => (
-          <social.icon 
-            classes={`h-10 w-10 flex-1 drkr-focus text-drkr-hover ${social.classes}`} 
-            url={social.url}
+          <a 
+            href={social.url} 
+            target="_blank" 
+            rel="noopener, noreferrer" 
             key={`social-${index}`}
-          />
+            className={`drkr-focus ${social.classes}`}
+          >
+            <social.icon 
+              classes="h-10 w-10 flex-1 text-drkr-hover"
+            />
+          </a>
         ))}
       </section>
     </main>

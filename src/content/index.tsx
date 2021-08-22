@@ -1,4 +1,6 @@
-import {MODALS} from 'consts'
+import {NextRouter} from 'next/router'
+
+import {MODALS, SITEMAP} from 'consts'
 import {
   HomePageContent,
   ModalContent,
@@ -7,7 +9,7 @@ import {
   CloseModalType
 } from 'types'
 import {LinkedIn, Instagram, Github} from 'icons'
-import {openInNewTab} from 'utils'
+import {openExternalLink} from 'utils'
 
 export const getHomePageContent = (openModal: OpenModalType): HomePageContent => ({
   heading: 'Andy Dierker',
@@ -20,7 +22,7 @@ export const getHomePageContent = (openModal: OpenModalType): HomePageContent =>
     },
     {
       text: 'resume', 
-      onClick: () => openInNewTab('/dierker-resume-2021.pdf'),
+      onClick: () => openExternalLink('/dierker-resume-2021.pdf', true),
       classes: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
     },
     {
@@ -53,7 +55,11 @@ export const getHomePageContent = (openModal: OpenModalType): HomePageContent =>
   ]
 })
 
-export const getModalContent = (modalType: ModalType, closeModal: CloseModalType): ModalContent => {
+export const getModalContent = (
+  modalType: ModalType, 
+  closeModal: CloseModalType,
+  router: NextRouter
+  ): ModalContent => {
   switch (modalType) {
     case MODALS.ABOUT:
       return {
@@ -100,12 +106,18 @@ export const getModalContent = (modalType: ModalType, closeModal: CloseModalType
         buttons: [
           {
             text: 'Recipes', 
-            onClick: closeModal,
+            onClick: () => {
+              closeModal()
+              router.push(SITEMAP.RECIPES)
+            },
             classes: 'mr-0 mb-2 md:mr-2 md:mb-0'
           },
           {
             text: 'Photos', 
-            onClick: closeModal,
+            onClick: () => {
+              closeModal()
+              router.push(SITEMAP.PHOTOS)
+            },
             classes: 'mr-0 mb-2 md:mr-2 md:mb-0'
           },
           {

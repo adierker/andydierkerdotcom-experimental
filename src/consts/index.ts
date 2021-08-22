@@ -3,3 +3,8 @@ export const MODALS = {
   CONTACT: 'CONTACT',
   PROJECTS: 'PROJECTS'
 }
+
+export const SITEMAP = {
+  RECIPES: '/recipes',
+  PHOTOS: '/photos',
+}
