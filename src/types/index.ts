@@ -29,7 +29,7 @@ export interface ModalContent {
   buttons: ButtonPropsType[]
 }
 
-export interface HomeContent {
+export interface HomePageContent {
   heading: string
   subheading: string
   links: {
@@ -41,4 +41,19 @@ export interface HomeContent {
     {icon: typeof LinkedIn | typeof Instagram | typeof Github} 
     & SocialIconProps
   )[]
+}
+
+export interface RecipeContent {
+  name: string
+  path: string
+  description: ReactNode
+  url: string
+  isScalable: boolean
+  servings: number
+  ingredients: {
+    num?: number
+    unit?: string
+    ingredient: string
+  }[]
+  instructions: (boolean, num) => string[]
 }

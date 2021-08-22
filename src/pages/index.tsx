@@ -2,12 +2,12 @@ import Head from 'next/head'
 
 import {Home, BreakpointHelper} from 'components'
 import {useModalContext} from 'contexts'
-import {getHomeContent} from 'content'
+import {getHomePageContent} from 'content'
 
 export default function IndexPage() {
   const {openModal} = useModalContext()
 
-  const homeContent = getHomeContent(openModal)
+  const homeContent = getHomePageContent(openModal)
 
   return (
     <div className="flex min-h-screen">
