@@ -4,6 +4,7 @@ import {MODALS, SITEMAP} from 'consts'
 import {
   HomePageContent,
   ModalContent,
+  RecipeContent,
   ModalType,
   OpenModalType,
   CloseModalType
@@ -131,7 +132,16 @@ export const getModalContent = (
   }
 }
 
-export const getRecipeContent = () => {[
+export const getRecipePageContent = () => ({
+  heading: 'Recipes',
+  texts: [
+    "This is where my family stores recipes that we cook frequently.",
+    "I didn't come up with ANY of these recipes on my own, we found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
+    "This recipe app has a backend CMS that I use to update them as the recipes evolve, but it's not publicly available, sorry! You're welcome to browse the recipes themselves though. Maybe lower your expectations though, most of these tend to fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff."
+  ]
+})
+
+export const getRecipeContent = (): RecipeContent => ([
   {
     name: 'Salsa Chicken',
     path: 'salsa-chicken',
@@ -196,4 +206,4 @@ export const getRecipeContent = () => {[
       `To serve, place about a cup of cooked rice on a plate, or in your meal prep container, top with about a cup of the pineapple black bean salsa, and a few strips of the jerk chicken. Slice the remaining lime into wedges and squeeze fresh juice over the chicken just before eating.`,
     ])
   }
-]}
+])

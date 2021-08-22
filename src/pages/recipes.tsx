@@ -1,21 +1,21 @@
 import Head from 'next/head'
 
 import {Recipes, BreakpointHelper} from 'components'
-import {getRecipeContent} from 'content'
+import {getRecipePageContent} from 'content'
 
 export default function RecipePage() {
 
-  const recipeContent = getRecipeContent()
+  const recipePageContent = getRecipePageContent()
 
   return (
     <div className="flex min-h-screen">
       <Head>
-        <title>andydierker.com</title>
+        <title>andydierker.com | recipes</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* <BreakpointHelper/> */}
-      <Recipes {...recipeContent}/>
+      <Recipes {...recipePageContent}/>
     </div>
   )
 }

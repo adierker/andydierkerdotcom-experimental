@@ -40,6 +40,11 @@ export interface HomePageContent {
 }
 
 export interface RecipePageContent {
+  heading: string
+  texts: string[]
+}
+
+export interface Recipe {
   name: string
   path: string
   description: ReactNode
@@ -51,5 +56,8 @@ export interface RecipePageContent {
     unit?: string
     ingredient: string
   }[]
-  instructions: (boolean, num) => string[]
+  instructions: (number) => string[]
+  notes?: string[]
 }
+
+export type RecipeContent = Recipe[]
