@@ -14,7 +14,7 @@ export type CloseModalType = () => void
 export type ButtonPropsType = ComponentProps<typeof Button>
 
 export interface IconProps {
-  classes?: string
+  className?: string
   onClick?: () => void
 }
 
@@ -30,11 +30,11 @@ export interface HomePageContent {
   links: {
     text: string
     onClick: () => void
-    classes: string
+    className: string
   }[],
   socials: {
     icon: typeof LinkedIn | typeof Instagram | typeof Github
-    classes: string
+    className: string
     url: string
   }[]
 }

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 interface ButtonProps {
   text: string
   onClick: () => void
-  classes?: string
+  className?: string
 }
 
 const defaults = {
@@ -21,14 +21,14 @@ const defaultClasses = Object.values(defaults).join(' ')
 export const Button = ({
   text,
   onClick,
-  classes,
+  className,
 }: ButtonProps) => {
   return (
     <button
       type="button"
       className={classnames(
         defaultClasses,
-        classes
+        className
       )}
       onClick={onClick}
     >

@@ -19,38 +19,38 @@ export const getHomePageContent = (openModal: OpenModalType): HomePageContent =>
     {
       text: 'about', 
       onClick: () => openModal(MODALS.ABOUT),
-      classes: 'mr-0 sm:mr-4'
+      className: 'mr-0 sm:mr-4'
     },
     {
       text: 'resume', 
       onClick: () => openExternalLink('/dierker-resume-2021.pdf', true),
-      classes: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
+      className: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
     },
     {
       text: 'contact', 
       onClick: () => openModal(MODALS.CONTACT),
-      classes: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
+      className: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
     },
     {
       text: 'projects', 
       onClick: () => openModal(MODALS.PROJECTS),
-      classes: 'mt-2 sm:mt-0'
+      className: 'mt-2 sm:mt-0'
     },
   ],
   socials: [
     {
       icon: Github,
-      classes: "mr-6 sm:mr-10",
+      className: "mr-6 sm:mr-10 rounded-full",
       url: "https://github.com/adierker"
     },
     {
       icon: LinkedIn,
-      classes: "mr-6 sm:mr-10",
+      className: "mr-6 sm:mr-10",
       url: "https://www.linkedin.com/in/dierker/"
     },
     {
       icon: Instagram,
-      classes: "",
+      className: "",
       url: "https://www.instagram.com/dierker/"
     },
   ]
@@ -111,7 +111,7 @@ export const getModalContent = (
               closeModal()
               router.push(SITEMAP.RECIPES)
             },
-            classes: 'mr-0 mb-2 md:mr-2 md:mb-0'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
           },
           {
             text: 'Photos', 
@@ -119,7 +119,7 @@ export const getModalContent = (
               closeModal()
               router.push(SITEMAP.PHOTOS)
             },
-            classes: 'mr-0 mb-2 md:mr-2 md:mb-0'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
           },
           {
             text: 'Okay bye', 

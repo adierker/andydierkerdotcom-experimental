@@ -5,6 +5,7 @@ export const MODALS = {
 }
 
 export const SITEMAP = {
+  HOME: '/',
   RECIPES: '/recipes',
   PHOTOS: '/photos',
 }

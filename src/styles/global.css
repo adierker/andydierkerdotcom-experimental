@@ -9,26 +9,36 @@ body {
   background-color: #f2f2f2; 
 }
 
+/* can't use utility classes in this section */
 @layer utilities {
   /* typography */
   .body-font { font-family: 'Open Sans', sans-serif; }
   .headline-font { letter-spacing: -0.12312rem; font-family: 'Montserrat', sans-serif; }
   .headline-spaced-font { font-family: 'Montserrat', sans-serif; }
 
-  *::selection {
-    color: #fff;
-    background: #2a9d8f;
-  }
+  /* when you highlight text with mouse */
+  *::selection { background: #2a9d8f; color: #fff; }
 
+  /* generates responsive prefixes for these classes, i.e. lg:max-w-xxs */
   @variants responsive {
-    /* max-width */
     .max-w-xxs { max-width: 16rem; }
   }
 }
 
+/* can use utilities in this section */
+/* using @apply on one line will apply the styles in an arbitrary order */
+/* using @apply on multiple lines will apply the styles in that specific order */
 @layer components {
   .drkr-focus {
-    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-drkr-green rounded-md transition duration-300;
+    /* focus-visible prefix only applies when the user focuses via keyboard, does not work for mouse */
+    @apply focus-visible:outline-none; /* remove the default blue outline */
+    @apply focus-visible:ring-offset-4; /* thickness of inner ring */
+    @apply focus-visible:ring-offset-drkr-gray; /* color of inner ring */
+    @apply focus-visible:ring-4; /* thickness of outer ring */
+    @apply focus-visible:ring-drkr-green; /* color of outer ring */
+    @apply rounded-md; /* rounds the edges */
+    @apply transition;
+    @apply duration-300;
   }
   .text-drkr-hover {
     @apply hover:text-drkr-green transition duration-300;

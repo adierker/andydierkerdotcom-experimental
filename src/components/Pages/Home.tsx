@@ -20,7 +20,7 @@ export const Home = ({heading, subheading, links, socials}: HomePageContent) => 
         {links.map((link, index) => (
           <button 
             type="button"
-            className={`text-center drkr-focus text-drkr-hover ${link.classes}`}
+            className={`text-center drkr-focus text-drkr-hover ${link.className}`}
             onClick={link.onClick}
             key={`link-${index}`}
           >
@@ -36,10 +36,10 @@ export const Home = ({heading, subheading, links, socials}: HomePageContent) => 
             target="_blank" 
             rel="noopener, noreferrer" 
             key={`social-${index}`}
-            className={`drkr-focus ${social.classes}`}
+            className={`drkr-focus ${social.className}`}
           >
             <social.icon 
-              classes="h-10 w-10 flex-1 text-drkr-hover"
+              className="h-10 w-10 flex-1 text-drkr-hover"
             />
           </a>
         ))}
