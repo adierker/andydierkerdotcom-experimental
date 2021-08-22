@@ -1,4 +1,4 @@
-import {Fragment} from 'react'
+import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 
 import {Button} from 'components'
@@ -10,6 +10,7 @@ interface ModalProps {
 }
 
 export const Modal = ({modalContent, closeModal}: ModalProps) => {
+  const hiddenButtonToTrickTheInitialFocus = useRef(null)
   return (
     <Transition.Root show={!!modalContent} as={Fragment}>
       <Dialog
@@ -18,7 +19,7 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
         className="fixed z-10 inset-0 overflow-y-auto"
         open={!!modalContent}
         onClose={closeModal}
-        // initialFocus={null} // this seems to be bugged, it always selects the first element no matter what i put here
+        initialFocus={hiddenButtonToTrickTheInitialFocus} // this seems to be bugged, it always selects the first element no matter what i put here, so i added a hidden button to steal focus first
       >
         <div
           className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
@@ -38,6 +39,8 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
+          {/* This element is to trick the initialFocus, otherwise when you hit Tab the SECOND button is selected first which is weird */}
+          <button className="hidden" ref={hiddenButtonToTrickTheInitialFocus}/>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
