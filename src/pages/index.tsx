@@ -10,7 +10,7 @@ export default function IndexPage() {
   const homeContent = getHomePageContent(openModal)
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen text-drkr-black">
       <Head>
         <title>andydierker.com</title>
         <link rel="icon" href="/favicon.ico" />

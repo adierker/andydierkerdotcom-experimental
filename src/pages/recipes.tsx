@@ -8,13 +8,13 @@ export default function RecipePage() {
   const recipePageContent = getRecipePageContent()
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen text-drkr-black">
       <Head>
         <title>andydierker.com | recipes</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <BreakpointHelper/> */}
+      <BreakpointHelper/>
       <Header/>
 
       <Recipes {...recipePageContent}/>
