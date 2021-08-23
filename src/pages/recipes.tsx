@@ -14,7 +14,7 @@ export default function RecipePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <BreakpointHelper/>
+      {/* <BreakpointHelper/> */}
       <Header/>
 
       <Recipes {...recipePageContent}/>

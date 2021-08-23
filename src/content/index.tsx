@@ -135,9 +135,8 @@ export const getModalContent = (
 export const getRecipePageContent = () => ({
   heading: 'Recipes',
   texts: [
-    "This is where my family stores recipes that we cook frequently.",
     "I didn't come up with ANY of these recipes on my own, we found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
-    "This recipe app has a backend CMS that I use to update them as the recipes evolve, but it's not publicly available, sorry! You're welcome to browse the recipes themselves though. Maybe lower your expectations though, most of these tend to fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff."
+    "You might want to lower your expectations, most of these recipes fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff to be found here."
   ]
 })
 
