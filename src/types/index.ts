@@ -60,4 +60,4 @@ export interface Recipe {
   notes?: string[]
 }
 
-export type RecipesContent = Recipe[]
+export type AllRecipesContent = Recipe[]

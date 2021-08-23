@@ -4,10 +4,11 @@ import {MODALS, SITEMAP} from 'consts'
 import {
   HomePageContent,
   ModalContent,
-  RecipesContent,
+  AllRecipesContent,
   ModalType,
   OpenModalType,
-  CloseModalType
+  CloseModalType,
+  Recipe,
 } from 'types'
 import {LinkedIn, Instagram, Github} from 'icons'
 import {openExternalLink} from 'utils'
@@ -132,15 +133,15 @@ export const getModalContent = (
   }
 }
 
-export const getRecipePageContent = () => ({
+export const getRecipesPageContent = () => ({
   heading: 'Recipes',
   texts: [
-    "I didn't come up with ANY of these recipes on my own, we found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
+    "I didn't come up with ANY of these recipes on my own, my wife and I found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
     "You might want to lower your expectations, most of these recipes fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff to be found here."
   ]
 })
 
-export const getRecipeContent = (): RecipesContent => ([
+export const getAllRecipesContent = (): AllRecipesContent => ([
   {
     name: 'Salsa Chicken',
     path: 'salsa-chicken',
@@ -206,3 +207,15 @@ export const getRecipeContent = (): RecipesContent => ([
     ])
   }
 ])
+
+export const getRecipe = (path: string): Recipe => {
+  const recipes = getAllRecipesContent()
+  const matchingRecipes = recipes.filter(recipe => recipe.path === path)
+  if (matchingRecipes.length > 1) {
+    throw `Multiple recipes found for given path: ${path}`
+  }
+  if (matchingRecipes.length < 1) {
+    throw `No recipes found for given path: ${path}`
+  }
+  return matchingRecipes[0]
+}

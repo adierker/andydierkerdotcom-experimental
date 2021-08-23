@@ -1,6 +1,4 @@
-import Head from 'next/head'
-
-import {Home, BreakpointHelper} from 'components'
+import {Home, PageWrapper} from 'components'
 import {useModalContext} from 'contexts'
 import {getHomePageContent} from 'content'
 
@@ -10,14 +8,8 @@ export default function IndexPage() {
   const homeContent = getHomePageContent(openModal)
 
   return (
-    <div className="flex min-h-screen text-drkr-black">
-      <Head>
-        <title>andydierker.com</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {/* <BreakpointHelper/> */}
+    <PageWrapper pageTitle="andydierker.com">
       <Home {...homeContent}/>
-    </div>
+    </PageWrapper>
   )
 }
