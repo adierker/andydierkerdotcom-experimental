@@ -22,7 +22,7 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
         initialFocus={hiddenButtonToTrickTheInitialFocus} // this seems to be bugged, it always selects the first element no matter what i put here, so i added a hidden button to steal focus first
       >
         <div
-          className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+          className="flex items-center justify-center min-h-screen p-4 text-center sm:block sm:p-0"
         >
           <Transition.Child
             as={Fragment}

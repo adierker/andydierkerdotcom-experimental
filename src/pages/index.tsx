@@ -16,7 +16,7 @@ export default function IndexPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <BreakpointHelper/>
+      {/* <BreakpointHelper/> */}
       <Home {...homeContent}/>
     </div>
   )
