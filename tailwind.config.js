@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         'drkr-white': '#ffffff',
         'drkr-gray': '#f2f2f2',
+        'drkr-mid-gray': '#D4D4D4',
         'drkr-black': '#3e3e40',
         'drkr-dark-green': '#264653',
         'drkr-green': '#2a9d8f',

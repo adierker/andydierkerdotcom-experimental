@@ -4,7 +4,7 @@ import {MODALS, SITEMAP} from 'consts'
 import {
   HomePageContent,
   ModalContent,
-  RecipeContent,
+  RecipesContent,
   ModalType,
   OpenModalType,
   CloseModalType
@@ -141,7 +141,7 @@ export const getRecipePageContent = () => ({
   ]
 })
 
-export const getRecipeContent = (): RecipeContent => ([
+export const getRecipeContent = (): RecipesContent => ([
   {
     name: 'Salsa Chicken',
     path: 'salsa-chicken',

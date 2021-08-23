@@ -54,18 +54,16 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
             {/* Transition.Child is rendering as a Fragment, so it will throw an error if modalContent is null and nothing is rendered within it */}
             {/* so we make it a ternary and render an empty span instead so that it has time to finish its animation */}
             {modalContent ? (
-              <section id="modal-content" className="inline-block align-bottom bg-drkr-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div className="bg-drkr-white p-4">
-                  <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-3xl headline-spaced-font text-drkr-black mt-2">
-                      {modalContent.title}
-                    </Dialog.Title>
-                    <div className="mt-4 body-font">
-                      {modalContent.content}
-                    </div>
-                  </div>
+              <section 
+                id="modal-content" 
+                className="inline-block align-bottom bg-drkr-gray text-drkr-black rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-fulltext-drkr-black">
+                <Dialog.Title as="h3" className="text-3xl headline-spaced-font border-b-2 border-drkr-mid-gray pt-6 px-6 pb-4">
+                  {modalContent.title}
+                </Dialog.Title>
+                <div className="body-font border-b-2 border-drkr-mid-gray p-6">
+                  {modalContent.content}
                 </div>
-                <div className="bg-drkr-white p-4 flex flex-col md:flex-row justify-end">
+                <div className="flex flex-col md:flex-row justify-end p-6">
                   {modalContent.buttons.map(({text, onClick, className}: ButtonPropsType, index) => (
                     <Button text={text} onClick={onClick} className={className} key={`button-${index}`}/>
                   ))}
