@@ -1,20 +1,20 @@
 import { useRouter, NextRouter } from 'next/router'
 
-import {PageWrapper, Recipe} from 'components'
-import {RecipePageContent, Recipe as RecipeType} from 'types'
-import {getRecipe} from 'content'
+import {PageWrapper, RecipeDetailPage} from 'components'
+import {RecipeContent} from 'types'
+import {getRecipeContent} from 'content'
 
-export default function RecipePage({heading, texts}: RecipePageContent) {
+export default function Recipe() {
   const router: NextRouter = useRouter()
   const {recipe: recipePath} = router.query
   
-  let recipeContent: RecipeType
+  let recipeContent: RecipeContent
   
   // on first render, recipePath will be undefined (it is a hook)
   if (recipePath) {
     try {
       // router.query returns a string | string[] so we must cast it
-      const fetched: RecipeType = getRecipe(recipePath as string)
+      const fetched: RecipeContent = getRecipeContent(recipePath as string)
       recipeContent = fetched
     }
     catch (error) {
@@ -31,7 +31,7 @@ export default function RecipePage({heading, texts}: RecipePageContent) {
       pageTitle={`andydierker.com | ${recipeContent.name.toLowerCase()}`}
       hasHeader={true}
     >
-      <Recipe {...recipeContent}/>
+      <RecipeDetailPage {...recipeContent}/>
     </PageWrapper>
   )
 }

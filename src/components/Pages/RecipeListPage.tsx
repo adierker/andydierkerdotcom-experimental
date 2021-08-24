@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
 import {SITEMAP} from 'consts'
-import {RecipePageContent, AllRecipesContent} from 'types'
-import {getAllRecipesContent} from 'content'
+import {RecipeListPageContent, RecipeListContent} from 'types'
+import {getRecipeListContent} from 'content'
 
-export const Recipes = ({heading, texts}: RecipePageContent) => {
-  const recipes: AllRecipesContent = getAllRecipesContent()
+export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
+  const recipeList: RecipeListContent = getRecipeListContent()
 
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto">
@@ -21,7 +21,7 @@ export const Recipes = ({heading, texts}: RecipePageContent) => {
       </section>
 
       <section id="recipe-links" className="w-full mt-4 headline-spaced-font text-xl underline ">
-        {recipes.map((recipe, index) => (
+        {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
             <Link href={`${SITEMAP.RECIPES}/${recipe.path}`}>
               <a className="drkr-focus text-drkr-hover">

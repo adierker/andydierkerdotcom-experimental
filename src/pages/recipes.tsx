@@ -1,12 +1,12 @@
-import {PageWrapper, Recipes} from 'components'
-import {getRecipesPageContent} from 'content'
+import {PageWrapper, RecipeListPage} from 'components'
+import {getRecipeListPageContent} from 'content'
 
-export default function RecipesPage() {
-  const recipesPageContent = getRecipesPageContent()
+export default function Recipes() {
+  const recipesPageContent = getRecipeListPageContent()
 
   return (
     <PageWrapper pageTitle="andydierker.com | recipes" hasHeader={true}>
-      <Recipes {...recipesPageContent}/>
+      <RecipeListPage {...recipesPageContent}/>
     </PageWrapper>
   )
 }

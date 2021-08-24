@@ -1,19 +1,8 @@
-import {BreakpointHelper} from 'components/BreakpointHelper/BreakpointHelper'
-import {Button} from 'components/Button/Button'
-import {Header} from 'components/Header/Header'
-import {Home} from 'components/Pages/Home'
-import {Modal} from 'components/Modal/Modal'
-import {PageWrapper} from 'components/PageWrapper/PageWrapper'
-import {Recipe} from 'components/Pages/Recipe'
-import {Recipes} from 'components/Pages/Recipes'
-
-export {
-  BreakpointHelper,
-  Button,
-  Header,
-  Home,
-  Modal,
-  PageWrapper,
-  Recipe,
-  Recipes
-}
+export * from 'components/BreakpointHelper/BreakpointHelper'
+export * from 'components/Button/Button'
+export * from 'components/Header/Header'
+export * from 'components/Pages/HomePage'
+export * from 'components/Modal/Modal'
+export * from 'components/PageWrapper/PageWrapper'
+export * from 'components/Pages/RecipeDetailPage'
+export * from 'components/Pages/RecipeListPage'

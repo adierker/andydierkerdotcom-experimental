@@ -1,4 +1,7 @@
-import {IconProps} from 'types'
+export interface IconProps {
+  className?: string
+  onClick?: () => void
+}
 
 // these social links are from https://iconmonstr.com/
 export const LinkedIn = ({className, onClick}: IconProps) => (

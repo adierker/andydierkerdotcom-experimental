@@ -1,5 +1,1 @@
-import {useModal} from 'hooks/useModal'
-
-export {
-  useModal
-}
+export * from 'hooks/useModal'

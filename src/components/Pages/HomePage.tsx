@@ -1,6 +1,6 @@
 import {HomePageContent} from 'types'
 
-export const Home = ({heading, subheading, links, socials}: HomePageContent) => {
+export const HomePage = ({heading, subheading, links, socials}: HomePageContent) => {
   return (
     <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 py-10 sm:py-20 text-drkr-black">
       <section id="avatar" className="max-w-xxs xs:max-w-xs">
