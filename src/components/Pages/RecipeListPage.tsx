@@ -1,8 +1,7 @@
-import Link from 'next/link'
-
 import {SITEMAP} from 'consts'
 import {RecipeListPageContent, RecipeListContent} from 'types'
 import {getRecipeListContent} from 'content'
+import {InternalLink} from 'components'
 
 export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
   const recipeList: RecipeListContent = getRecipeListContent()
@@ -23,11 +22,12 @@ export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
       <section id="recipe-links" className="w-full mt-4 headline-spaced-font text-xl underline ">
         {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
-            <Link href={`${SITEMAP.RECIPES}/${recipe.path}`}>
-              <a className="drkr-focus text-drkr-hover">
-                {recipe.name}
-              </a>
-            </Link>
+            <InternalLink 
+              href={`${SITEMAP.RECIPES}/${recipe.path}}`}
+              className="drkr-focus text-drkr-hover"
+            >
+              {recipe.name}
+            </InternalLink>
           </div>
         ))}
       </section>

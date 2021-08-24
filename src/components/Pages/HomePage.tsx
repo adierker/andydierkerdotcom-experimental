@@ -1,4 +1,5 @@
 import {HomePageContent} from 'types'
+import {ExternalLink} from 'components'
 
 export const HomePage = ({heading, subheading, links, socials}: HomePageContent) => {
   return (
@@ -31,17 +32,15 @@ export const HomePage = ({heading, subheading, links, socials}: HomePageContent)
 
       <section id="socials" className="flex flex-row mt-8 sm:mt-6">
         {socials.map((social, index) => (
-          <a 
+          <ExternalLink
             href={social.url} 
-            target="_blank" 
-            rel="noopener, noreferrer" 
             key={`social-${index}`}
             className={`drkr-focus ${social.className}`}
           >
             <social.icon 
               className="h-10 w-10 flex-1 text-drkr-hover"
             />
-          </a>
+          </ExternalLink>
         ))}
       </section>
     </main>

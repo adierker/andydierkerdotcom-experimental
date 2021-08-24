@@ -3,6 +3,7 @@ import {
   RecipeListContent,
   RecipeListPageContent,
 } from 'types'
+import {ExternalLink} from 'components'
 
 export const getRecipeListPageContent = (): RecipeListPageContent => ({
   heading: 'Recipes',
@@ -16,7 +17,16 @@ export const getRecipeListContent = (): RecipeListContent => ([
   {
     name: 'Salsa Chicken',
     path: 'salsa-chicken',
-    description: <p>Salsa chicken recipe based on the one from Budget Bytes.</p>,
+    description: (
+      <>
+        <p className="mb-3">
+          This recipe is easy-as-hell and makes great leftovers. For the most part, you dump stuff in a bowl and just check on it every few minutes. It's also pretty customizable, you can add jalapenos, use different salsas, hot sauces, what you want.
+        </p>
+        <p className="mb-3">
+          I can't take credit though... this is pretty much exactly the recipe from Budget Bytes with minimal changes. Check out that recipe <ExternalLink href="https://www.budgetbytes.com/salsa-chicken-meal-prep-bowls/">here</ExternalLink>.
+        </p>
+      </>
+    ),
     url: 'https://www.budgetbytes.com/salsa-chicken-meal-prep-bowls/',
     isScalable: true,
     servings: 6,
@@ -48,7 +58,11 @@ export const getRecipeListContent = (): RecipeListContent => ([
   {
     name: 'Jerk Chicken with Pineapple Black Bean Salsa',
     path: 'jerk-chicken-pineapple-black-bean-salsa',
-    description: <p>Jerk chicken with pineapple black bean salsa recipe based on the one from Budget Bytes.</p>,
+    description: (
+      <>
+        <p className="mb-3">Jerk chicken with pineapple black bean salsa recipe based on the one from Budget Bytes.</p>
+      </>
+    ),
     url: 'https://www.budgetbytes.com/jerk-chicken-with-pineapple-black-bean-salsa/',
     isScalable: true,
     servings: 6,

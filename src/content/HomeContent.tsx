@@ -4,7 +4,7 @@ import {
   OpenModalType,
 } from 'types'
 import {LinkedIn, Instagram, Github} from 'icons'
-import {openExternalLink} from 'utils'
+import {onClickOpenLink} from 'utils'
 
 export const getHomePageContent = (openModal: OpenModalType): HomePageContent => ({
   heading: 'Andy Dierker',
@@ -17,7 +17,7 @@ export const getHomePageContent = (openModal: OpenModalType): HomePageContent =>
     },
     {
       text: 'resume', 
-      onClick: () => openExternalLink('/dierker-resume-2021.pdf', true),
+      onClick: () => onClickOpenLink('/dierker-resume-2021.pdf', true),
       className: 'mt-2 sm:mt-0 mr-0 sm:mr-4'
     },
     {

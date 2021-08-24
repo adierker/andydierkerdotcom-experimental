@@ -46,6 +46,12 @@ body {
   .bg-drkr-hover {
     @apply hover:bg-drkr-green transition duration-300;
   }
+  .drkr-link {
+    @apply drkr-focus;
+    @apply text-drkr-hover;
+    @apply headline-spaced-font;
+    @apply underline;
+  }
 }
 
 

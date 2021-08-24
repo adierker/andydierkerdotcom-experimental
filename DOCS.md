@@ -20,15 +20,15 @@ From https://stackoverflow.com/questions/65086108/next-js-link-vs-router-push-vs
 
 ### Internal Link via HTML element
 
-- wrap the `<a>` in a `<Link>` provided by NextJS
+- wrap the `<a>` in a `<Link>` provided by NextJS, or use the <InternalLink> component, which does this automatically and adds some default styles
 
 ### Internal Link via onClick handler
 
 - destructure `router` from NextJS's `useRouter()`, use `router.push()`
 
 ### External Link via HTML element
-- use an `<a>`
+- use an `<a>`, or use the <ExternalLink> component, which adds some default styles and things like target _blank and noopener noreferrer
 
 ### External Link via onClick handler
-- use the `openExternalLink` function in `utils`
+- use the `onClickOpenLink` function in `utils`
 
