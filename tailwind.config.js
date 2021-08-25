@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     // we can't EXTEND screens, have to re-create them: https://github.com/tailwindlabs/tailwindcss/issues/1319
     screens: {
+      'min': '310px',
       'xs': '480px',
       ...screens,
     },

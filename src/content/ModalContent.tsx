@@ -62,7 +62,7 @@ export const getModalContent = (
               closeModal()
               router.push(SITEPATHS.RECIPES)
             },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0 focus-visible:bg-drkr-black'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
           },
           {
             text: 'Photos', 
@@ -70,12 +70,11 @@ export const getModalContent = (
               closeModal()
               router.push(SITEPATHS.PHOTOS)
             },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0 focus-visible:bg-drkr-black'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
           },
           {
             text: 'Okay bye', 
-            onClick: closeModal,
-            className: 'focus-visible:bg-drkr-black'
+            onClick: closeModal
           }
         ]
       }

@@ -11,7 +11,8 @@ export const BreakpointHelper = ({show}: BreakpointHelperProps) => {
   
   return (
     <>
-      <div className={`${sharedStyles} flex xs:hidden text-lg text-drkr-black bg-drkr-white`}>too small for any breakpoint</div>
+      <div className={`${sharedStyles} flex min:hidden text-lg text-drkr-black bg-drkr-white`}>too small</div>
+      <div className={`${sharedStyles} hidden min:flex text-lg text-drkr-black bg-drkr-mid-gray`}>min breakpoint</div>
       <div className={`${sharedStyles} hidden xs:flex text-lg text-drkr-white bg-drkr-black`}>xs breakpoint</div>
       <div className={`${sharedStyles} hidden sm:flex md:hidden text-drkr-white bg-drkr-green`}>sm breakpoint</div>
       <div className={`${sharedStyles} hidden md:flex lg:hidden text-drkr-white bg-drkr-dark-green`}>md breakpoint</div>

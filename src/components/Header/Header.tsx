@@ -13,14 +13,14 @@ export const Header = ({ backText, backPath }: HeaderProps) => {
     <nav className="flex py-3 justify-between items-center border-b-2 border-drkr-black">
       {backPath && (
         <div className="flex-1">
-          <div className="pl-1 xs:pl-4">
+          <div className="ml-4 xs:ml-8 sm:ml-12">
             <InternalLink
               href={backPath}
-              className="drkr-focus rounded-md flex items-center w-[fit-content]"
+              className="drkr-focus text-drkr-hover rounded-md flex items-center w-[fit-content]"
               useDefaultStyles={false}
             >
-              <ChevronLeft className="sq-6 xs:sq-8" />
-              <span className="text-sm xs:text-lg sm:text-2xl headline-spaced-font">
+              <ChevronLeft className="sq-6 xs:sq-9"/>
+              <span className="text-sm xs:text-xl sm:text-2xl headline-spaced-font">
                 {backText}
               </span>
             </InternalLink>
@@ -28,7 +28,7 @@ export const Header = ({ backText, backPath }: HeaderProps) => {
         </div>
       )}
 
-      <div className="flex-auto flex justify-center">
+      <div className="flex-1 flex justify-center">
         <InternalLink
           href={SITEPATHS.HOME}
           className="drkr-focus rounded-full"

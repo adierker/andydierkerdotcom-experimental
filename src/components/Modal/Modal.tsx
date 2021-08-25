@@ -65,7 +65,7 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
                 </div>
                 <div className="flex flex-col md:flex-row justify-end p-6">
                   {modalContent.buttons.map(({text, onClick, className}: ButtonPropsType, index) => (
-                    <Button text={text} onClick={onClick} className={className} key={`button-${index}`}/>
+                    <Button text={text} onClick={onClick} className={`${className} focus-visible:bg-drkr-black`} key={`button-${index}`}/>
                   ))}
                 </div>
               </section>
