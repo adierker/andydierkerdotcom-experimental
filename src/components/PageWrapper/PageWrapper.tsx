@@ -2,14 +2,23 @@ import {ReactNode} from 'react'
 import Head from 'next/head'
 
 import {BreakpointHelper, Header} from 'components'
+import {SitePathsType} from 'types'
 
 interface PageWrapperProps {
   children: ReactNode
   pageTitle: string
   hasHeader?: boolean
+  backText?: string
+  backPath?: SitePathsType
 }
 
-export const PageWrapper = ({children, pageTitle, hasHeader = false}: PageWrapperProps) => {
+export const PageWrapper = ({
+  children, 
+  pageTitle, 
+  hasHeader = false, 
+  backText,
+  backPath
+}: PageWrapperProps) => {
   return (
     <div className="flex flex-col min-h-screen text-drkr-black">
       <Head>
@@ -17,9 +26,15 @@ export const PageWrapper = ({children, pageTitle, hasHeader = false}: PageWrappe
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {hasHeader && <Header/>}
+      {hasHeader && (
+        <Header 
+          backText={backText}
+          backPath={backPath}
+        />
+      )}
 
-      {/* <BreakpointHelper/> */}
+      <BreakpointHelper show={false}/>
+
       {children}
     </div>
   )

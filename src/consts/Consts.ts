@@ -4,7 +4,7 @@ export const MODALS = {
   PROJECTS: 'PROJECTS'
 }
 
-export const SITEMAP = {
+export const SITEPATHS = {
   HOME: '/',
   RECIPES: '/recipes',
   PHOTOS: '/photos',

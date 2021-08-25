@@ -1,5 +1,14 @@
-export const BreakpointHelper = () => {
+interface BreakpointHelperProps {
+  show: boolean
+}
+
+export const BreakpointHelper = ({show}: BreakpointHelperProps) => {
   const sharedStyles = "absolute w-full justify-center text-center headline-spaced-font py-1 text-2xl"
+
+  if (!show) { 
+    return null
+  }
+  
   return (
     <>
       <div className={`${sharedStyles} flex xs:hidden text-lg text-drkr-black bg-drkr-white`}>too small for any breakpoint</div>

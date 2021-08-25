@@ -3,10 +3,7 @@ import {ReactNode} from 'react'
 import {MODALS} from 'consts'
 import {ButtonPropsType} from 'types'
 
-type ModalTypeKeys = keyof typeof MODALS
-type ModalTypeValues = typeof MODALS[ModalTypeKeys]
-export type ModalType = ModalTypeValues | null
-
+export type ModalType = typeof MODALS[keyof typeof MODALS] | null
 export type OpenModalType = (x: ModalType) => void
 export type CloseModalType = () => void
 

@@ -1,6 +1,6 @@
 import {NextRouter} from 'next/router'
 
-import {MODALS, SITEMAP} from 'consts'
+import {MODALS, SITEPATHS} from 'consts'
 import {
   ModalContent,
   ModalType,
@@ -60,21 +60,22 @@ export const getModalContent = (
             text: 'Recipes', 
             onClick: () => {
               closeModal()
-              router.push(SITEMAP.RECIPES)
+              router.push(SITEPATHS.RECIPES)
             },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0 focus-visible:bg-drkr-black'
           },
           {
             text: 'Photos', 
             onClick: () => {
               closeModal()
-              router.push(SITEMAP.PHOTOS)
+              router.push(SITEPATHS.PHOTOS)
             },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
+            className: 'mr-0 mb-3 md:mr-3 md:mb-0 focus-visible:bg-drkr-black'
           },
           {
             text: 'Okay bye', 
-            onClick: closeModal
+            onClick: closeModal,
+            className: 'focus-visible:bg-drkr-black'
           }
         ]
       }

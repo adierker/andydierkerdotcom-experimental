@@ -4,7 +4,7 @@ interface LoaderProps {
 
 // By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
 export const Loader = ({className}: LoaderProps) => (
-  <svg width="44" height="44" viewBox="0 0 44 44" className={`h-5 w-5 ${className}`} xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+  <svg width="44" height="44" viewBox="0 0 44 44" className={`sq-5 ${className}`} xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
     <g fill="none" fillRule="evenodd" strokeWidth="2">
       <circle cx="22" cy="22" r="1">
         <animate attributeName="r"

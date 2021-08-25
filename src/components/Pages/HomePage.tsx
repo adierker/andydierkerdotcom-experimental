@@ -38,7 +38,7 @@ export const HomePage = ({heading, subheading, links, socials}: HomePageContent)
             className={`drkr-focus ${social.className}`}
           >
             <social.icon 
-              className="h-10 w-10 flex-1 text-drkr-hover"
+              className="sq-10 flex-1 text-drkr-hover"
             />
           </ExternalLink>
         ))}
