@@ -5,6 +5,12 @@ export interface RecipeListPageContent {
   texts: string[]
 }
 
+export interface Ingredient {
+  num?: number
+  unit?: string
+  ingredient: string
+}
+
 export interface RecipeContent {
   name: string
   path: string
@@ -12,11 +18,7 @@ export interface RecipeContent {
   url: string
   isScalable: boolean
   servings: number
-  ingredients: {
-    num?: number
-    unit?: string
-    ingredient: string
-  }[]
+  ingredients: Ingredient[]
   instructions: (number) => string[]
   notes?: string[]
 }
