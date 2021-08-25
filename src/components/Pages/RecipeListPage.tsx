@@ -23,7 +23,7 @@ export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
         {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
             <InternalLink 
-              href={`${SITEMAP.RECIPES}/${recipe.path}}`}
+              href={`${SITEMAP.RECIPES}/${recipe.path}`}
               className="drkr-focus text-drkr-hover"
             >
               {recipe.name}
