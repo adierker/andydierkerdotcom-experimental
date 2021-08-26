@@ -66,7 +66,7 @@ export const getRecipeListContent = (): RecipeListContent => ([
         ]
       },
     ],
-    instructions: (coeff: number) => ([
+    instructions: () => ([
       `Preheat the oven to 425ºF.`,
       `Cook the rice: add rice, water, a squirt of olive oil and some salt to small pot. Put it on a cold burner uncovered, turn to high heat. When the rice and water is boiling, turn the burner to low, cover the pot and let it simmer for 15 minutes (do not open the lid to check on it). After 15 minutes, leave the lid on and remove the pot from the burner and let sit for 10 minutes.`,
       `While the rice is cooking, add the chicken breasts to the dutch oven along with the salsa, chicken broth, and chili powder. Give everything a stir.`,
