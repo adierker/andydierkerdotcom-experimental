@@ -11,6 +11,11 @@ export interface Ingredient {
   ingredient: string
 }
 
+export interface IngredientGrouping {
+  name: string | null
+  items: Ingredient[]
+}
+
 export interface RecipeContent {
   name: string
   path: string
@@ -18,8 +23,9 @@ export interface RecipeContent {
   url: string
   isScalable: boolean
   servings: number
-  ingredients: Ingredient[]
-  instructions: (number) => string[]
+  ingredients: IngredientGrouping[]
+  // this is a function so we can pass in the servings eventually
+  instructions: () => string[]
   notes?: string[]
 }
 

@@ -31,17 +31,40 @@ export const getRecipeListContent = (): RecipeListContent => ([
     isScalable: true,
     servings: 6,
     ingredients: [
-      {num: 1.5,    unit: 'cup',    ingredient: 'white rice'},
-      {num: 3,      unit: 'cup',    ingredient: 'water'},
-      {num: 2,      unit: 'lb',    ingredient: 'chicken breast'},
-      {num: 24,     unit: 'oz',     ingredient: 'salsa'},
-      {num: 0.75,   unit: 'cup',    ingredient: 'chicken broth'},
-      {num: 1.5,    unit: 'tsp',    ingredient: 'chili powder'},
-      {num: 4.5,                    ingredient: 'red bell pepper'},
-      {num: 6,      unit: 'tbsp',   ingredient: 'sour cream'},
-      {                             ingredient: 'olive oil'},
-      {                             ingredient: 'sliced green onions'},
-      {                             ingredient: 'hot sauce'},
+      {
+        name: 'Rice', 
+        items: [
+          {num: 1.5,    unit: 'cup',    ingredient: 'white rice'},
+          {num: 3,      unit: 'cup',    ingredient: 'water'},
+          {                             ingredient: 'salt'},
+        ]
+      },
+      {
+        name: 'Salsa chicken', 
+        items: [
+          {num: 2,      unit: 'lb',     ingredient: 'chicken breast'},
+          {num: 24,     unit: 'oz',     ingredient: 'salsa'},
+          {num: 0.75,   unit: 'cup',    ingredient: 'chicken broth'},
+          {num: 1.5,    unit: 'tsp',    ingredient: 'chili powder'},
+          {                             ingredient: 'salt'},
+        ]
+      },
+      {
+        name: 'Roasted bell peppers', 
+        items: [
+          {num: 4.5,                    ingredient: 'red bell pepper'},
+          {                             ingredient: 'olive oil'},
+          {                             ingredient: 'salt'},
+        ]
+      },
+      {
+        name: 'Toppings', 
+        items: [
+          {num: 6,      unit: 'tbsp',   ingredient: 'sour cream'},
+          {                             ingredient: 'sliced green onions'},
+          {                             ingredient: 'hot sauce'},
+        ]
+      },
     ],
     instructions: (coeff: number) => ([
       `Preheat the oven to 425ºF.`,
@@ -67,21 +90,43 @@ export const getRecipeListContent = (): RecipeListContent => ([
     isScalable: true,
     servings: 6,
     ingredients: [
-      {num: 1.5,    unit: 'cup',            ingredient: 'white rice'},
-      {num: 3,      unit: 'cup',            ingredient: 'water'},
-      {num: 3,      unit: 'cup',            ingredient: 'pineapple tidbits'},
-      {num: 1.5,    unit: '15 oz cans',     ingredient: 'black beans'},
-      {num: 0.5,    unit: 'cup',            ingredient: 'diced red onion'},
-      {num: 0.75,   unit: 'cup',            ingredient: 'chopped cilantro'},
-      {num: 2,      unit: 'lb',             ingredient: 'chicken breast'},
-      {num: 1.5,                            ingredient: 'lime'},
-      {                                     ingredient: 'crushed red pepper flakes'},
-      {                                     ingredient: 'jerk seasoning'},
-      {                                     ingredient: 'olive oil'},
-      {                                     ingredient: 'sliced green onions'},
-      {                                     ingredient: 'hot sauce'},
+      {
+        name: 'Rice',
+        items: [
+          {num: 1.5,    unit: 'cup',    ingredient: 'white or jasmine rice'},
+          {num: 3,      unit: 'cup',    ingredient: 'water'},
+          {                             ingredient: 'salt'},
+        ]
+      },
+      {
+        name: 'Pineapple black bean salsa',
+        items: [
+          {num: 3,      unit: 'cup',            ingredient: 'pineapple tidbits'},
+          {num: 1.5,    unit: '15 oz can',      ingredient: 'black beans'},
+          {num: 0.5,    unit: 'cup',            ingredient: 'diced red onion'},
+          {num: 0.75,   unit: 'cup',            ingredient: 'chopped cilantro'},
+          {num: 1.5,                            ingredient: 'lime'},
+          {                                     ingredient: 'crushed red pepper flakes'},
+        ]
+      },
+      {
+        name: 'Jerk chicken',
+        items: [
+          {num: 2,      unit: 'lb',             ingredient: 'chicken breast'},
+          {                                     ingredient: 'jerk seasoning'},
+          {                                     ingredient: 'olive oil'},
+        ]
+      },
+      {
+        name: 'Toppings',
+        items: [
+          {num: 1.5,                            ingredient: 'lime'},
+          {                                     ingredient: 'sliced green onions'},
+          {                                     ingredient: 'hot sauce'},
+        ]
+      },
     ],
-    instructions: (coeff: number) => ([
+    instructions: () => ([
       `Cook the rice: add rice, water, a squirt of olive oil and some salt to small pot. Put it on a cold burner uncovered, turn to high heat. When the rice and water is boiling, turn the burner to low, cover the pot and let it simmer for 15 minutes (do not open the lid to check on it). After 15 minutes, leave the lid on and remove the pot from the burner and let sit for 10 minutes.`,
       `While the rice is cooking, prepare the pineapple black bean salsa. Coarsely chop the pineapple tidbits into smaller pieces, similar in size to the black beans. Place the chopped pineapple, rinsed black beans, diced red onion, and chopped cilantro in a large bowl.`,
       `Squeeze the juice of half the lime over the ingredients in the bowl. Also add salt and red pepper flakes. Stir the ingredients together, give it a taste, and add more salt or lime juice if needed. Any unused lime will be cut into wedges for squeezing over the chicken before serving.`,
