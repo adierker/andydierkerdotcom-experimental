@@ -25,14 +25,6 @@ type ServingsFormValues = {
   servings: number
 }
 
-const onChange = (input: string): number => {
-  const numberString = input.replace(/\D/g, '')
-  if (numberString.length < 1) {
-    return 1
-  }
-  return parseInt(input, 10) || 1
-}
-
 export const RecipeDetailPage = ({
   name,
   description,
@@ -48,7 +40,6 @@ export const RecipeDetailPage = ({
     watch,
     control, 
   } = useForm<ServingsFormValues>({
-    mode: 'onBlur', 
     defaultValues: { 
       servings: defaultServings 
     }
@@ -79,10 +70,12 @@ export const RecipeDetailPage = ({
                 type="text"
                 maxLength={2}
                 {...field}
+                // convert the input to a number, if it can't, change it to 0
                 onChange={(e) => field.onChange(parseInt(e.target.value.replace(/\D/g,''), 10) || 0)}
+                // when the input is unfocused, if its anything other than a positive integer, change it to 1 instead
                 onBlur={(e) => {
-                  const value = e.target.value
-                  if (isNaN(parseInt(value, 10)) || parseInt(value, 10) < 1) {
+                  const parsedValue = parseInt(e.target.value, 10)
+                  if (isNaN(parsedValue) || parsedValue < 1) {
                     field.onChange(1)
                   }
                 }}
