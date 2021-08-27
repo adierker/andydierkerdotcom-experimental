@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {ReactNode, useState, useEffect, useRef} from 'react'
 import {useForm, Controller} from 'react-hook-form'
 
 import {RecipeContent, IngredientGrouping, Ingredient} from 'types'
@@ -35,18 +35,24 @@ export const RecipeDetailPage = ({
   instructions,
   notes
 }: RecipeContent) => {
+  const [servings, setServings] = useState<number>(defaultServings)
+  const hiddenSubmitButton = useRef<HTMLButtonElement>(null)
   const { 
     handleSubmit,
-    watch,
     control, 
   } = useForm<ServingsFormValues>({
     defaultValues: { 
       servings: defaultServings 
     }
   })
-  const SERVINGS = 'servings'
 
-  console.log(watch())
+  useEffect(() => {
+    console.log('here is where we should fetch new servings...', servings)
+  }, [servings])
+
+  const onBlurTriggerSubmit = () => {
+    hiddenSubmitButton?.current?.click()
+  }
 
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto text-drkr-black text-base body-font">
@@ -61,28 +67,45 @@ export const RecipeDetailPage = ({
       </section>
 
       <section id="controls" className="mb-10">
-        <form onSubmit={handleSubmit((data) => console.log('submit:', data))}>
-          <label>Servings</label>
+        <form 
+          className="flex items-center headline-spaced-font"
+          // onSubmit will trigger when: the user presses "enter" in the input, or the hidden submit button is clicked (triggered onBlur)
+          // the setServings function will only be called if the form is valid (see "validate" function below)
+          onSubmit={handleSubmit(({servings}) => setServings(servings))}
+        >
+          <label className="text-2xl headline-spaced-font mr-3">
+            Servings
+          </label>
           <Controller
-            name={SERVINGS}
+            control={control}
+            name="servings"
+            rules={{
+              required: true,
+              validate: value => value > 0
+            }}
             render={({ field }) => (
               <input
+                className="sq-10 text-center drkr-focus border border-drkr-mid-gray border-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black"
                 type="text"
                 maxLength={2}
                 {...field}
+                // field.onChange is how we transform a value before it gets saved, whatever is returned from onChange is set to the value for this field
                 // convert the input to a number, if it can't, change it to 0
                 onChange={(e) => field.onChange(parseInt(e.target.value.replace(/\D/g,''), 10) || 0)}
                 // when the input is unfocused, if its anything other than a positive integer, change it to 1 instead
                 onBlur={(e) => {
                   const parsedValue = parseInt(e.target.value, 10)
                   if (isNaN(parsedValue) || parsedValue < 1) {
+                    // passing field.onChange a value is actually how we manually SET the value for the field
                     field.onChange(1)
                   }
+                  // click the hidden submit button to submit onBlur
+                  onBlurTriggerSubmit()
                 }}
               />
             )}
-            control={control}
           />
+          <button hidden={true} ref={hiddenSubmitButton} type="submit"/>
         </form> 
       </section>
 
