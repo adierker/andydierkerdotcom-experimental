@@ -29,7 +29,7 @@ export const getRecipeListContent = (): RecipeListContent => ([
     ),
     url: 'https://www.budgetbytes.com/salsa-chicken-meal-prep-bowls/',
     isScalable: true,
-    servings: 6,
+    defaultServings: 6,
     ingredients: [
       {
         name: 'Rice', 
@@ -88,7 +88,7 @@ export const getRecipeListContent = (): RecipeListContent => ([
     ),
     url: 'https://www.budgetbytes.com/jerk-chicken-with-pineapple-black-bean-salsa/',
     isScalable: true,
-    servings: 6,
+    defaultServings: 6,
     ingredients: [
       {
         name: 'Rice',

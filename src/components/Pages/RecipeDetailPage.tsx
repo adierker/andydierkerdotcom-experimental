@@ -1,4 +1,5 @@
 import {ReactNode} from 'react'
+import {useForm, Controller} from 'react-hook-form'
 
 import {RecipeContent, IngredientGrouping, Ingredient} from 'types'
 
@@ -14,24 +15,51 @@ const Ul = ({children}: {children: ReactNode}) => (
   </ul>
 )
 
-const Li = ({children, key}: {children: ReactNode, key: string}) => (
-  <li className="mb-2 ml-4" key={key}>
+const Li = ({children}: {children: ReactNode}) => (
+  <li className="mb-2 ml-4">
     {children}
   </li>
 )
+
+type ServingsFormValues = {
+  servings: number
+}
+
+const onChange = (input: string): number => {
+  const numberString = input.replace(/\D/g, '')
+  if (numberString.length < 1) {
+    return 1
+  }
+  return parseInt(input, 10) || 1
+}
 
 export const RecipeDetailPage = ({
   name,
   description,
   url,
   isScalable,
-  servings,
+  defaultServings,
   ingredients,
   instructions,
   notes
 }: RecipeContent) => {
+  const { 
+    handleSubmit,
+    watch,
+    control, 
+  } = useForm<ServingsFormValues>({
+    mode: 'onBlur', 
+    defaultValues: { 
+      servings: defaultServings 
+    }
+  })
+  const SERVINGS = 'servings'
+
+  console.log(watch())
+
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto text-drkr-black text-base body-font">
+
       <section id="intro" className="mb-10">
         <h1 className="text-5xl sm:text-6xl mb-6 text-center headline-font">
           {name}
@@ -40,6 +68,31 @@ export const RecipeDetailPage = ({
           {description}
         </div>
       </section>
+
+      <section id="controls" className="mb-10">
+        <form onSubmit={handleSubmit((data) => console.log('submit:', data))}>
+          <label>Servings</label>
+          <Controller
+            name={SERVINGS}
+            render={({ field }) => (
+              <input
+                type="text"
+                maxLength={2}
+                {...field}
+                onChange={(e) => field.onChange(parseInt(e.target.value.replace(/\D/g,''), 10) || 0)}
+                onBlur={(e) => {
+                  const value = e.target.value
+                  if (isNaN(parseInt(value, 10)) || parseInt(value, 10) < 1) {
+                    field.onChange(1)
+                  }
+                }}
+              />
+            )}
+            control={control}
+          />
+        </form> 
+      </section>
+
       <section id="ingredients" className="mb-10">
         <Heading heading="Ingredients"/>
         {ingredients.map(({name, items}: IngredientGrouping, groupingIndex) => (
@@ -60,6 +113,7 @@ export const RecipeDetailPage = ({
           </div>
         ))}
       </section>
+
       <section id="instructions" className="mb-10">
         <Heading heading="Instructions"/>
         <Ul>
@@ -70,6 +124,7 @@ export const RecipeDetailPage = ({
           ))}
         </Ul>
       </section>
+
     </main>
   )
 }

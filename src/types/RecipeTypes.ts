@@ -22,7 +22,7 @@ export interface RecipeContent {
   description: ReactNode
   url: string
   isScalable: boolean
-  servings: number
+  defaultServings: number
   ingredients: IngredientGrouping[]
   // this is a function so we can pass in the servings eventually
   instructions: () => string[]
