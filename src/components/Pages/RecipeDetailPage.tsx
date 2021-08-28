@@ -88,6 +88,7 @@ export const RecipeDetailPage = ({
                 className="sq-10 text-center drkr-focus border border-drkr-mid-gray border-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black"
                 type="text"
                 maxLength={2}
+                autoComplete="off"
                 {...field}
                 // field.onChange is how we transform a value before it gets saved, whatever is returned from onChange is set to the value for this field
                 // convert the input to a number, if it can't, change it to 0
