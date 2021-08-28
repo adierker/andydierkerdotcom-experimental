@@ -24,8 +24,7 @@ export interface RecipeContent {
   isScalable: boolean
   defaultServings: number
   ingredients: IngredientGrouping[]
-  // this is a function so we can pass in the servings eventually
-  instructions: () => string[]
+  instructions: string[]
   notes?: string[]
 }
 

@@ -13,4 +13,3 @@ export default function Index() {
     </PageWrapper>
   )
 }
-g
