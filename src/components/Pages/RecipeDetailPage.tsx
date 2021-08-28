@@ -3,6 +3,7 @@ import {ReactNode, useState, useEffect, useRef} from 'react'
 import {ServingsForm} from 'components'
 import {RecipeContent, IngredientGrouping, Ingredient} from 'types'
 import {useServings} from 'hooks'
+import {ExternalLink} from 'components'
 
 const Heading = ({heading}: {heading: string}) => (
   <h2 className="text-4xl mb-6 headline-font">
@@ -24,7 +25,7 @@ const Li = ({children}: {children: ReactNode}) => (
 
 export const RecipeDetailPage = ({
   name,
-  description,
+  descriptions,
   url,
   isScalable,
   defaultServings,
@@ -44,8 +45,15 @@ export const RecipeDetailPage = ({
           {name}
         </h1>
         <div>
-          {description}
+          {descriptions.map((description, index) => (
+            <p className="mb-3" key={`desc-${index}`}>{description}</p>
+          ))}
         </div>
+        {url && (
+          <div>
+            Original recipe: <ExternalLink href={url}>here</ExternalLink>.
+          </div>
+        )}
       </section>
 
       <section id="controls" className="mb-10">

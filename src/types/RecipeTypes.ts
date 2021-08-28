@@ -1,5 +1,3 @@
-import {ReactNode} from 'react'
-
 export interface RecipeListPageContent {
   heading: string
   texts: string[]
@@ -19,7 +17,7 @@ export interface IngredientGrouping {
 export interface RecipeContent {
   name: string
   path: string
-  description: ReactNode
+  descriptions: string[]
   url: string
   isScalable: boolean
   defaultServings: number
