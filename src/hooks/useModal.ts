@@ -16,7 +16,7 @@ export const useModal = () => {
   const closeModal: CloseModalType = useCallback(() => setModalContent(null), [setModalContent])
 
   const openModal: OpenModalType = useCallback((modalType: ModalType) => {
-    const modalContent = getModalContent(modalType, closeModal, router)
+    const modalContent = getModalContent(modalType)
     setModalContent(modalContent)
   }, [setModalContent])
 

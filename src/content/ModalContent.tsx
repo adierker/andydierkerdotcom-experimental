@@ -1,17 +1,7 @@
-import {NextRouter} from 'next/router'
+import {MODALS} from 'consts'
+import {ModalContent, ModalType} from 'types'
 
-import {MODALS, SITEPATHS} from 'consts'
-import {
-  ModalContent,
-  ModalType,
-  CloseModalType,
-} from 'types'
-
-export const getModalContent = (
-  modalType: ModalType, 
-  closeModal: CloseModalType,
-  router: NextRouter
-  ): ModalContent => {
+export const getModalContent = (modalType: ModalType): ModalContent => {
   switch (modalType) {
     case MODALS.ABOUT:
       return {
@@ -23,7 +13,10 @@ export const getModalContent = (
         buttons: [
           {
             text: 'Nice to meet you', 
-            onClick: closeModal
+            link: {
+              type: 'modal',
+              linkTo: 'close'
+            }
           }
         ]
       }
@@ -37,7 +30,10 @@ export const getModalContent = (
         buttons: [
           {
             text: 'Sounds good', 
-            onClick: closeModal
+            link: {
+              type: 'modal',
+              linkTo: 'close'
+            }
           }
         ]
       }
@@ -51,24 +47,25 @@ export const getModalContent = (
         ],
         buttons: [
           {
-            text: 'Recipes', 
-            onClick: () => {
-              closeModal()
-              router.push(SITEPATHS.RECIPES)
-            },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
+            text: 'Recipes',
+            link: {
+              type: 'internal',
+              linkTo: '/recipes'
+            }
           },
           {
             text: 'Photos', 
-            onClick: () => {
-              closeModal()
-              router.push(SITEPATHS.PHOTOS)
-            },
-            className: 'mr-0 mb-3 md:mr-3 md:mb-0'
+            link: {
+              type: 'internal',
+              linkTo: '/photos'
+            }
           },
           {
             text: 'Okay bye', 
-            onClick: closeModal
+            link: {
+              type: 'modal',
+              linkTo: 'close'
+            }
           }
         ]
       }

@@ -3,7 +3,8 @@ import {LinkedIn, Instagram, Github} from 'icons'
 export const MODALS = {
   ABOUT: 'about',
   CONTACT: 'contact',
-  PROJECTS: 'projects'
+  PROJECTS: 'projects',
+  CLOSE: 'close'
 }
 
 export const LINKS = {

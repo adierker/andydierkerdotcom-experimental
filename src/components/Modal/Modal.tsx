@@ -1,15 +1,18 @@
 import {Fragment, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
+import {NextRouter} from 'next/router'
 
 import {Button} from 'components'
-import {ModalContent, ButtonPropsType} from 'types'
+import {ModalContent} from 'types'
+import {MODALS, LINKS} from 'consts'
 
 interface ModalProps {
   modalContent: ModalContent
   closeModal: () => any
+  router: NextRouter
 }
 
-export const Modal = ({modalContent, closeModal}: ModalProps) => {
+export const Modal = ({modalContent, closeModal, router}: ModalProps) => {
   const hiddenButtonToTrickTheInitialFocus = useRef(null)
   return (
     <Transition.Root show={!!modalContent} as={Fragment}>
@@ -63,16 +66,32 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
                 <div className="body-font border-b-2 border-drkr-mid-gray p-6">
                   {modalContent.content.map((text, index) => {
                     const isLastItem = modalContent.content.length === index + 1
-                    const classes = isLastItem ? '' : 'mb4'
+                    const classes = isLastItem ? '' : 'mb-4'
                     return (
-                      <p className={classes}>{text}</p>
+                      <p className={classes} key={`content-${index}`}>{text}</p>
                     )
                   })}
                 </div>
                 <div className="flex flex-col md:flex-row justify-end p-6">
-                  {modalContent.buttons.map(({text, onClick, className}: ButtonPropsType, index) => (
-                    <Button text={text} onClick={onClick} className={`${className} focus-visible:bg-drkr-black`} key={`button-${index}`}/>
-                  ))}
+                  {modalContent.buttons.map(({text, link}, index) => {
+                    const isLastItem = modalContent.buttons.length === index + 1
+                    const classes = isLastItem ? '' : 'mr-0 mb-3 md:mr-3 md:mb-0'
+
+                    const {type, linkTo} = link
+                    let onClick = () => {}
+                    if (type === LINKS.MODAL && linkTo === MODALS.CLOSE) {
+                      onClick = closeModal
+                    }
+                    else if (type === LINKS.INTERNAL) {
+                      onClick = () => {
+                        closeModal()
+                        router.push(linkTo)
+                      }
+                    }
+                    return (
+                      <Button text={text} onClick={onClick} className={`${classes} focus-visible:bg-drkr-black`} key={`button-${index}`}/>
+                    )
+                  })}
                 </div>
               </section>
             ) : <span/>} 

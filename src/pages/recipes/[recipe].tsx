@@ -1,4 +1,4 @@
-import { useRouter, NextRouter } from 'next/router'
+import {useRouter, NextRouter} from 'next/router'
 
 import {PageWrapper, RecipeDetailPage} from 'components'
 import {RecipeContent} from 'types'
