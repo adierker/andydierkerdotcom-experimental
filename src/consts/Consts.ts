@@ -1,7 +1,27 @@
+import {LinkedIn, Instagram, Github} from 'icons'
+
 export const MODALS = {
-  ABOUT: 'ABOUT',
-  CONTACT: 'CONTACT',
-  PROJECTS: 'PROJECTS'
+  ABOUT: 'about',
+  CONTACT: 'contact',
+  PROJECTS: 'projects'
+}
+
+export const LINKS = {
+  MODAL: 'modal',
+  EXTERNAL: 'external',
+  INTERNAL: 'internal'
+}
+
+export const SOCIALS = {
+  LINKEDIN: 'linkedin',
+  GITHUB: 'github',
+  INSTAGRAM: 'instagram'
+}
+
+export const SOCIALS_MAP = {
+  [SOCIALS.GITHUB]: Github,
+  [SOCIALS.LINKEDIN]: LinkedIn,
+  [SOCIALS.INSTAGRAM]: Instagram
 }
 
 export const SITEPATHS = {
@@ -21,3 +41,11 @@ export const TAGS = {
   FANCY: { tag: 'Fancy', emoji: '🧑‍🍳' },
   SCALABLE: { tag: 'Scalable', emoji: '⚖️' },
 }
+
+// export const ENDPOINTS = {
+//   PAGES: {
+//     HOME: 'api/pages/home'
+//   },
+//   RECIPES: 'api/recipes',
+//   MODALS: 'api/modals',
+// }

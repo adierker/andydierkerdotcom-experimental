@@ -1,15 +1,17 @@
+import {useCallback} from 'react'
+
 import {HomePage, PageWrapper} from 'components'
-import {useModalContext} from 'contexts'
-import {getHomePageContent} from 'content'
+import {getPageContent} from 'services'
+import {useEffectAsync} from 'hooks'
+import {Loader} from 'loaders'
 
 export default function Index() {
-  const {openModal} = useModalContext()
-
-  const homeContent = getHomePageContent(openModal)
-
+  const fetchHomeContent = useCallback(() => getPageContent('/home'), [])
+  const {data: homeContent} = useEffectAsync(fetchHomeContent, [fetchHomeContent])
+  
   return (
     <PageWrapper pageTitle="andydierker.com">
-      <HomePage {...homeContent}/>
+      {homeContent ? <HomePage {...homeContent}/> : <Loader className="sq-24 m-auto"/>}
     </PageWrapper>
   )
 }

@@ -1,0 +1,59 @@
+{
+  "pages": {
+    "home": {
+      "heading": "Andy Dierker",
+      "subheading": "front-end software type of guy",
+      "links": [
+        {
+          "text": "about",
+          "link": {
+            "type": "modal",
+            "linkTo": "about"
+          }
+        },
+        {
+          "text": "resume",
+          "link": {
+            "type": "external",
+            "linkTo": "/dierker-resume-2021.pdf"
+          }
+        },
+        {
+          "text": "contact",
+          "link": {
+            "type": "modal",
+            "linkTo": "contact"
+          }
+        },
+        {
+          "text": "projects",
+          "link": {
+            "type": "modal",
+            "linkTo": "projects"
+          }
+        }
+      ],
+      "socials": [
+        {
+          "icon": "github",
+          "url": "https://github.com/adierker"
+        },
+        {
+          "icon": "linkedin",
+          "url": "https://www.linkedin.com/in/dierker/"
+        },
+        {
+          "icon": "instagram",
+          "url": "https://www.instagram.com/dierker/"
+        }
+      ]
+    },
+    "recipes": {
+      "heading": "Recipes",
+      "texts": [
+        "I didn't come up with ANY of these recipes on my own, my wife and I found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
+        "You might want to lower your expectations, most of these recipes fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff to be found here."
+      ]
+    }
+  }
+}
