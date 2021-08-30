@@ -61,7 +61,13 @@ export const Modal = ({modalContent, closeModal}: ModalProps) => {
                   {modalContent.title}
                 </Dialog.Title>
                 <div className="body-font border-b-2 border-drkr-mid-gray p-6">
-                  {modalContent.content}
+                  {modalContent.content.map((text, index) => {
+                    const isLastItem = modalContent.content.length === index + 1
+                    const classes = isLastItem ? '' : 'mb4'
+                    return (
+                      <p className={classes}>{text}</p>
+                    )
+                  })}
                 </div>
                 <div className="flex flex-col md:flex-row justify-end p-6">
                   {modalContent.buttons.map(({text, onClick, className}: ButtonPropsType, index) => (

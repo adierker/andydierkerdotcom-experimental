@@ -1,5 +1,3 @@
-import {ReactNode} from 'react'
-
 import {MODALS} from 'consts'
 import {ButtonPropsType} from 'types'
 
@@ -9,6 +7,6 @@ export type CloseModalType = () => void
 
 export interface ModalContent {
   title: string
-  content: ReactNode
+  content: string[]
   buttons: ButtonPropsType[]
 }

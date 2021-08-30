@@ -25,7 +25,7 @@ export const HomePage = ({heading, subheading, links, socials}: HomePageContent)
       <section id="links" className="flex flex-col sm:flex-row items-center justify-center w-full mt-4 headline-spaced-font text-2xl underline ">
         {links.map((link, index) => {
           const isFirstItem = index === 0
-          const isLastItem = links.length === index+1
+          const isLastItem = links.length === index + 1
 
           let classes = ''
           if (isFirstItem) {classes = 'mr-0 sm:mr-4'}
@@ -56,7 +56,7 @@ export const HomePage = ({heading, subheading, links, socials}: HomePageContent)
       <section id="socials" className="flex flex-row mt-8 sm:mt-6">
         {socials.map((social, index) => {
           const Icon = SOCIALS_MAP[social.icon]
-          const classes = socials.length === index+1 ? '' : 'mr-6 sm:mr-10'
+          const classes = socials.length === index + 1 ? '' : 'mr-6 sm:mr-10'
           return (
             <ExternalLink
               href={social.url} 
