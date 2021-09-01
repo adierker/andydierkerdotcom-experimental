@@ -1,17 +1,24 @@
-import axios from 'axios'
+import {doc, getDoc, DocumentData, DocumentReference} from 'firebase/firestore'
+import axios, {AxiosResponse} from 'axios'
 
-import {PageEndpointResponse, ErrorResponse, PageContentResponse} from 'types'
+import {db} from 'database'
+import {HomePageContent, RecipeListPageContent, RecipeListContent} from 'types'
+import {ENDPOINTS, COLLECTIONS} from 'consts'
 
-export const getPageContent = async (page: string) => {
-  const fetchedPage = await axios.get(`api/pages?page=${page}`)
-  const response: PageEndpointResponse = fetchedPage.data
-  
-  if (response.error) {
-    const {errorData} = response as ErrorResponse
-    console.log('Error while fetching with getPageContent:', errorData)
-    throw errorData.message
-  }
+type PageContentType = HomePageContent | RecipeListPageContent
 
-  const {content} = response as PageContentResponse
-  return content
+export const getPageContent = async (requestedPage: string): Promise<PageContentType> => {
+  const docRef: DocumentReference<DocumentData> = doc(db, COLLECTIONS.PAGES, requestedPage)
+  const document: DocumentData = await getDoc(docRef)
+
+  // DocumentData comes with a bunch of extra stuff, .data() just pulls off the content we care about
+  const page: PageContentType = document.data()
+
+  return page
+}
+
+export const getRecipeListContent = async (): Promise<RecipeListContent> => {
+  const response: AxiosResponse<RecipeListContent> = await axios.get(ENDPOINTS.RECIPES)
+  const recipeList: RecipeListContent = response.data
+  return recipeList
 }

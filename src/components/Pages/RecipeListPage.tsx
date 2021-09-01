@@ -1,10 +1,13 @@
 import {SITEPATHS} from 'consts'
 import {RecipeListPageContent, RecipeListContent} from 'types'
-import {getRecipeListContent} from 'content'
+import {getRecipeListContent} from 'services'
 import {InternalLink} from 'components'
+import {useEffectAsync} from 'hooks'
+import {Loader} from 'loaders'
 
 export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
-  const recipeList: RecipeListContent = getRecipeListContent()
+  const {data} = useEffectAsync(getRecipeListContent, [getRecipeListContent])
+  const recipeList: RecipeListContent = data
 
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto">
@@ -20,7 +23,7 @@ export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
       </section>
 
       <section id="recipe-links" className="w-full mt-4 headline-spaced-font text-xl underline ">
-        {recipeList.map((recipe, index) => (
+        {recipeList ? recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
             <InternalLink 
               href={`${SITEPATHS.RECIPES}/${recipe.path}`}
@@ -29,7 +32,9 @@ export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
               {recipe.name}
             </InternalLink>
           </div>
-        ))}
+        )) : (
+          <Loader className="sq-24 m-auto"/>
+        )}
       </section>
     </main>
   )

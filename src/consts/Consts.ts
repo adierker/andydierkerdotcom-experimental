@@ -43,10 +43,12 @@ export const TAGS = {
   SCALABLE: { tag: 'Scalable', emoji: '⚖️' },
 }
 
-// export const ENDPOINTS = {
-//   PAGES: {
-//     HOME: 'api/pages/home'
-//   },
-//   RECIPES: 'api/recipes',
-//   MODALS: 'api/modals',
-// }
+export const ENDPOINTS = {
+  RECIPES: 'api/recipes'
+}
+
+// firestore database collections
+export const COLLECTIONS = {
+  PAGES: 'pages',
+  RECIPES: 'recipes'
+}

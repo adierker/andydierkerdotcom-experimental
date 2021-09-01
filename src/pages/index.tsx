@@ -1,18 +1,24 @@
-import {useCallback} from 'react'
-
 import {HomePage, PageWrapper} from 'components'
 import {getPageContent} from 'services'
-import {useEffectAsync} from 'hooks'
-import {Loader} from 'loaders'
+import {HomePageContent} from 'types'
 
-export default function Index() {
-  // we are fetching the homepage content from firestore but shouldn't be, lets keep the homepage hardcoded
-  const fetchHomeContent = useCallback(() => getPageContent('/home'), [])
-  const {data: homeContent} = useEffectAsync(fetchHomeContent, [fetchHomeContent])
-  
+export const getStaticProps = async () => {
+  const homePageContent = await getPageContent('/home') as HomePageContent
+  // raw data must be converted to json before being sent through nextjs as props
+  const jsonHomePageContent = JSON.parse(JSON.stringify(homePageContent))
+
+  return {
+    props: jsonHomePageContent,
+    revalidate: true
+  }
+}
+
+export const Index = (props: HomePageContent) => {
   return (
     <PageWrapper pageTitle="andydierker.com">
-      {homeContent ? <HomePage {...homeContent}/> : <Loader className="sq-24 m-auto"/>}
+      <HomePage {...props}/>
     </PageWrapper>
   )
 }
+
+export default Index

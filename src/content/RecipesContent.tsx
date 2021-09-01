@@ -1,16 +1,4 @@
-import {
-  RecipeContent,
-  RecipeListContent,
-  RecipeListPageContent,
-} from 'types'
-
-export const getRecipeListPageContent = (): RecipeListPageContent => ({
-  heading: 'Recipes',
-  texts: [
-    "I didn't come up with ANY of these recipes on my own, my wife and I found them online and over time have tweaked the preparation or ingredients to our liking. So I built this app to keep track of our adjustments.",
-    "You might want to lower your expectations, most of these recipes fall in the 'extremely easy-to-prepare weeknight dinner' category, not a lot of fancy stuff to be found here."
-  ]
-})
+import {RecipeContent, RecipeListContent} from 'types'
 
 export const getRecipeListContent = (): RecipeListContent => ([
   {
