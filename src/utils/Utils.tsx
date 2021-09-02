@@ -1,15 +1,15 @@
-import {QuerySnapshot} from 'firebase/firestore'
+import {QuerySnapshot, DocumentData} from 'firebase/firestore'
 import {GetStaticPathsResult, GetStaticPropsResult} from 'next'
 
-export const onClickOpenLink = (url: string, newTab: boolean = true) => {
+export const onClickOpenLink = (url: string, newTab: boolean = true): void => {
   const newTabArgs = newTab ? ['_blank', 'noopener, noreferrer'] : ['_self']
   const newWindow = window.open(url, ...newTabArgs)
   if (newWindow) newWindow.opener = null
 }
 
 // QuerySnapshot<DocumentData> is annoying to deal with. even after mapping over it and getting all the data() out, we still have to spread it into an array because it comes as a big object with tons of metadata from Firestore
-export const convertQuerySnapshotToData = (querySnapshot: QuerySnapshot<any>) => {
-  return [...querySnapshot.docs.map(doc => doc.data())]
+export const convertQuerySnapshotToData = <T extends unknown>(querySnapshot: QuerySnapshot<DocumentData>) => {
+  return [...querySnapshot.docs.map(doc => doc.data() as T)]
 }
 
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation

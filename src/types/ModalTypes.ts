@@ -1,11 +1,10 @@
-import {MODALS} from 'consts'
 import {Link} from 'types'
 
-export type ModalType = typeof MODALS[keyof typeof MODALS] | null
-export type OpenModalType = (x: ModalType) => void
+export type OpenModalType = (x: string) => void
 export type CloseModalType = () => void
 
 export interface ModalContent {
+  id: string
   title: string
   content: string[]
   buttons: {
@@ -13,3 +12,5 @@ export interface ModalContent {
     link: Link
   }[]
 }
+
+export type ModalsContent = ModalContent[]

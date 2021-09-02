@@ -1,11 +1,6 @@
 import {LinkedIn, Instagram, Github} from 'icons'
 
-export const MODALS = {
-  ABOUT: 'about',
-  CONTACT: 'contact',
-  PROJECTS: 'projects',
-  CLOSE: 'close'
-}
+export const CLOSEMODAL = 'close'
 
 export const LINKS = {
   MODAL: 'modal',
@@ -50,5 +45,6 @@ export const ENDPOINTS = {
 // firestore database collections
 export const COLLECTIONS = {
   PAGES: 'pages',
-  RECIPES: 'recipes'
+  RECIPES: 'recipes',
+  MODALS: 'modals'
 }

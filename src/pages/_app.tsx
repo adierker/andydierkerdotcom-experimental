@@ -1,15 +1,8 @@
 import 'tailwindcss/tailwind.css'
 import 'styles/global.css'
 
-import {ModalContextProvider} from 'contexts'
-
-function MyApp({ Component, pageProps }) {
-
-  return (
-    <ModalContextProvider>
-      <Component {...pageProps} />
-    </ModalContextProvider>
-  )
+const App = ({ Component, pageProps }) => {
+  return <Component {...pageProps} />
 }
 
-export default MyApp
+export default App

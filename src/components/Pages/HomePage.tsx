@@ -40,6 +40,7 @@ export const HomePage = ({heading, subheading, links, socials}: HomePageContent)
           else if (type === LINKS.EXTERNAL) {
             onClick = () => onClickOpenLink(linkTo, true)
           }
+          
           return (
             <button 
               type="button"

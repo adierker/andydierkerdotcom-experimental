@@ -1,7 +1,7 @@
 import {doc, getDoc, DocumentData, DocumentReference, getDocs, collection, QuerySnapshot} from 'firebase/firestore'
 
 import {db} from 'database'
-import {PageContentType, RecipeContent, RecipeListContent} from 'types'
+import {PageContentType, RecipeContent, RecipeListContent, ModalsContent} from 'types'
 import {COLLECTIONS} from 'consts'
 import {convertQuerySnapshotToData} from 'utils'
 
@@ -17,20 +17,21 @@ export const getPageContentFromFirestore = async (requestedPage: string): Promis
   // get the document from the "pages" collection
   const docRef: DocumentReference<DocumentData> = doc(db, COLLECTIONS.PAGES, requestedPage)
   const document: DocumentData = await getDoc(docRef)
-
-  // DocumentData comes with a bunch of extra stuff, .data() just pulls off the content we care about
   const page: PageContentType = document.data()
-
   return page
+}
+
+export const getModalsContentFromFirestore = async (): Promise<ModalsContent> => {
+  // get all documents in the "modals" collection
+  const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, COLLECTIONS.MODALS))
+  const modalContent: ModalsContent = convertQuerySnapshotToData(querySnapshot)
+  return modalContent
 }
 
 export const getRecipeListContentFromFirestore = async (): Promise<RecipeListContent> => {
   // get all documents in the "recipes" collection
   const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, COLLECTIONS.RECIPES))
-
-  // QuerySnapshot comes with a bunch of extra stuff, this func just pulls off the content we care about
   const recipeListContent: RecipeListContent = convertQuerySnapshotToData(querySnapshot)
-
   return recipeListContent
 }
 
@@ -38,9 +39,6 @@ export const getRecipeContentFromFirestore = async (requestedRecipe: string): Pr
   // get the document from the "pages" collection
   const docRef: DocumentReference<DocumentData> = doc(db, COLLECTIONS.RECIPES, requestedRecipe)
   const document: DocumentData = await getDoc(docRef)
-
-  // DocumentData comes with a bunch of extra stuff, .data() just pulls off the content we care about
   const recipe: RecipeContent = document.data()
-
   return recipe
 }

@@ -6,8 +6,8 @@ import {useModal} from 'hooks'
 
 const ModalContext = createContext(null)
 export const useModalContext = () => useContext(ModalContext)
-export const ModalContextProvider = ({children}) => {
-  const {openModal, closeModal, modalContent} = useModal()
+export const ModalContextProvider = ({children, modalsContent}) => {
+  const {openModal, closeModal, modalContent} = useModal(modalsContent)
   const router: NextRouter = useRouter()
 
   return (

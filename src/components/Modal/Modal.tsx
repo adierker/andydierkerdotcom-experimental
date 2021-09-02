@@ -4,7 +4,7 @@ import {NextRouter} from 'next/router'
 
 import {Button} from 'components'
 import {ModalContent} from 'types'
-import {MODALS, LINKS} from 'consts'
+import {CLOSEMODAL, LINKS} from 'consts'
 
 interface ModalProps {
   modalContent: ModalContent
@@ -79,7 +79,7 @@ export const Modal = ({modalContent, closeModal, router}: ModalProps) => {
 
                     const {type, linkTo} = link
                     let onClick = () => {}
-                    if (type === LINKS.MODAL && linkTo === MODALS.CLOSE) {
+                    if (type === LINKS.MODAL && linkTo === CLOSEMODAL) {
                       onClick = closeModal
                     }
                     else if (type === LINKS.INTERNAL) {
@@ -88,6 +88,7 @@ export const Modal = ({modalContent, closeModal, router}: ModalProps) => {
                         router.push(linkTo)
                       }
                     }
+
                     return (
                       <Button text={text} onClick={onClick} className={`${classes} focus-visible:bg-drkr-black`} key={`button-${index}`}/>
                     )

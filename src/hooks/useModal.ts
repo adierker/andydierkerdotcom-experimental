@@ -1,23 +1,20 @@
 import {useState, useCallback} from 'react'
-import { useRouter, NextRouter } from 'next/router'
 
 import {
-  ModalType,
   ModalContent,
   OpenModalType,
-  CloseModalType
+  CloseModalType,
+  ModalsContent
 } from 'types'
-import {getModalContent} from 'content'
 
-export const useModal = () => {
+export const useModal = (modalsContent: ModalsContent) => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
-  const router: NextRouter = useRouter()
 
   const closeModal: CloseModalType = useCallback(() => setModalContent(null), [setModalContent])
 
-  const openModal: OpenModalType = useCallback((modalType: ModalType) => {
-    const modalContent = getModalContent(modalType)
-    setModalContent(modalContent)
+  const openModal: OpenModalType = useCallback((modalId: string) => {
+    const modalContent = modalsContent.find(content => content.id === modalId)
+    modalContent ? setModalContent(modalContent) : console.warn(`No modal found for id: ${modalId}`)
   }, [setModalContent])
 
   return {

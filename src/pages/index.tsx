@@ -1,20 +1,37 @@
 import {GetStaticPropsResult} from 'next'
 
 import {HomePage, PageWrapper} from 'components'
-import {getPageContentFromFirestore} from 'services'
-import {HomePageContent} from 'types'
+import {getPageContentFromFirestore, getModalsContentFromFirestore} from 'services'
+import {HomePageContent, ModalsContent} from 'types'
 import {convertContentToGetStaticPropsResult} from 'utils'
+import {ModalContextProvider} from 'contexts'
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageContent>> => {
   const homePageContent = await getPageContentFromFirestore('/home') as HomePageContent
-  return convertContentToGetStaticPropsResult(homePageContent)
+  const modalsContent = await getModalsContentFromFirestore() as ModalsContent
+  return {
+    props: JSON.parse(JSON.stringify({
+      homePageContent, 
+      modalsContent,
+    })),
+    revalidate: true
+  }
+  
+  // convertContentToGetStaticPropsResult({
+  //   homePageContent: {...homePageContent}, 
+  //   modalsContent: {...modalsContent}
+  // })
+
+  // return convertContentToGetStaticPropsResult(modalsContent)
 }
 
-export const Index = (props: HomePageContent) => {
+export const Index = (props) => {
   return (
-    <PageWrapper pageTitle="andydierker.com">
-      <HomePage {...props}/>
-    </PageWrapper>
+    <ModalContextProvider modalsContent={props.modalsContent}>
+      <PageWrapper pageTitle="andydierker.com">
+        <HomePage {...props.homePageContent}/>
+      </PageWrapper>
+    </ModalContextProvider>
   )
 }
 
