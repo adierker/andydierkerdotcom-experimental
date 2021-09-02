@@ -9,6 +9,7 @@ import {ModalContextProvider} from 'contexts'
 export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageContent>> => {
   const homePageContent = await getPageContentFromFirestore('/home') as HomePageContent
   const modalsContent = await getModalsContentFromFirestore() as ModalsContent
+  // TODO: find a way to use convertContentToGetStaticPropsResult here?
   return {
     props: JSON.parse(JSON.stringify({
       homePageContent, 
@@ -16,15 +17,9 @@ export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageCon
     })),
     revalidate: true
   }
-  
-  // convertContentToGetStaticPropsResult({
-  //   homePageContent: {...homePageContent}, 
-  //   modalsContent: {...modalsContent}
-  // })
-
-  // return convertContentToGetStaticPropsResult(modalsContent)
 }
 
+// TODO: add a type for props here?
 export const Index = (props) => {
   return (
     <ModalContextProvider modalsContent={props.modalsContent}>
