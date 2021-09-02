@@ -1,31 +1,23 @@
-import {useRouter, NextRouter} from 'next/router'
+import {GetStaticPaths, GetStaticPathsResult, GetStaticPropsResult} from 'next'
 
 import {PageWrapper, RecipeDetailPage} from 'components'
-import {RecipeContent} from 'types'
-import {getRecipeContent} from 'content'
+import {RecipeContent, RecipeListContent} from 'types'
 import {SITEPATHS} from 'consts'
+import {getRecipeListContentFromFirestore, getRecipeContentFromFirestore} from 'services'
+import {convertContentToGetStaticPathsResult, convertContentToGetStaticPropsResult} from 'utils'
 
-export default function Recipe() {
-  const router: NextRouter = useRouter()
-  const {recipe: recipePath} = router.query
-  
-  let recipeContent: RecipeContent
-  
-  // on first render, recipePath will be undefined (the useRouter hook needs 1 render to return a value)
-  if (recipePath) {
-    try {
-      // router.query returns a string OR string[] so we must cast it
-      const fetched: RecipeContent = getRecipeContent(recipePath as string)
-      recipeContent = fetched
-    }
-    catch (error) {
-      console.log('Error while fetching recipe.', error)
-    }
-  }
+export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsResult> => {
+  const recipeList: RecipeListContent = await getRecipeListContentFromFirestore()
+  return convertContentToGetStaticPathsResult(recipeList, 'recipe', 'path')
+}
 
-  if (!recipePath || !recipeContent) { 
-    return null 
-  }
+export const getStaticProps = async ({params}): Promise<GetStaticPropsResult<RecipeContent>> => {
+  const recipeContent: RecipeContent = await getRecipeContentFromFirestore(`/${params.recipe}`)
+  return convertContentToGetStaticPropsResult(recipeContent)
+} 
+
+export const Recipe = (props: RecipeContent) => {
+  const recipeContent = props
 
   return (
     <PageWrapper 
@@ -38,3 +30,5 @@ export default function Recipe() {
     </PageWrapper>
   )
 }
+
+export default Recipe

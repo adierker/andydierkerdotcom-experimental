@@ -1,1 +1,2 @@
-export * from 'services/getContent'
+export * from 'services/api'
+export * from 'services/firestore'

@@ -9,3 +9,10 @@ export interface HomePageContent {
   }[],
   socials: Social[]
 }
+
+export interface RecipeListPageContent {
+  heading: string
+  texts: string[]
+}
+
+export type PageContentType = HomePageContent | RecipeListPageContent

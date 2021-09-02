@@ -1,16 +1,13 @@
+import {GetStaticPropsResult} from 'next'
+
 import {PageWrapper, RecipeListPage} from 'components'
-import {getPageContent} from 'services'
+import {getPageContentFromFirestore} from 'services'
 import {RecipeListPageContent} from 'types'
+import {convertContentToGetStaticPropsResult} from 'utils'
 
-export const getStaticProps = async () => {
-  const recipesPageContent = await getPageContent('/recipes') as RecipeListPageContent
-  // raw data must be converted to json before being sent through nextjs as props
-  const jsonRecipesPageContent = JSON.parse(JSON.stringify(recipesPageContent))
-
-  return {
-    props: jsonRecipesPageContent,
-    revalidate: true
-  }
+export const getStaticProps = async (): Promise<GetStaticPropsResult<RecipeListPageContent>> => {
+  const recipeListPageContent = await getPageContentFromFirestore('/recipes') as RecipeListPageContent
+  return convertContentToGetStaticPropsResult(recipeListPageContent)
 }
 
 export const Recipes = (props: RecipeListPageContent) => {

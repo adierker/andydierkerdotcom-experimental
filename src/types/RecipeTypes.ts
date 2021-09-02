@@ -1,8 +1,3 @@
-export interface RecipeListPageContent {
-  heading: string
-  texts: string[]
-}
-
 export interface Ingredient {
   num?: number
   unit?: string

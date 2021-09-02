@@ -1,12 +1,12 @@
 import {SITEPATHS} from 'consts'
 import {RecipeListPageContent, RecipeListContent} from 'types'
-import {getRecipeListContent} from 'services'
+import {getRecipeListContentFromApi} from 'services'
 import {InternalLink} from 'components'
 import {useEffectAsync} from 'hooks'
 import {Loader} from 'loaders'
 
 export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
-  const {data} = useEffectAsync(getRecipeListContent, [getRecipeListContent])
+  const {data} = useEffectAsync(getRecipeListContentFromApi, [getRecipeListContentFromApi])
   const recipeList: RecipeListContent = data
 
   return (
