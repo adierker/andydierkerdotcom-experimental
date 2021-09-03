@@ -13,7 +13,7 @@ export const getStaticPaths: GetStaticPaths = async (): Promise<GetStaticPathsRe
 
 export const getStaticProps = async ({params}): Promise<GetStaticPropsResult<RecipeContent>> => {
   const recipeContent = await getDocumentFromFirestore<RecipeContent>(COLLECTIONS.RECIPES, `/${params.recipe}`)
-  return convertContentToGetStaticPropsResult(recipeContent)
+  return convertContentToGetStaticPropsResult<RecipeContent>(recipeContent)
 } 
 
 export const Recipe = (props: RecipeContent) => {

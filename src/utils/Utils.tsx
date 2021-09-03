@@ -25,8 +25,8 @@ export const convertContentToGetStaticPropsResult = <T extends unknown>(
 }
 
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
-export const convertContentToGetStaticPathsResult = <T extends unknown>(
-  content: T[],
+export const convertContentToGetStaticPathsResult = (
+  content: any[],
   // this is the name of the dynamic page key, ex: [recipe].tsx would be 'recipe'
   pathKey: string,
   // this is the name of the property on the content that we should set assign to the pageKey

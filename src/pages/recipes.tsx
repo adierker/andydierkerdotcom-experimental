@@ -8,7 +8,7 @@ import {COLLECTIONS} from 'consts'
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<RecipeListPageContent>> => {
   const recipeListPageContent = await getDocumentFromFirestore<RecipeListPageContent>(COLLECTIONS.PAGES, '/recipes')
-  return convertContentToGetStaticPropsResult(recipeListPageContent)
+  return convertContentToGetStaticPropsResult<RecipeListPageContent>(recipeListPageContent)
 }
 
 export const Recipes = (props: RecipeListPageContent) => {
