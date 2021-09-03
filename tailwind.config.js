@@ -25,10 +25,15 @@ module.exports = {
         'drkr-orange': '#f4a261',
         'drkr-red': '#e76f51',
       },
+      borderWidth: {
+        '3': '3px',
+      }
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['hover', 'focus']
+    },
   },
   plugins: [],
 }

@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header = ({ backText, backPath }: HeaderProps) => {
   return (
-    <nav className="flex py-3 justify-between items-center border-b-2 border-drkr-black">
+    <nav className="flex py-3 justify-between items-center border-b-3 border-drkr-black">
       {backPath && (
         <div className="flex-1">
           <div className="ml-4 xs:ml-8 sm:ml-12">
@@ -35,7 +35,7 @@ export const Header = ({ backText, backPath }: HeaderProps) => {
           useDefaultStyles={false}
         >
           <img
-            className="sq-16 xs:sq-20 sm:sq-24 rounded-full border-2 border-drkr-black text-drkr-hover hover:border-drkr-green"
+            className="sq-16 xs:sq-20 sm:sq-24 rounded-full border-3 border-drkr-black text-drkr-hover hover:border-drkr-green"
             src="/me.jpg"
           />
         </InternalLink>

@@ -17,12 +17,6 @@ const Ul = ({children}: {children: ReactNode}) => (
   </ul>
 )
 
-const Li = ({children}: {children: ReactNode}) => (
-  <li className="mb-2 ml-4">
-    {children}
-  </li>
-)
-
 export const RecipeDetailPage = ({
   name,
   descriptions,
@@ -38,10 +32,10 @@ export const RecipeDetailPage = ({
   const scalingCoeff: number = servings/defaultServings
 
   return (
-    <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto text-drkr-black text-base body-font">
+    <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-8 md:max-w-xl md:mx-auto text-drkr-black text-base body-font">
 
       <section id="intro" className="mb-10">
-        <h1 className="text-5xl sm:text-6xl mb-6 text-center headline-font">
+        <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
           {name}
         </h1>
         <div>
@@ -75,13 +69,13 @@ export const RecipeDetailPage = ({
                 const isPlural = scaledNum && (typeof scaledNum === 'number') && (scaledNum > 1)
                 const suffix = isPlural ? 's' : ''
                 return (
-                  <Li key={`{${ingredient}-${itemIndex}`}>
+                  <li key={`{${ingredient}-${itemIndex}`} className="mb-2 ml-4">
                     {num && `${(scaledNum).toString()} `}
                     {/* if there is a unit, pluralize the unit: 2 tbsps lime */}
                     {unit && `${unit}${suffix} `}
                     {/* if there is no unit, pluralize the ingredient instead: 2 limes */}
                     {!unit ? `${ingredient}${suffix}` : `${ingredient}`}
-                  </Li>
+                  </li>
                 )
               })}
             </Ul>
@@ -93,9 +87,9 @@ export const RecipeDetailPage = ({
         <Heading heading="Instructions"/>
         <Ul>
           {instructions.map((instruction, index) => (
-            <Li key={`${instruction}-${index}`}>
+            <li key={`${instruction}-${index}`} className="mb-4">
               {instruction}
-            </Li>
+            </li>
           ))}
         </Ul>
       </section>
