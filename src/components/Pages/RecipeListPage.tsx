@@ -1,13 +1,10 @@
 import {SITEPATHS} from 'consts'
-import {RecipeListPageContent, RecipeListContent} from 'types'
-import {getRecipeListContentFromApi} from 'services'
+import {RecipeListPageProps} from 'types'
 import {InternalLink} from 'components'
-import {useEffectAsync} from 'hooks'
 import {Loader} from 'loaders'
 
-export const RecipeListPage = ({heading, texts}: RecipeListPageContent) => {
-  const {data} = useEffectAsync(getRecipeListContentFromApi, [getRecipeListContentFromApi])
-  const recipeList: RecipeListContent = data
+export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPageProps) => {
+  const {heading, texts} = recipeListPageContent
 
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto">

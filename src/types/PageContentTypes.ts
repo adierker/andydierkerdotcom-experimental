@@ -1,4 +1,4 @@
-import {Link, Social} from 'types'
+import {Link, Social, RecipeListContent} from 'types'
 
 export interface HomePageContent {
   heading: string
@@ -15,4 +15,7 @@ export interface RecipeListPageContent {
   texts: string[]
 }
 
-export type PageContentType = HomePageContent | RecipeListPageContent
+export type RecipeListPageProps = {
+  recipeListPageContent: RecipeListPageContent,
+  recipeList: RecipeListContent
+}
