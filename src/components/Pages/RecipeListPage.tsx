@@ -1,7 +1,6 @@
 import {SITEPATHS} from 'consts'
 import {RecipeListPageProps} from 'types'
 import {InternalLink} from 'components'
-import {Loader} from 'loaders'
 
 export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPageProps) => {
   const {heading, texts} = recipeListPageContent
@@ -20,7 +19,7 @@ export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPa
       </section>
 
       <section id="recipe-links" className="w-full mt-4 headline-spaced-font text-xl underline ">
-        {recipeList ? recipeList.map((recipe, index) => (
+        {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
             <InternalLink 
               href={`${SITEPATHS.RECIPES}/${recipe.path}`}
@@ -29,9 +28,7 @@ export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPa
               {recipe.name}
             </InternalLink>
           </div>
-        )) : (
-          <Loader className="sq-24 m-auto"/>
-        )}
+        ))}
       </section>
     </main>
   )
