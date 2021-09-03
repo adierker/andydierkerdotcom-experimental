@@ -19,11 +19,9 @@ From https://stackoverflow.com/questions/65086108/next-js-link-vs-router-push-vs
 ## Link Strategy For This App
 
 ### Internal Link via HTML element
-
 - wrap the `<a>` in a `<Link>` provided by NextJS, or use the <InternalLink> component, which does this automatically and adds some default styles
 
 ### Internal Link via onClick handler
-
 - destructure `router` from NextJS's `useRouter()`, use `router.push()`
 
 ### External Link via HTML element
