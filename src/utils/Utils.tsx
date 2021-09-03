@@ -38,7 +38,6 @@ export const convertContentToGetStaticPathsResult = <T extends unknown>(
       [pathKey]: x[idKey]
     }
   }))
-  console.log('paths is:', paths)
   return {
     paths,
     fallback

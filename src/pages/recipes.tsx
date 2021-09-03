@@ -1,12 +1,13 @@
 import {GetStaticPropsResult} from 'next'
 
 import {PageWrapper, RecipeListPage} from 'components'
-import {getPageContentFromFirestore} from 'services'
+import {getDocumentFromFirestore} from 'services'
 import {RecipeListPageContent} from 'types'
 import {convertContentToGetStaticPropsResult} from 'utils'
+import {COLLECTIONS} from 'consts'
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<RecipeListPageContent>> => {
-  const recipeListPageContent = await getPageContentFromFirestore('/recipes') as RecipeListPageContent
+  const recipeListPageContent = await getDocumentFromFirestore<RecipeListPageContent>(COLLECTIONS.PAGES, '/recipes')
   return convertContentToGetStaticPropsResult(recipeListPageContent)
 }
 
