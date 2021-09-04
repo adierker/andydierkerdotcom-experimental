@@ -17,9 +17,8 @@ export const convertContentToGetStaticPropsResult = <T extends unknown>(
   content: T,
   revalidate: boolean = true
 ): GetStaticPropsResult<T> => {
-  const jsonContent = JSON.parse(JSON.stringify(content))
   return {
-    props: jsonContent,
+    props: JSON.parse(JSON.stringify(content)),
     revalidate
   }
 }
@@ -27,7 +26,7 @@ export const convertContentToGetStaticPropsResult = <T extends unknown>(
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const convertContentToGetStaticPathsResult = (
   content: any[],
-  // this is the name of the dynamic page key, ex: [recipe].tsx would be 'recipe'
+  // this is the name of the dynamic page key, ex: [recipe].tsx would be 'recipe', its the name of the "route"
   pathKey: string,
   // this is the name of the property on the content that we should set assign to the pageKey
   idKey: string,
