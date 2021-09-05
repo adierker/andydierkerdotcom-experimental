@@ -9,13 +9,15 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",
+    "@hookform/resolvers": "^2.8.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "firebase": "^9.0.0",
     "next": "latest",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^7.13.0"
+    "react-hook-form": "^7.13.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/react": "^17.0.8",
