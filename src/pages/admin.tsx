@@ -5,7 +5,7 @@ import * as yup from 'yup'
 import {PageWrapper, Input} from 'components'
 
 const formSchema = yup.object().shape({
-  name: yup.string().required('Required!!')
+  name: yup.string().required("The recipe needs a name.")
 })
 
 export const Admin = () => {
@@ -39,23 +39,11 @@ export const Admin = () => {
             id="recipeName"
             {...register('name')}
             autoComplete="off"
-            className={`drkr-focus border ${errors?.name ? 'border-drkr-red' : 'border-drkr-mid-gray'} border-2 h-10 px-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black focus-visible:ring-offset-0 body-font w-full`}
+            className={`drkr-focus border ${errors?.name ? 'border-drkr-green' : 'border-drkr-mid-gray'} border-2 h-10 px-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black focus-visible:ring-offset-0 body-font w-full`}
           />
-          <div className="h-5 my-1 mr-1 text-drkr-red headline-spaced-font text-right">{errors?.name?.message}</div>
+          <div className="min-h-5 mr-1 mt-1 text-sm text-drkr-green text-right">{errors?.name?.message}</div>
 
-          <label 
-            htmlFor={'another'} 
-            className={`text-xl headline-spaced-font mr-3 ml-1 mb-1 block`}
-          >
-            Another
-          </label>
-          <input 
-            id="another"
-            {...register('another')}
-            autoComplete="off"
-            className={`drkr-focus border ${errors?.another ? 'border-drkr-red' : 'border-drkr-mid-gray'} border-2 h-10 px-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black focus-visible:ring-offset-0 body-font w-full`}
-          />
-          <div className="h-5 my-1 mr-1 text-drkr-red headline-spaced-font">{errors?.another?.message}</div>
+          <button type="submit">button</button>
 
         </form>
 
