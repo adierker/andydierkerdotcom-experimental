@@ -5,7 +5,8 @@ import * as yup from 'yup'
 import {PageWrapper, Input} from 'components'
 
 const formSchema = yup.object().shape({
-  name: yup.string().required("The recipe needs a name.")
+  name: yup.string().required("The recipe needs a name."),
+  path: yup.string().required("The recipe needs a path."),
 })
 
 export const Admin = () => {
@@ -29,19 +30,19 @@ export const Admin = () => {
         
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
 
-          <label 
-            htmlFor={'recipeName'} 
-            className={`text-xl headline-spaced-font mr-3 ml-1 mb-1 block`}
-          >
-            Recipe name
-          </label>
-          <input 
-            id="recipeName"
+          <Input 
+            id="name"
+            label="Recipe name"
+            error={errors?.name}
             {...register('name')}
-            autoComplete="off"
-            className={`drkr-focus border ${errors?.name ? 'border-drkr-green' : 'border-drkr-mid-gray'} border-2 h-10 px-2 focus-visible:bg-drkr-white focus-visible:border-drkr-black focus-visible:ring-offset-0 body-font w-full`}
           />
-          <div className="min-h-5 mr-1 mt-1 text-sm text-drkr-green text-right">{errors?.name?.message}</div>
+
+          <Input 
+            id="path"
+            label="path"
+            error={errors?.path}
+            {...register('path')}
+          />
 
           <button type="submit">button</button>
 
