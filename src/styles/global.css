@@ -99,6 +99,11 @@ body {
     @apply transition;
     @apply duration-300;
   }
+  .drkr-input-focus {
+    @apply drkr-focus;
+    @apply focus-visible:bg-drkr-white; 
+    @apply focus-visible:ring-offset-0;
+  }
   .text-drkr-hover {
     @apply hover:text-drkr-green transition duration-300;
   }

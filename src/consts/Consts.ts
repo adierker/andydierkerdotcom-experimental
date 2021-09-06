@@ -36,3 +36,8 @@ export const COLLECTIONS = {
   RECIPES: 'recipes',
   MODALS: 'modals'
 }
+
+export const REGEX = {
+  LOWERCASE_AND_NUMBERS_AND_DASHES: /^([a-z0-9-]+)$/,
+  URL: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+}

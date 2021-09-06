@@ -3,10 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import {PageWrapper, Input} from 'components'
+import {REGEX} from 'consts'
 
 const formSchema = yup.object().shape({
-  name: yup.string().required("The recipe needs a name."),
-  path: yup.string().required("The recipe needs a path."),
+  name: yup.string().required(`Name is required.`),
+  path: yup.string().required(`Path is required.`).matches(REGEX.LOWERCASE_AND_NUMBERS_AND_DASHES, `Only lowercase letters, numbers, and dashes are allowed.`),
+  url: yup.string().required(`URL is required.`).matches(REGEX.URL, `Must be a valid URL.`)
 })
 
 export const Admin = () => {
@@ -33,15 +35,20 @@ export const Admin = () => {
           <Input 
             id="name"
             label="Recipe name"
-            error={errors?.name}
+            error={errors.name}
             {...register('name')}
           />
-
           <Input 
             id="path"
-            label="path"
-            error={errors?.path}
+            label="Path/URL"
+            error={errors.path}
             {...register('path')}
+          />
+          <Input 
+            id="url"
+            label="Original recipe URL"
+            error={errors.url}
+            {...register('url')}
           />
 
           <button type="submit">button</button>
