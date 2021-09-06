@@ -1,40 +1,39 @@
 import {forwardRef} from 'react'
+import {RegisterOptions} from 'react-hook-form'
 
 interface InputProps {
-  id: string
-  defaultValue?: any
-  labelText?: string
+  name: string
+  onChange: any
+  onBlur: any
+  label?: string
   className?: string
-  labelClassname?: string
+  labelClassName?: string
   error?: string
-  inputRef: any
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
-  id,
-  defaultValue,
-  labelText,
+  name,
+  label,
   className,
-  labelClassname,
+  labelClassName,
   error,
-  ...otherInputElementProps
-}: InputProps, ref) => (
+}: InputProps, 
+forwardedRef)  => (
   <>
-    {labelText && (
+    {label && (
       <label 
-        htmlFor={id} 
-        className={`text-xl headline-spaced-font mr-3 ml-1 mb-1 block ${labelClassname}`}
+        htmlFor={name} 
+        className={`text-xl headline-spaced-font mr-3 ml-1 mb-1 block ${labelClassName}`}
       >
-        {labelText}
+        {label}
       </label>
     )}
     <input 
-      id={id}
-      ref={ref}
-      defaultValue={defaultValue}
+      name={name}
+      ref={forwardedRef}
+      id={name}
       autoComplete="off"
-      className={`drkr-focus border border-drkr-mid-gray border-2 h-10 px-2 mb-4 focus-visible:bg-drkr-white focus-visible:border-drkr-black body-font ${className}`}
-      {...otherInputElementProps}
+      className={`drkr-focus border border-drkr-mid-gray border-2 h-10 px-2 mb-4 focus-visible:bg-drkr-white focus-visible:border-drkr-black focus-visible:ring-offset-0 body-font ${className}`}
     />
     {error && <div>error!</div>}
   </>
