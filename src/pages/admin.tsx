@@ -51,7 +51,36 @@ export const Admin = () => {
             {...register('url')}
           />
 
-          <button type="submit">button</button>
+          <>
+            <div className="text-xl headline-spaced-font mr-3 ml-1 mb-1 block">
+              Scalable?
+            </div>
+            <div className="flex flex-row items-center">
+              <input
+                id="yes"
+                type="radio"
+                value="true"
+                className="appearance-none border-drkr-mid-gray sq-8 border-2 rounded-full bg-drkr-white checked:bg-drkr-green radio-inset cursor-pointer drkr-radio-focus"
+                {...register("yesno", { required: true })}
+              />
+              <label htmlFor="yes" className="body-font ml-3 mr-5">
+                Yes
+              </label>
+              <input
+                id="no"
+                type="radio"
+                value="false"
+                className="appearance-none border-drkr-mid-gray sq-8 border-2 rounded-full bg-drkr-white checked:bg-drkr-green radio-inset cursor-pointer drkr-radio-focus"
+                {...register("yesno", { required: true })}
+              />
+              <label htmlFor="no" className="body-font ml-3">
+                No
+              </label>
+            </div>
+          </>
+
+
+          <button className="mt-10 block" type="submit">button</button>
 
         </form>
 

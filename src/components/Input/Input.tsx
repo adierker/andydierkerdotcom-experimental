@@ -30,7 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
         ref={ref}
         autoComplete="off"
         spellCheck="false"
-        className={`drkr-input-focus border ${error ? 'border-drkr-green' : 'border-drkr-mid-gray'} border-2 focus-visible:border-drkr-black h-10 px-2  body-font w-full ${className}`}
+        className={`drkr-input-focus ${error ? 'border-drkr-green' : 'border-drkr-mid-gray'} border-2 h-10 px-2  body-font w-full ${className}`}
         {...rest}
       />
       <div className="min-h-5 mr-1 mt-1 text-sm text-drkr-green text-right">{error && error.message}</div>
