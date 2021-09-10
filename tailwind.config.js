@@ -27,7 +27,10 @@ module.exports = {
       },
       minHeight: {
         '5': '1.25rem',
-       }
+      },
+      minWidth: {
+        '10': '2.5rem',
+      }
     }
   },
   variants: {
