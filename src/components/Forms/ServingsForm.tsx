@@ -1,6 +1,5 @@
-import {useRef, Dispatch, SetStateAction} from 'react'
-import {useForm, Controller} from 'react-hook-form'
-
+import { useRef, Dispatch, SetStateAction } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 
 interface ServingsFormProps {
   defaultServings: number
@@ -11,15 +10,15 @@ type ServingsFormValues = {
   servings: number
 }
 
-export const ServingsForm = ({defaultServings, setServings}: ServingsFormProps) => {
+export const ServingsForm = ({
+  defaultServings,
+  setServings,
+}: ServingsFormProps) => {
   const hiddenSubmitButton = useRef<HTMLButtonElement>(null)
-  const { 
-    handleSubmit,
-    control, 
-  } = useForm<ServingsFormValues>({
-    defaultValues: { 
-      servings: defaultServings 
-    }
+  const { handleSubmit, control } = useForm<ServingsFormValues>({
+    defaultValues: {
+      servings: defaultServings,
+    },
   })
 
   const onBlurTriggerSubmit = () => {
@@ -27,21 +26,19 @@ export const ServingsForm = ({defaultServings, setServings}: ServingsFormProps) 
   }
 
   return (
-    <form 
+    <form
       className="flex items-center headline-spaced-font"
       // onSubmit will trigger when: the user presses "enter" in the input, or the hidden submit button is clicked (triggered onBlur)
       // the setServings function will only be called if the form is valid (see "validate" function below)
-      onSubmit={handleSubmit(({servings}) => setServings(servings))}
+      onSubmit={handleSubmit(({ servings }) => setServings(servings))}
     >
-      <label className="text-2xl headline-spaced-font mr-3">
-        Servings
-      </label>
+      <label className="text-2xl headline-spaced-font mr-3">Servings</label>
       <Controller
         control={control}
         name="servings"
         rules={{
           required: true,
-          validate: value => value > 0
+          validate: (value) => value > 0,
         }}
         render={({ field }) => (
           <input
@@ -52,7 +49,11 @@ export const ServingsForm = ({defaultServings, setServings}: ServingsFormProps) 
             {...field}
             // field.onChange is how we transform a value before it gets saved, whatever is returned from onChange is set to the value for this field
             // convert the input to a number, if it can't, change it to 0
-            onChange={(e) => field.onChange(parseInt(e.target.value.replace(/\D/g,''), 10) || 0)}
+            onChange={(e) =>
+              field.onChange(
+                parseInt(e.target.value.replace(/\D/g, ''), 10) || 0
+              )
+            }
             // when the input is unfocused, if its anything other than a positive integer, change it to 1 instead
             onBlur={(e) => {
               const parsedValue = parseInt(e.target.value, 10)
@@ -66,7 +67,7 @@ export const ServingsForm = ({defaultServings, setServings}: ServingsFormProps) 
           />
         )}
       />
-      <button hidden={true} ref={hiddenSubmitButton} type="submit"/>
-    </form> 
+      <button hidden={true} ref={hiddenSubmitButton} type="submit" />
+    </form>
   )
 }

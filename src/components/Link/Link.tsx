@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 
 interface ExternalLinkProps {
@@ -11,15 +11,15 @@ interface ExternalLinkProps {
 
 // NOTE: newTab defaults to TRUE for external links!
 export const ExternalLink = ({
-  href, 
-  className, 
+  href,
+  className,
   newTab = true,
   children,
   useDefaultStyles = true,
 }: ExternalLinkProps) => {
   return (
-    <a 
-      href={href || ''} 
+    <a
+      href={href || ''}
       className={`${useDefaultStyles && 'drkr-link'} ${className}`}
       target={newTab ? '_blank' : ''}
       rel={newTab ? 'noopener noreferrer' : ''}
@@ -39,15 +39,15 @@ interface InternalLinkProps {
 
 // NOTE: newTab defaults to FALSE for internal links!
 export const InternalLink = ({
-  href, 
-  className, 
+  href,
+  className,
   newTab = false,
   children,
   useDefaultStyles = true,
 }: InternalLinkProps) => {
   return (
     <Link href={href}>
-      <a 
+      <a
         className={`${useDefaultStyles && 'drkr-link'} ${className}`}
         target={newTab ? '_blank' : ''}
         rel={newTab ? 'noopener noreferrer' : ''}

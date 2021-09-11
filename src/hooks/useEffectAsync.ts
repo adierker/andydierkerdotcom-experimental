@@ -1,9 +1,9 @@
-import {useState, useEffect, DependencyList} from 'react'
+import { useState, useEffect, DependencyList } from 'react'
 
-export const useEffectAsync = <T> (
-  func: () => Promise<T>, 
-  dependencyArray?: DependencyList, 
-  initialData?: T,
+export const useEffectAsync = <T>(
+  func: () => Promise<T>,
+  dependencyArray?: DependencyList,
+  initialData?: T
 ) => {
   const [data, setData] = useState<T | undefined>(initialData)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -37,5 +37,5 @@ export const useEffectAsync = <T> (
     }
   }, dependencyArray)
 
-  return {data, error, isLoading}
+  return { data, error, isLoading }
 }

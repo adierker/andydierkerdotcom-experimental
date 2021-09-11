@@ -1,4 +1,4 @@
-import {Link, Social, RecipeListContent} from 'types'
+import { Link, Social, RecipeListContent } from 'types'
 
 export interface HomePageContent {
   heading: string
@@ -6,7 +6,7 @@ export interface HomePageContent {
   links: {
     text: string
     link: Link
-  }[],
+  }[]
   socials: Social[]
 }
 
@@ -16,6 +16,6 @@ export interface RecipeListPageContent {
 }
 
 export type RecipeListPageProps = {
-  recipeListPageContent: RecipeListPageContent,
+  recipeListPageContent: RecipeListPageContent
   recipeList: RecipeListContent
 }

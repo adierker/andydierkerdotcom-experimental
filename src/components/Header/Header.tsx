@@ -19,7 +19,7 @@ export const Header = ({ backText, backPath }: HeaderProps) => {
               className="drkr-focus text-drkr-hover rounded-md flex items-center w-[fit-content]"
               useDefaultStyles={false}
             >
-              <ChevronLeft className="sq-6 xs:sq-9"/>
+              <ChevronLeft className="sq-6 xs:sq-9" />
               <span className="text-sm xs:text-xl sm:text-2xl headline-spaced-font">
                 {backText}
               </span>
@@ -41,7 +41,7 @@ export const Header = ({ backText, backPath }: HeaderProps) => {
         </InternalLink>
       </div>
 
-      {backPath && <span className="flex-1"/>}
+      {backPath && <span className="flex-1" />}
     </nav>
-  );
-};
+  )
+}

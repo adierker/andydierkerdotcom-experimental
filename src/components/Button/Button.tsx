@@ -18,18 +18,11 @@ const defaults = {
 
 const defaultClasses = Object.values(defaults).join(' ')
 
-export const Button = ({
-  text,
-  onClick,
-  className,
-}: ButtonProps) => {
+export const Button = ({ text, onClick, className }: ButtonProps) => {
   return (
     <button
       type="button"
-      className={classnames(
-        defaultClasses,
-        className
-      )}
+      className={classnames(defaultClasses, className)}
       onClick={onClick}
     >
       {text}

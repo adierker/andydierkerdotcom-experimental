@@ -1,5 +1,5 @@
-import {QuerySnapshot, DocumentData} from 'firebase/firestore'
-import {GetStaticPathsResult, GetStaticPropsResult} from 'next'
+import { QuerySnapshot, DocumentData } from 'firebase/firestore'
+import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 
 export const onClickOpenLink = (url: string, newTab: boolean = true): void => {
   const newTabArgs = newTab ? ['_blank', 'noopener, noreferrer'] : ['_self']
@@ -8,8 +8,10 @@ export const onClickOpenLink = (url: string, newTab: boolean = true): void => {
 }
 
 // QuerySnapshot<DocumentData> is annoying to deal with. even after mapping over it and getting all the data() out, we still have to spread it into an array because it comes as a big object with tons of metadata from Firestore
-export const convertQuerySnapshotToData = <T extends unknown>(querySnapshot: QuerySnapshot<DocumentData>) => {
-  return [...querySnapshot.docs.map(doc => doc.data() as T)]
+export const convertQuerySnapshotToData = <T extends unknown>(
+  querySnapshot: QuerySnapshot<DocumentData>
+) => {
+  return [...querySnapshot.docs.map((doc) => doc.data() as T)]
 }
 
 // https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
@@ -19,7 +21,7 @@ export const convertContentToGetStaticPropsResult = <T extends unknown>(
 ): GetStaticPropsResult<T> => {
   return {
     props: JSON.parse(JSON.stringify(content)),
-    revalidate
+    revalidate,
   }
 }
 
@@ -32,13 +34,13 @@ export const convertContentToGetStaticPathsResult = (
   idKey: string,
   fallback: boolean = false
 ): GetStaticPathsResult => {
-  const paths = content.map(x => ({
-    params: { 
-      [pathKey]: x[idKey]
-    }
+  const paths = content.map((x) => ({
+    params: {
+      [pathKey]: x[idKey],
+    },
   }))
   return {
     paths,
-    fallback
+    fallback,
   }
 }

@@ -1,4 +1,4 @@
-import {Link} from 'types'
+import { Link } from 'types'
 
 export type OpenModalType = (x: string) => void
 export type CloseModalType = () => void

@@ -1,10 +1,10 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 export const useServings = (defaultServings: number) => {
   const [servings, setServings] = useState<number>(defaultServings)
 
   return {
     servings,
-    setServings
+    setServings,
   }
 }

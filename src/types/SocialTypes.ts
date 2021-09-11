@@ -1,4 +1,4 @@
-import {SOCIALS} from 'consts'
+import { SOCIALS } from 'consts'
 
 export type SocialsType = typeof SOCIALS[keyof typeof SOCIALS]
 

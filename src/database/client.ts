@@ -1,5 +1,5 @@
-import {initializeApp} from 'firebase/app'
-import {getFirestore} from 'firebase/firestore'
+import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 
 const creds = {
   apiKey: process.env.FIREBASE_API_KEY,

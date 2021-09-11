@@ -1,9 +1,12 @@
-import {SITEPATHS} from 'consts'
-import {RecipeListPageProps} from 'types'
-import {InternalLink} from 'components'
+import { SITEPATHS } from 'consts'
+import { RecipeListPageProps } from 'types'
+import { InternalLink } from 'components'
 
-export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPageProps) => {
-  const {heading, texts} = recipeListPageContent
+export const RecipeListPage = ({
+  recipeListPageContent,
+  recipeList,
+}: RecipeListPageProps) => {
+  const { heading, texts } = recipeListPageContent
 
   return (
     <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto">
@@ -13,15 +16,20 @@ export const RecipeListPage = ({recipeListPageContent, recipeList}: RecipeListPa
         </h1>
         <div className="text-base mb-4 body-font">
           {texts.map((text, index) => (
-            <p className="mb-3" key={`text-${index}`}>{text}</p>
+            <p className="mb-3" key={`text-${index}`}>
+              {text}
+            </p>
           ))}
         </div>
       </section>
 
-      <section id="recipe-links" className="w-full mt-4 headline-spaced-font text-xl underline ">
+      <section
+        id="recipe-links"
+        className="w-full mt-4 headline-spaced-font text-xl underline "
+      >
         {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
-            <InternalLink 
+            <InternalLink
               href={`${SITEPATHS.RECIPES}/${recipe.path}`}
               className="drkr-focus text-drkr-hover"
             >

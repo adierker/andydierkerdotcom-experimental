@@ -1,16 +1,16 @@
 import {
-  doc, 
-  getDoc, 
-  DocumentData, 
-  DocumentReference, 
-  getDocs, 
-  collection, 
-  QuerySnapshot
+  doc,
+  getDoc,
+  DocumentData,
+  DocumentReference,
+  getDocs,
+  collection,
+  QuerySnapshot,
 } from 'firebase/firestore'
 
-import {db} from 'database'
-import {CollectionsType} from 'types'
-import {convertQuerySnapshotToData} from 'utils'
+import { db } from 'database'
+import { CollectionsType } from 'types'
+import { convertQuerySnapshotToData } from 'utils'
 
 // the functions on this page fetch content from firestore directly
 // the frontend cannot call these methods on its own, because it cannot initialize the firestore app
@@ -24,7 +24,11 @@ export const getDocumentFromFirestore = async <T extends unknown>(
   requestedCollection: CollectionsType,
   requestedDocument: string
 ): Promise<T> => {
-  const docRef: DocumentReference<DocumentData> = doc(db, requestedCollection, requestedDocument)
+  const docRef: DocumentReference<DocumentData> = doc(
+    db,
+    requestedCollection,
+    requestedDocument
+  )
   const document: DocumentData = await getDoc(docRef)
   const documentData = document.data()
   return documentData as T
@@ -33,7 +37,9 @@ export const getDocumentFromFirestore = async <T extends unknown>(
 export const getCollectionFromFirestore = async <T extends unknown>(
   requestedCollection: CollectionsType
 ): Promise<T> => {
-  const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, requestedCollection))
+  const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(
+    collection(db, requestedCollection)
+  )
   const collectionData = convertQuerySnapshotToData(querySnapshot)
   return collectionData as T
 }
