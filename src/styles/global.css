@@ -127,6 +127,12 @@ body {
     @apply headline-spaced-font;
     @apply underline;
   }
+  .drkr-label {
+    @apply text-xl headline-spaced-font mr-3 ml-1 mb-1 block;
+  }
+  .drkr-error {
+    @apply min-h-5 mr-1 mt-1 text-sm text-drkr-green text-right w-full;
+  }
 }
 
 

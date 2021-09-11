@@ -11,6 +11,7 @@ interface RadioProps {
   error?: FieldError
   className?: string
   labelClassName?: string
+  errorClassName?: string
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(({
@@ -19,12 +20,13 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(({
   error, 
   options,
   className, 
-  labelClassName, 
+  labelClassName,
+  errorClassName,
   ...rest // used to pass the "name", "onChange", "onBlur", "ref" from react-hook-form "register" as well as any other native HTML props I forgot about
 }: RadioProps, ref) => {
   return (
     <fieldset>
-      <legend className={`text-xl headline-spaced-font mr-3 ml-1 mb-1 block ${labelClassName}`}>
+      <legend className={`drkr-label ${labelClassName}`}>
         {label}
       </legend>
       <div className="flex flex-row items-center">
@@ -49,7 +51,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(({
           )
         })}
       </div>
-      <div className="min-h-5 mr-1 mt-1 text-sm text-drkr-green text-right w-full">{error && error.message}</div>
+      <div className={`drkr-error ${errorClassName}`}>
+        {error && error.message}
+      </div>
     </fieldset>
   )
 })
