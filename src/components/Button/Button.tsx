@@ -1,3 +1,5 @@
+import { ReactElement } from 'react'
+
 import classnames from 'classnames'
 
 interface ButtonProps {
@@ -18,7 +20,11 @@ const defaults = {
 
 const defaultClasses = Object.values(defaults).join(' ')
 
-export const Button = ({ text, onClick, className }: ButtonProps) => {
+export const Button = ({
+  text,
+  onClick,
+  className,
+}: ButtonProps): ReactElement => {
   return (
     <button
       type="button"

@@ -1,15 +1,17 @@
-import { HomePageContent } from 'types'
+import { ReactElement } from 'react'
+
 import { ExternalLink } from 'components'
-import { useModalContext } from 'contexts'
-import { onClickOpenLink } from 'utils'
 import { LINKS, SOCIALS_MAP } from 'consts'
+import { useModalContext } from 'contexts'
+import { HomePageContent } from 'types'
+import { onClickOpenLink } from 'utils'
 
 export const HomePage = ({
   heading,
   subheading,
   links,
   socials,
-}: HomePageContent) => {
+}: HomePageContent): ReactElement => {
   const { openModal } = useModalContext()
 
   return (
@@ -51,7 +53,7 @@ export const HomePage = ({
           }
 
           const { type, linkTo } = link.link
-          let onClick = () => {}
+          let onClick
           if (type === LINKS.MODAL) {
             onClick = () => openModal(linkTo)
           } else if (type === LINKS.EXTERNAL) {

@@ -10,6 +10,7 @@ const creds = {
   appId: process.env.FIREBASE_APP_ID,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const firebaseApp = initializeApp(creds)
 
 export const db = getFirestore()

@@ -1,11 +1,12 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
+
 import Head from 'next/head'
 
 import { BreakpointHelper, Header } from 'components'
 import { SitePathsType } from 'types'
 
 interface PageWrapperProps {
-  children: ReactNode
+  children: ReactElement
   pageTitle: string
   hasHeader?: boolean
   backText?: string
@@ -18,7 +19,7 @@ export const PageWrapper = ({
   hasHeader = false,
   backText,
   backPath,
-}: PageWrapperProps) => {
+}: PageWrapperProps): ReactElement => {
   return (
     <div className="flex flex-col min-h-screen text-drkr-black">
       <Head>

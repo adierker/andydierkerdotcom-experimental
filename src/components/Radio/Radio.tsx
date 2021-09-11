@@ -1,4 +1,5 @@
 import { Fragment, forwardRef } from 'react'
+
 import { FieldError } from 'react-hook-form'
 
 interface RadioProps {
@@ -65,3 +66,6 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     )
   }
 )
+
+// needed because eslint complains otherwise about forwardRef, which wraps the component and disrupts its ability to infer the displayName
+Radio.displayName = 'Radio'

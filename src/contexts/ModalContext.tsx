@@ -1,12 +1,29 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, ReactElement } from 'react'
+
 import { useRouter, NextRouter } from 'next/router'
 
 import { Modal } from 'components'
 import { useModal } from 'hooks'
+import { ModalsContent, OpenModalType } from 'types'
 
 const ModalContext = createContext(null)
-export const useModalContext = () => useContext(ModalContext)
-export const ModalContextProvider = ({ children, modalsContent }) => {
+
+interface UseModalContextHook {
+  openModal: OpenModalType
+}
+
+export const useModalContext = (): UseModalContextHook =>
+  useContext(ModalContext)
+
+interface ModalContextProviderProps {
+  children: ReactElement
+  modalsContent: ModalsContent
+}
+
+export const ModalContextProvider = ({
+  children,
+  modalsContent,
+}: ModalContextProviderProps): ReactElement => {
   const { openModal, closeModal, modalContent } = useModal(modalsContent)
   const router: NextRouter = useRouter()
 

@@ -1,10 +1,16 @@
 import { useState, useEffect, DependencyList } from 'react'
 
+interface UseEffectAsyncHook<T> {
+  data: T | undefined
+  error: any
+  isLoading: boolean
+}
+
 export const useEffectAsync = <T>(
   func: () => Promise<T>,
   dependencyArray?: DependencyList,
   initialData?: T
-) => {
+): UseEffectAsyncHook<T> => {
   const [data, setData] = useState<T | undefined>(initialData)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<any>()

@@ -1,6 +1,11 @@
-import { useState } from 'react'
+import { useState, Dispatch, SetStateAction } from 'react'
 
-export const useServings = (defaultServings: number) => {
+interface UseServingsHook {
+  servings: number
+  setServings: Dispatch<SetStateAction<number>>
+}
+
+export const useServings = (defaultServings: number): UseServingsHook => {
   const [servings, setServings] = useState<number>(defaultServings)
 
   return {

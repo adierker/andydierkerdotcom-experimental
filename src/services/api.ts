@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
-import { RecipeListContent } from 'types'
 import { ENDPOINTS } from 'consts'
+import { RecipeListContent } from 'types'
 
 // the functions on this page proxy requests to NextJS's backend api, which in turn gets the data from firestore
 // the frontend must use these functions to fetch data, because it cannot initialize the firestore app on its own

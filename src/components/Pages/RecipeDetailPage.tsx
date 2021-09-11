@@ -1,9 +1,8 @@
-import { ReactNode, useState, useEffect, useRef } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
-import { ServingsForm } from 'components'
-import { RecipeContent, IngredientGrouping, Ingredient } from 'types'
+import { ServingsForm, ExternalLink } from 'components'
 import { useServings } from 'hooks'
-import { ExternalLink } from 'components'
+import { RecipeContent, IngredientGrouping, Ingredient } from 'types'
 
 const Heading = ({ heading }: { heading: string }) => (
   <h2 className="text-4xl mb-6 headline-font">{heading}</h2>
@@ -17,12 +16,12 @@ export const RecipeDetailPage = ({
   name,
   descriptions,
   url,
-  isScalable,
+  // isScalable,
   defaultServings,
   ingredients,
   instructions,
-  notes,
-}: RecipeContent) => {
+}: // notes,
+RecipeContent): ReactElement => {
   const { servings, setServings } = useServings(defaultServings)
 
   const scalingCoeff: number = servings / defaultServings

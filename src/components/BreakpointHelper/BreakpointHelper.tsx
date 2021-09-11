@@ -1,8 +1,12 @@
+import { ReactElement } from 'react'
+
 interface BreakpointHelperProps {
   show: boolean
 }
 
-export const BreakpointHelper = ({ show }: BreakpointHelperProps) => {
+export const BreakpointHelper = ({
+  show,
+}: BreakpointHelperProps): ReactElement => {
   const sharedStyles =
     'absolute w-full justify-center text-center headline-spaced-font py-1 text-2xl'
 

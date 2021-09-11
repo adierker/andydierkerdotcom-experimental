@@ -1,9 +1,11 @@
+import { ReactElement } from 'react'
+
 interface LoaderProps {
   className?: string
 }
 
 // By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL
-export const Loader = ({ className }: LoaderProps) => (
+export const Loader = ({ className }: LoaderProps): ReactElement => (
   <svg
     width="44"
     height="44"

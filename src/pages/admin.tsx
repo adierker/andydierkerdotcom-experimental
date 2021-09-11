@@ -1,5 +1,7 @@
-import { useForm } from 'react-hook-form'
+import { ReactElement } from 'react'
+
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { PageWrapper, Input, Radio } from 'components'
@@ -21,7 +23,7 @@ const formSchema = yup.object().shape({
   scalable: yup.string().required(`Scalability is required.`).nullable(true),
 })
 
-export const Admin = () => {
+export const Admin = (): ReactElement => {
   const {
     register,
     handleSubmit,

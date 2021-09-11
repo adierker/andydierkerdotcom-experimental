@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
+
 import Link from 'next/link'
 
 interface ExternalLinkProps {
@@ -16,8 +17,9 @@ export const ExternalLink = ({
   newTab = true,
   children,
   useDefaultStyles = true,
-}: ExternalLinkProps) => {
+}: ExternalLinkProps): ReactElement => {
   return (
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       href={href || ''}
       className={`${useDefaultStyles && 'drkr-link'} ${className}`}
@@ -44,7 +46,7 @@ export const InternalLink = ({
   newTab = false,
   children,
   useDefaultStyles = true,
-}: InternalLinkProps) => {
+}: InternalLinkProps): ReactElement => {
   return (
     <Link href={href}>
       <a

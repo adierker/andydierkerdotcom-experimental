@@ -7,7 +7,13 @@ import {
   ModalsContent,
 } from 'types'
 
-export const useModal = (modalsContent: ModalsContent) => {
+interface UseModalHook {
+  openModal: OpenModalType
+  closeModal: CloseModalType
+  modalContent: ModalContent | null
+}
+
+export const useModal = (modalsContent: ModalsContent): UseModalHook => {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null)
 
   const closeModal: CloseModalType = useCallback(

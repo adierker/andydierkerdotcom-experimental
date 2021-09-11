@@ -1,13 +1,16 @@
+import { ReactElement } from 'react'
+
 import {
+  GetStaticProps,
   GetStaticPaths,
   GetStaticPathsResult,
   GetStaticPropsResult,
 } from 'next'
 
 import { PageWrapper, RecipeDetailPage } from 'components'
-import { RecipeContent, RecipeListContent } from 'types'
 import { SITEPATHS, COLLECTIONS } from 'consts'
 import { getCollectionFromFirestore, getDocumentFromFirestore } from 'services'
+import { RecipeContent, RecipeListContent } from 'types'
 import {
   convertContentToGetStaticPathsResult,
   convertContentToGetStaticPropsResult,
@@ -21,7 +24,7 @@ export const getStaticPaths: GetStaticPaths =
     return convertContentToGetStaticPathsResult(recipeList, 'recipe', 'path')
   }
 
-export const getStaticProps = async ({
+export const getStaticProps: GetStaticProps = async ({
   params,
 }): Promise<GetStaticPropsResult<RecipeContent>> => {
   const recipeContent = await getDocumentFromFirestore<RecipeContent>(
@@ -31,7 +34,7 @@ export const getStaticProps = async ({
   return convertContentToGetStaticPropsResult<RecipeContent>(recipeContent)
 }
 
-export const Recipe = (props: RecipeContent) => {
+export const Recipe = (props: RecipeContent): ReactElement => {
   const recipeContent = props
 
   return (

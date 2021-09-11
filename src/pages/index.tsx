@@ -1,11 +1,13 @@
+import { ReactElement } from 'react'
+
 import { GetStaticPropsResult } from 'next'
 
 import { HomePage, PageWrapper } from 'components'
+import { COLLECTIONS } from 'consts'
+import { ModalContextProvider } from 'contexts'
 import { getDocumentFromFirestore, getCollectionFromFirestore } from 'services'
 import { HomePageContent, ModalsContent } from 'types'
 import { convertContentToGetStaticPropsResult } from 'utils'
-import { ModalContextProvider } from 'contexts'
-import { COLLECTIONS } from 'consts'
 
 type IndexPageProps = {
   homePageContent: HomePageContent
@@ -28,7 +30,7 @@ export const getStaticProps = async (): Promise<
   })
 }
 
-export const Index = (props: IndexPageProps) => {
+export const Index = (props: IndexPageProps): ReactElement => {
   return (
     <ModalContextProvider modalsContent={props.modalsContent}>
       <PageWrapper pageTitle="andydierker.com">

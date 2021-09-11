@@ -1,14 +1,16 @@
-import { SITEPATHS } from 'consts'
+import { ReactElement } from 'react'
+
 import { InternalLink } from 'components'
-import { SitePathsType } from 'types'
+import { SITEPATHS } from 'consts'
 import { ChevronLeft } from 'icons'
+import { SitePathsType } from 'types'
 
 interface HeaderProps {
   backText?: string
   backPath?: SitePathsType
 }
 
-export const Header = ({ backText, backPath }: HeaderProps) => {
+export const Header = ({ backText, backPath }: HeaderProps): ReactElement => {
   return (
     <nav className="flex py-3 justify-between items-center border-b-3 border-drkr-black">
       {backPath && (

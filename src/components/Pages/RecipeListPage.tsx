@@ -1,11 +1,13 @@
+import { ReactElement } from 'react'
+
+import { InternalLink } from 'components'
 import { SITEPATHS } from 'consts'
 import { RecipeListPageProps } from 'types'
-import { InternalLink } from 'components'
 
 export const RecipeListPage = ({
   recipeListPageContent,
   recipeList,
-}: RecipeListPageProps) => {
+}: RecipeListPageProps): ReactElement => {
   const { heading, texts } = recipeListPageContent
 
   return (

@@ -1,10 +1,12 @@
+import { ReactElement } from 'react'
+
 export interface IconProps {
   className?: string
   onClick?: () => void
 }
 
 // these social links are from https://iconmonstr.com/
-export const LinkedIn = ({ className, onClick }: IconProps) => (
+export const LinkedIn = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -16,7 +18,7 @@ export const LinkedIn = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const Instagram = ({ className, onClick }: IconProps) => (
+export const Instagram = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -28,7 +30,7 @@ export const Instagram = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const Github = ({ className, onClick }: IconProps) => (
+export const Github = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -41,7 +43,7 @@ export const Github = ({ className, onClick }: IconProps) => (
 )
 
 // most of these are from HeroIcons, https://heroicons.com/
-export const Lock = ({ className, onClick }: IconProps) => (
+export const Lock = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -59,7 +61,7 @@ export const Lock = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const Unlock = ({ className, onClick }: IconProps) => (
+export const Unlock = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -71,7 +73,7 @@ export const Unlock = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const PlainX = ({ className, onClick }: IconProps) => (
+export const PlainX = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -87,7 +89,7 @@ export const PlainX = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const CircleX = ({ className, onClick }: IconProps) => (
+export const CircleX = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -103,7 +105,10 @@ export const CircleX = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const ArrowCircleLeft = ({ className, onClick }: IconProps) => (
+export const ArrowCircleLeft = ({
+  className,
+  onClick,
+}: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -119,7 +124,7 @@ export const ArrowCircleLeft = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const ArrowLeft = ({ className, onClick }: IconProps) => (
+export const ArrowLeft = ({ className, onClick }: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
@@ -137,7 +142,10 @@ export const ArrowLeft = ({ className, onClick }: IconProps) => (
   </svg>
 )
 
-export const ChevronLeft = ({ className, onClick }: IconProps) => (
+export const ChevronLeft = ({
+  className,
+  onClick,
+}: IconProps): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}

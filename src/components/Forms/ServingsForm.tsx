@@ -1,4 +1,5 @@
-import { useRef, Dispatch, SetStateAction } from 'react'
+import { useRef, Dispatch, SetStateAction, ReactElement } from 'react'
+
 import { useForm, Controller } from 'react-hook-form'
 
 interface ServingsFormProps {
@@ -13,7 +14,7 @@ type ServingsFormValues = {
 export const ServingsForm = ({
   defaultServings,
   setServings,
-}: ServingsFormProps) => {
+}: ServingsFormProps): ReactElement => {
   const hiddenSubmitButton = useRef<HTMLButtonElement>(null)
   const { handleSubmit, control } = useForm<ServingsFormValues>({
     defaultValues: {

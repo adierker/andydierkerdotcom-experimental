@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+
 import { FieldError } from 'react-hook-form'
 
 interface InputProps {
@@ -45,3 +46,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
   }
 )
+
+Input.displayName = 'Input'

@@ -1,10 +1,11 @@
-import { Fragment, useRef } from 'react'
+import { Fragment, useRef, ReactElement } from 'react'
+
 import { Dialog, Transition } from '@headlessui/react'
 import { NextRouter } from 'next/router'
 
 import { Button } from 'components'
-import { ModalContent } from 'types'
 import { CLOSEMODAL, LINKS } from 'consts'
+import { ModalContent } from 'types'
 
 interface ModalProps {
   modalContent: ModalContent
@@ -12,7 +13,11 @@ interface ModalProps {
   router: NextRouter
 }
 
-export const Modal = ({ modalContent, closeModal, router }: ModalProps) => {
+export const Modal = ({
+  modalContent,
+  closeModal,
+  router,
+}: ModalProps): ReactElement => {
   const hiddenButtonToTrickTheInitialFocus = useRef(null)
   return (
     <Transition.Root show={!!modalContent} as={Fragment}>
@@ -87,7 +92,7 @@ export const Modal = ({ modalContent, closeModal, router }: ModalProps) => {
                       : 'mr-0 mb-3 md:mr-3 md:mb-0'
 
                     const { type, linkTo } = link
-                    let onClick = () => {}
+                    let onClick
                     if (type === LINKS.MODAL && linkTo === CLOSEMODAL) {
                       onClick = closeModal
                     } else if (type === LINKS.INTERNAL) {
