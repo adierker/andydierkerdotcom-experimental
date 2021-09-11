@@ -43,9 +43,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
                   value={value}
                   type="radio"
                   ref={ref}
-                  className={`appearance-none ${
+                  className={`appearance-none sq-10 min-w-10 border-2 rounded-full bg-drkr-white checked:bg-drkr-green radio-inset cursor-pointer drkr-radio-focus ${
                     error ? 'border-drkr-green' : 'border-drkr-mid-gray'
-                  } sq-10 min-w-10 border-2 rounded-full bg-drkr-white checked:bg-drkr-green radio-inset cursor-pointer drkr-radio-focus ${className}`}
+                  } ${className}`}
                   {...rest}
                 />
                 <label

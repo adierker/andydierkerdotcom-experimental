@@ -278,7 +278,7 @@ body {
   }
   .drkr-radio-focus {
     @apply drkr-focus;
-    @apply focus-visible:border-drkr-black;
+    @apply focus:border-drkr-black;
     @apply focus-visible:bg-drkr-white;
     @apply focus-visible:ring-offset-0;
     @apply focus-visible:checked:bg-drkr-green;
