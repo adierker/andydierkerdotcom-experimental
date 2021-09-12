@@ -24,7 +24,14 @@ const formSchema = yup.object().shape({
   scalable: yup.string().required(`Scalability is required.`).nullable(true),
   descriptions: yup.array().of(
     yup.object().shape({
-      description: yup.string().required(`Description text is required.`),
+      paragraph: yup
+        .string()
+        .required(`Any visible Description field is required.`),
+    })
+  ),
+  instructions: yup.array().of(
+    yup.object().shape({
+      step: yup.string().required(`Any visible Instruction field is required.`),
     })
   ),
 })
@@ -45,16 +52,28 @@ export const Admin = (): ReactElement => {
 
   const {
     fields: descriptionFields,
-    append: appendDescription,
-    remove: removeDescription,
+    append: appendParagraph,
+    remove: removeParagraph,
   } = useFieldArray({
     control,
     name: 'descriptions',
   })
 
+  const {
+    fields: instructionFields,
+    append: appendStep,
+    remove: removeStep,
+  } = useFieldArray({
+    control,
+    name: 'instructions',
+  })
+
   useEffect(() => {
     if (descriptionFields.length < 1) {
-      appendDescription({})
+      appendParagraph({})
+    }
+    if (instructionFields.length < 1) {
+      appendStep({})
     }
   }, [])
 
@@ -95,26 +114,54 @@ export const Admin = (): ReactElement => {
               <Textarea
                 id={`descriptions-${index}`}
                 label={index === 0 && 'Descriptions *'}
-                error={errors.descriptions?.[index]?.description}
+                error={errors.descriptions?.[index]?.paragraph}
                 iconWrapperClassName={index !== 0 && 'mt-2'}
                 icon={
                   index !== 0 && (
                     <button
                       type="button"
                       className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
-                      onClick={() => removeDescription(index)}
+                      onClick={() => removeParagraph(index)}
                     >
                       <PlainX className="sq-8" />
                     </button>
                   )
                 }
-                {...register(`descriptions.${index}.description` as const)}
+                {...register(`descriptions.${index}.paragraph` as const)}
               />
             </Fragment>
           ))}
           <Button
-            text="Add Description"
-            onClick={() => appendDescription({})}
+            text="Add Paragraph"
+            onClick={() => appendParagraph({})}
+            className="focus-visible:bg-drkr-black"
+          />
+          {instructionFields.map((field, index) => (
+            <Fragment key={field.id}>
+              <Textarea
+                id={`instructions-${index}`}
+                label={index === 0 && 'Instructions *'}
+                labelClassName="mt-6"
+                error={errors.instructions?.[index]?.step}
+                iconWrapperClassName={index !== 0 && 'mt-2'}
+                icon={
+                  index !== 0 && (
+                    <button
+                      type="button"
+                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
+                      onClick={() => removeStep(index)}
+                    >
+                      <PlainX className="sq-8" />
+                    </button>
+                  )
+                }
+                {...register(`instructions.${index}.step` as const)}
+              />
+            </Fragment>
+          ))}
+          <Button
+            text="Add Step"
+            onClick={() => appendStep({})}
             className="focus-visible:bg-drkr-black"
           />
 
