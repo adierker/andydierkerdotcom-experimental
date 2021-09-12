@@ -34,9 +34,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           autoComplete="off"
           spellCheck="false"
-          className={`drkr-input-focus ${
+          className={`drkr-input-focus border-2 h-10 px-2 body-font w-full ${
             error ? 'border-drkr-green' : 'border-drkr-mid-gray'
-          } border-2 h-10 px-2  body-font w-full ${className}`}
+          } ${className}`}
           {...rest}
         />
         <div className={`drkr-error ${errorClassName}`}>

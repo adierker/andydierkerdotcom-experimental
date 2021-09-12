@@ -1,10 +1,9 @@
 import { ReactElement } from 'react'
 
-import classnames from 'classnames'
-
 interface ButtonProps {
   text: string
-  onClick: () => void
+  type?: 'submit' | 'reset' | 'button'
+  onClick?: () => void
   className?: string
 }
 
@@ -22,14 +21,17 @@ const defaultClasses = Object.values(defaults).join(' ')
 
 export const Button = ({
   text,
+  type,
   onClick,
   className,
+  ...rest
 }: ButtonProps): ReactElement => {
   return (
     <button
-      type="button"
-      className={classnames(defaultClasses, className)}
+      type={type || 'button'}
+      className={`${defaultClasses} ${className}`}
       onClick={onClick}
+      {...rest}
     >
       {text}
     </button>

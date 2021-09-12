@@ -1,11 +1,12 @@
-import { ReactElement } from 'react'
+import { ReactElement, Fragment, useEffect } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import { useForm, useFieldArray } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { PageWrapper, Input, Radio } from 'components'
+import { PageWrapper, Input, Radio, Button, Textarea } from 'components'
 import { REGEX } from 'consts'
+import { PlainX } from 'icons'
 
 const formSchema = yup.object().shape({
   name: yup.string().required(`Name is required.`),
@@ -21,6 +22,11 @@ const formSchema = yup.object().shape({
     .required(`URL is required.`)
     .matches(REGEX.URL, `Must be a valid URL.`),
   scalable: yup.string().required(`Scalability is required.`).nullable(true),
+  descriptions: yup.array().of(
+    yup.object().shape({
+      description: yup.string().required(`Description text is required.`),
+    })
+  ),
 })
 
 export const Admin = (): ReactElement => {
@@ -28,14 +34,29 @@ export const Admin = (): ReactElement => {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm({
-    // mode: 'onBlur',
     resolver: yupResolver(formSchema),
   })
   const onSubmit = (data) => console.log(data)
 
-  console.log(watch())
+  // console.log(watch())
+
+  const {
+    fields: descriptionFields,
+    append: appendDescription,
+    remove: removeDescription,
+  } = useFieldArray({
+    control,
+    name: 'descriptions',
+  })
+
+  useEffect(() => {
+    if (descriptionFields.length < 1) {
+      appendDescription({})
+    }
+  }, [])
 
   return (
     <PageWrapper pageTitle="andydierker.com | admin" hasHeader={true}>
@@ -69,10 +90,39 @@ export const Admin = (): ReactElement => {
             error={errors.scalable}
             {...register('scalable', { required: true })}
           />
+          {descriptionFields.map((field, index) => (
+            <Fragment key={field.id}>
+              <Textarea
+                id={`descriptions-${index}`}
+                label={index === 0 && 'Descriptions *'}
+                error={errors.descriptions?.[index]?.description}
+                iconWrapperClassName={index !== 0 && 'mt-2'}
+                icon={
+                  index !== 0 && (
+                    <button
+                      type="button"
+                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
+                      onClick={() => removeDescription(index)}
+                    >
+                      <PlainX className="sq-8" />
+                    </button>
+                  )
+                }
+                {...register(`descriptions.${index}.description` as const)}
+              />
+            </Fragment>
+          ))}
+          <Button
+            text="Add Description"
+            onClick={() => appendDescription({})}
+            className="focus-visible:bg-drkr-black"
+          />
 
-          <button className="mt-10 block" type="submit">
-            button
-          </button>
+          <Button
+            type="submit"
+            text="Submit Recipe"
+            className="focus-visible:bg-drkr-black mt-12 w-full !block"
+          />
         </form>
       </main>
     </PageWrapper>

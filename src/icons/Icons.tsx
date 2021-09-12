@@ -105,6 +105,23 @@ export const CircleX = ({ className, onClick }: IconProps): ReactElement => (
   </svg>
 )
 
+export const Plus = ({ className, onClick }: IconProps): ReactElement => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    onClick={onClick}
+    className={`sq-5 ${className}`}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M12 4v16m8-8H4"
+    />
+  </svg>
+)
+
 export const ArrowCircleLeft = ({
   className,
   onClick,
