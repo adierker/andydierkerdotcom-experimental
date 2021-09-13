@@ -29,6 +29,18 @@ const formSchema = yup.object().shape({
         .required(`Any visible Description field is required.`),
     })
   ),
+  ingredientGroupings: yup.array().of(
+    yup.object().shape({
+      groupingName: yup.string().required(`Ingredient grouping name is required.`),
+      ingredients: yup.array().of(
+        yup.object().shape({
+          num: yup.string().matches(REGEX.NUMBERS_AND_DECIMALS, `Must be a number.`),
+          unit: yup.string(),
+          ingredient: yup.string().required(`Ingredient is required.`)
+        })
+      )
+    })
+  ),
   instructions: yup.array().of(
     yup.object().shape({
       step: yup.string().required(`Any visible Instruction field is required.`),
@@ -48,7 +60,7 @@ export const Admin = (): ReactElement => {
   })
   const onSubmit = (data) => console.log(data)
 
-  // console.log(watch())
+  console.log(watch())
 
   const {
     fields: descriptionFields,
@@ -57,6 +69,24 @@ export const Admin = (): ReactElement => {
   } = useFieldArray({
     control,
     name: 'descriptions',
+  })
+
+  const {
+    fields: ingredientGroupingsFields,
+    append: appendGrouping,
+    remove: removeGrouping,
+  } = useFieldArray({
+    control,
+    name: 'ingredientGroupings',
+  })
+
+  const {
+    fields: ingredientsFields,
+    append: appendIngredient,
+    remove: removeIngredient,
+  } = useFieldArray({
+    control,
+    name: 'ingredients',
   })
 
   const {
@@ -74,6 +104,9 @@ export const Admin = (): ReactElement => {
     }
     if (instructionFields.length < 1) {
       appendStep({})
+    }
+    if (ingredientGroupingsFields.length < 1) {
+      appendGrouping({})
     }
   }, [])
 
@@ -140,6 +173,54 @@ export const Admin = (): ReactElement => {
             onClick={() => appendParagraph({})}
             className="focus-visible:bg-drkr-black"
           />
+
+
+
+
+        {ingredientGroupingsFields.map((field, index) => (
+            <Fragment key={field.id}>
+              <Input
+                id={`ingredientGroupings-${index}`}
+                label={index === 0 && 'Ingredient Groupings *'}
+                // error={errors.ingredientGroupings?.[index]?.paragraph}
+                labelClassName="mt-6"
+                iconWrapperClassName={index !== 0 && 'mt-2'}
+                icon={
+                  index !== 0 && (
+                    <button
+                      type="button"
+                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
+                      onClick={() => removeGrouping(index)}
+                    >
+                      <PlainX className="sq-8" />
+                    </button>
+                  )
+                }
+                {...register(`ingredientGroupings.${index}.groupingName` as const)}
+              />
+              {/* {ingredientGroupingsFields[index].ingredients.map(() => {
+
+              })} */}
+            </Fragment>
+          ))}
+          <Button
+            text="Add Grouping"
+            onClick={() => appendGrouping({})}
+            className="focus-visible:bg-drkr-black"
+          />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           {instructionFields.map((field, index) => (
             <Fragment key={field.id}>
