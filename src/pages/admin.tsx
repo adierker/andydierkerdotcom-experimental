@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { PageWrapper, Input, Radio, Button, Textarea } from 'components'
+import { PageWrapper, Input, Radio, Button, Textarea, FieldArray } from 'components'
 import { REGEX } from 'consts'
 import { PlainX } from 'icons'
 
@@ -29,6 +29,7 @@ const formSchema = yup.object().shape({
         .required(`Any visible Description field is required.`),
     })
   ),
+  // this looks correct to me, eventually
   ingredientGroupings: yup.array().of(
     yup.object().shape({
       groupingName: yup.string().required(`Ingredient grouping name is required.`),
@@ -71,6 +72,7 @@ export const Admin = (): ReactElement => {
     name: 'descriptions',
   })
 
+  // this is completely unimplemented so far
   const {
     fields: ingredientGroupingsFields,
     append: appendGrouping,
@@ -80,6 +82,7 @@ export const Admin = (): ReactElement => {
     name: 'ingredientGroupings',
   })
 
+  // this will need to move to a sub-component, like this: https://codesandbox.io/s/react-hook-form-usefieldarray-nested-arrays-x7btr
   const {
     fields: ingredientsFields,
     append: appendIngredient,
@@ -146,38 +149,37 @@ export const Admin = (): ReactElement => {
             {...register('scalable', { required: true })}
           />
 
-          {descriptionFields.map((field, index) => (
-            <Fragment key={field.id}>
-              <Textarea
-                id={`descriptions-${index}`}
-                label={index === 0 && 'Descriptions *'}
-                error={errors.descriptions?.[index]?.paragraph}
-                iconWrapperClassName={index !== 0 && 'mt-2'}
-                icon={
-                  index !== 0 && (
-                    <button
-                      type="button"
-                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
-                      onClick={() => removeParagraph(index)}
-                    >
-                      <PlainX className="sq-8" />
-                    </button>
-                  )
-                }
-                {...register(`descriptions.${index}.paragraph` as const)}
-              />
-            </Fragment>
-          ))}
-          <Button
-            text="Add Paragraph"
-            onClick={() => appendParagraph({})}
-            className="focus-visible:bg-drkr-black"
+          <FieldArray
+            fields={descriptionFields}
+            fieldErrors={errors.descriptions}
+            label="Descriptions *"
+            fieldName="descriptions"
+            fieldKey="paragraph"
+            appendFunction={appendParagraph}
+            removeFunction={removeParagraph}
+            buttonLabel="Add Paragraph"
+            register={register}
+            inputOrTextarea="textarea"
+          />
+
+          <FieldArray
+            fields={instructionFields}
+            fieldErrors={errors.instructions}
+            label="Instructions *"
+            passThruLabelClassName="mt-6"
+            fieldName="instructions"
+            fieldKey="step"
+            appendFunction={appendStep}
+            removeFunction={removeStep}
+            buttonLabel="Add Step"
+            register={register}
+            inputOrTextarea="textarea"
           />
 
 
 
 
-        {ingredientGroupingsFields.map((field, index) => (
+        {/* {ingredientGroupingsFields.map((field, index) => (
             <Fragment key={field.id}>
               <Input
                 id={`ingredientGroupings-${index}`}
@@ -198,9 +200,9 @@ export const Admin = (): ReactElement => {
                 }
                 {...register(`ingredientGroupings.${index}.groupingName` as const)}
               />
-              {/* {ingredientGroupingsFields[index].ingredients.map(() => {
+              {ingredientGroupingsFields[index].ingredients.map(() => {
 
-              })} */}
+              })}
             </Fragment>
           ))}
           <Button
@@ -208,48 +210,8 @@ export const Admin = (): ReactElement => {
             onClick={() => appendGrouping({})}
             className="focus-visible:bg-drkr-black"
           />
+ */}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-          {instructionFields.map((field, index) => (
-            <Fragment key={field.id}>
-              <Textarea
-                id={`instructions-${index}`}
-                label={index === 0 && 'Instructions *'}
-                labelClassName="mt-6"
-                error={errors.instructions?.[index]?.step}
-                iconWrapperClassName={index !== 0 && 'mt-2'}
-                icon={
-                  index !== 0 && (
-                    <button
-                      type="button"
-                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
-                      onClick={() => removeStep(index)}
-                    >
-                      <PlainX className="sq-8" />
-                    </button>
-                  )
-                }
-                {...register(`instructions.${index}.step` as const)}
-              />
-            </Fragment>
-          ))}
-          <Button
-            text="Add Step"
-            onClick={() => appendStep({})}
-            className="focus-visible:bg-drkr-black"
-          />
 
           <Button
             type="submit"
