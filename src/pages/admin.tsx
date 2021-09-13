@@ -87,18 +87,21 @@ export const Admin = (): ReactElement => {
             error={errors.name}
             {...register('name')}
           />
+
           <Input
             id="path"
             label="Path/URL *"
             error={errors.path}
             {...register('path')}
           />
+
           <Input
             id="url"
             label="Original recipe URL *"
             error={errors.url}
             {...register('url')}
           />
+
           <Radio
             id="scalable"
             label="Scalable? *"
@@ -109,6 +112,7 @@ export const Admin = (): ReactElement => {
             error={errors.scalable}
             {...register('scalable', { required: true })}
           />
+
           {descriptionFields.map((field, index) => (
             <Fragment key={field.id}>
               <Textarea
@@ -136,6 +140,7 @@ export const Admin = (): ReactElement => {
             onClick={() => appendParagraph({})}
             className="focus-visible:bg-drkr-black"
           />
+
           {instructionFields.map((field, index) => (
             <Fragment key={field.id}>
               <Textarea
