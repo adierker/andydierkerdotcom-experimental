@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { PageWrapper, Input, Radio, Button, Textarea, FieldArray } from 'components'
+import { PageWrapper, Input, Radio, Button, FieldArray, IngredientFieldArray } from 'components'
 import { REGEX } from 'consts'
 import { PlainX } from 'icons'
 
@@ -61,7 +61,7 @@ export const Admin = (): ReactElement => {
   })
   const onSubmit = (data) => console.log(data)
 
-  console.log(watch())
+  console.log(watch(['ingredientGroupings']))
 
   const {
     fields: descriptionFields,
@@ -179,7 +179,7 @@ export const Admin = (): ReactElement => {
 
 
 
-        {/* {ingredientGroupingsFields.map((field, index) => (
+        {ingredientGroupingsFields.map((field, index) => (
             <Fragment key={field.id}>
               <Input
                 id={`ingredientGroupings-${index}`}
@@ -200,9 +200,11 @@ export const Admin = (): ReactElement => {
                 }
                 {...register(`ingredientGroupings.${index}.groupingName` as const)}
               />
-              {ingredientGroupingsFields[index].ingredients.map(() => {
-
-              })}
+              <IngredientFieldArray
+                nestIndex={index}
+                control={control}
+                register={register}
+              />
             </Fragment>
           ))}
           <Button
@@ -210,7 +212,7 @@ export const Admin = (): ReactElement => {
             onClick={() => appendGrouping({})}
             className="focus-visible:bg-drkr-black"
           />
- */}
+       
 
 
           <Button
