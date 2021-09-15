@@ -83,14 +83,14 @@ export const IngredientFieldArray = ({
           </div>
 
 
-          {ingredientFields.length > 1 && <hr className="ml-8 border-t-3 border-drkr-mid-gray mt-3 mb-8"/>}
+          {ingredientFields.length > 1 && <hr className="border-t-3 border-drkr-mid-gray mx-8 mt-3 mb-8"/>}
         </div>
       ))}
       <div className="flex">
         <Button
           text="Add Ingredient"
           onClick={() => appendIngredient({})}
-          className="focus-visible:bg-drkr-black block ml-auto mr-8"
+          className="focus-visible:bg-drkr-black block ml-auto mr-8 mb-6"
         />
       </div>
     </div>

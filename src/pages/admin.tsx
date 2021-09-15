@@ -191,7 +191,7 @@ export const Admin = (): ReactElement => {
                 <div className="w-full">
                   <Input
                     id={`ingredientGroupings-${index}`}
-                    label={index === 0 && 'Ingredient Grouping'}
+                    label={'Ingredient Grouping'}
                     // error={errors.ingredientGroupings?.[index]?.paragraph}
                     {...register(`ingredientGroupings.${index}.groupingName` as const)}
                   />
@@ -200,7 +200,7 @@ export const Admin = (): ReactElement => {
                   index !== 0 && (
                     <button
                       type="button"
-                      className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer"
+                      className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer self-center"
                       onClick={() => removeGrouping(index)}
                     >
                       <PlainX/>
