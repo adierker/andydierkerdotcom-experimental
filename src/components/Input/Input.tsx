@@ -9,6 +9,7 @@ interface InputProps {
   className?: string
   labelClassName?: string
   errorClassName?: string
+  hideErrorSection?: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -20,6 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className,
       labelClassName,
       errorClassName,
+      hideErrorSection,
       ...rest // used to pass the "name", "onChange", "onBlur", "ref" from react-hook-form "register" as well as any other native HTML props I forgot about
     }: InputProps,
     ref
@@ -41,9 +43,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           } ${className}`}
           {...rest}
         />
-        <div className={`drkr-error ${errorClassName}`}>
-          {error && error.message}
-        </div>
+        {!hideErrorSection && (
+          <div className={`drkr-error ${errorClassName}`}>
+            {error && error.message}
+          </div>
+        ) }
       </>
     )
   }
