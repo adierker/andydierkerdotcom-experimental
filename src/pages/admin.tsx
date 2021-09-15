@@ -119,28 +119,28 @@ export const Admin = (): ReactElement => {
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <Input
             id="name"
-            label="Recipe name *"
+            label="Recipe name"
             error={errors.name}
             {...register('name')}
           />
 
           <Input
             id="path"
-            label="Path/URL *"
+            label="Path/URL"
             error={errors.path}
             {...register('path')}
           />
 
           <Input
             id="url"
-            label="Original recipe URL *"
+            label="Original recipe URL"
             error={errors.url}
             {...register('url')}
           />
 
           <Radio
             id="scalable"
-            label="Scalable? *"
+            label="Scalable?"
             options={[
               { label: 'Yes', value: 'true' },
               { label: 'No', value: 'false' },
@@ -149,10 +149,12 @@ export const Admin = (): ReactElement => {
             {...register('scalable', { required: true })}
           />
 
+          <hr className="border-t-3 border-drkr-black mt-3 mb-8"/>
+
           <FieldArray
             fields={descriptionFields}
             fieldErrors={errors.descriptions}
-            label="Descriptions *"
+            label="Descriptions"
             fieldName="descriptions"
             fieldKey="paragraph"
             appendFunction={appendParagraph}
@@ -162,11 +164,12 @@ export const Admin = (): ReactElement => {
             inputOrTextarea="textarea"
           />
 
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
+
           <FieldArray
             fields={instructionFields}
             fieldErrors={errors.instructions}
-            label="Instructions *"
-            passThruLabelClassName="mt-6"
+            label="Instructions"
             fieldName="instructions"
             fieldKey="step"
             appendFunction={appendStep}
@@ -176,35 +179,42 @@ export const Admin = (): ReactElement => {
             inputOrTextarea="textarea"
           />
 
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
 
 
 
-        {ingredientGroupingsFields.map((field, index) => (
+          {ingredientGroupingsFields.map((field, index) => (
             <Fragment key={field.id}>
-              <Input
-                id={`ingredientGroupings-${index}`}
-                label={index === 0 && 'Ingredient Groupings *'}
-                // error={errors.ingredientGroupings?.[index]?.paragraph}
-                labelClassName="mt-6"
-                iconWrapperClassName={index !== 0 && 'mt-2'}
-                icon={
+              <div 
+                className="flex flex-row flex-nowrap items-start"
+              >
+                <div className="w-full">
+                  <Input
+                    id={`ingredientGroupings-${index}`}
+                    label={index === 0 && 'Ingredient Grouping'}
+                    // error={errors.ingredientGroupings?.[index]?.paragraph}
+                    {...register(`ingredientGroupings.${index}.groupingName` as const)}
+                  />
+                </div>
+                {
                   index !== 0 && (
                     <button
                       type="button"
-                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
+                      className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer"
                       onClick={() => removeGrouping(index)}
                     >
-                      <PlainX className="sq-8" />
+                      <PlainX/>
                     </button>
                   )
                 }
-                {...register(`ingredientGroupings.${index}.groupingName` as const)}
-              />
-              <IngredientFieldArray
-                nestIndex={index}
-                control={control}
-                register={register}
-              />
+              </div>
+              <div>
+                <IngredientFieldArray
+                  nestIndex={index}
+                  control={control}
+                  register={register}
+                />
+              </div>
             </Fragment>
           ))}
           <Button
@@ -212,6 +222,9 @@ export const Admin = (): ReactElement => {
             onClick={() => appendGrouping({})}
             className="focus-visible:bg-drkr-black"
           />
+
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
+
        
 
 

@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement } from 'react'
+import { forwardRef } from 'react'
 
 import { FieldError } from 'react-hook-form'
 
@@ -8,9 +8,7 @@ interface InputProps {
   error?: FieldError
   className?: string
   labelClassName?: string
-  iconWrapperClassName?: string
   errorClassName?: string
-  icon?: ReactElement
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -19,10 +17,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       label,
       error,
       id,
-      icon,
       className,
       labelClassName,
-      iconWrapperClassName,
       errorClassName,
       ...rest // used to pass the "name", "onChange", "onBlur", "ref" from react-hook-form "register" as well as any other native HTML props I forgot about
     }: InputProps,
@@ -35,21 +31,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        <div
-          className={`flex flex-row flex-nowrap items-start ${iconWrapperClassName}`}
-        >
-          <input
-            id={id}
-            ref={ref}
-            autoComplete="off"
-            spellCheck="false"
-            className={`drkr-input-focus border-2 h-10 px-2 body-font w-full ${
-              error ? 'border-drkr-green' : 'border-drkr-mid-gray'
-            } ${className}`}
-            {...rest}
-          />
-          {icon && icon}
-        </div>
+        <input
+          id={id}
+          ref={ref}
+          autoComplete="off"
+          spellCheck="false"
+          className={`drkr-input-focus border-2 h-10 px-2 body-font w-full ${
+            error ? 'border-drkr-green' : 'border-drkr-mid-gray'
+          } ${className}`}
+          {...rest}
+        />
         <div className={`drkr-error ${errorClassName}`}>
           {error && error.message}
         </div>

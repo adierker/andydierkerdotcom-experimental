@@ -39,33 +39,39 @@ export const FieldArray = (
     return (
       <>
         {fields.map((field, index) => (
-            <Fragment key={field.id}>
+          <div 
+            key={field.id}
+            className="flex flex-row flex-nowrap items-start"
+          >
+            <div className="w-full">
               <Component
                 id={`${fieldName}-${index}`}
+                className={index !== 0 && 'mt-2'}
                 label={index === 0 && label}
                 labelClassName={passThruLabelClassName || ''}
                 error={fieldErrors?.[index]?.[fieldKey]}
-                iconWrapperClassName={index !== 0 && 'mt-2'}
-                icon={
-                  index !== 0 && (
-                    <button
-                      type="button"
-                      className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
-                      onClick={() => removeFunction(index)}
-                    >
-                      <PlainX className="sq-8" />
-                    </button>
-                  )
-                }
+                // iconWrapperClassName={index !== 0 && 'mt-2'}
                 {...register(`${fieldName}.${index}.${fieldKey}` as const)}
               />
-            </Fragment>
-          ))}
-          <Button
-            text={buttonLabel}
-            onClick={() => appendFunction({})}
-            className="focus-visible:bg-drkr-black"
-          />
+            </div>
+            {
+              index !== 0 && (
+                <button
+                  type="button"
+                  className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer"
+                  onClick={() => removeFunction(index)}
+                >
+                  <PlainX/>
+                </button>
+              )
+            }
+          </div>
+        ))}
+        <Button
+          text={buttonLabel}
+          onClick={() => appendFunction({})}
+          className="focus-visible:bg-drkr-black mt-1"
+        />
       </>
     )
   }
