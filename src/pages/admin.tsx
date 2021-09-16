@@ -4,7 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { PageWrapper, Input, Radio, Button, FieldArray, IngredientFieldArray } from 'components'
+import {
+  PageWrapper,
+  Input,
+  Radio,
+  Button,
+  FieldArray,
+  IngredientFieldArray,
+} from 'components'
 import { REGEX } from 'consts'
 import { PlainX } from 'icons'
 
@@ -32,14 +39,19 @@ const formSchema = yup.object().shape({
   // this looks correct to me, eventually
   ingredientGroupings: yup.array().of(
     yup.object().shape({
-      groupingName: yup.string().required(`Ingredient grouping name is required.`),
+      groupingName: yup
+        .string()
+        .required(`Any visible Ingredient Grouping field is required.`),
       ingredients: yup.array().of(
         yup.object().shape({
-          num: yup.string().matches(REGEX.NUMBERS_AND_DECIMALS, `Must be a number.`),
+          num: yup.string().matches(REGEX.NUMBERS_AND_DECIMALS, {
+            message: `Must be a number.`,
+            excludeEmptyString: true, //allows an empty string (aka this value is not required, but if a value is entered, must be number or decimal)
+          }),
           unit: yup.string(),
-          ingredient: yup.string().required(`Ingredient is required.`)
+          ingredient: yup.string().required(`Ingredient is required.`),
         })
-      )
+      ),
     })
   ),
   instructions: yup.array().of(
@@ -72,7 +84,6 @@ export const Admin = (): ReactElement => {
     name: 'descriptions',
   })
 
-  // this is completely unimplemented so far
   const {
     fields: ingredientGroupingsFields,
     append: appendGrouping,
@@ -80,16 +91,6 @@ export const Admin = (): ReactElement => {
   } = useFieldArray({
     control,
     name: 'ingredientGroupings',
-  })
-
-  // this will need to move to a sub-component, like this: https://codesandbox.io/s/react-hook-form-usefieldarray-nested-arrays-x7btr
-  const {
-    fields: ingredientsFields,
-    append: appendIngredient,
-    remove: removeIngredient,
-  } = useFieldArray({
-    control,
-    name: 'ingredients',
   })
 
   const {
@@ -149,7 +150,7 @@ export const Admin = (): ReactElement => {
             {...register('scalable', { required: true })}
           />
 
-          <hr className="border-t-3 border-drkr-black mt-3 mb-8"/>
+          <hr className="border-t-3 border-drkr-black mt-3 mb-8" />
 
           <FieldArray
             fields={descriptionFields}
@@ -164,7 +165,7 @@ export const Admin = (): ReactElement => {
             inputOrTextarea="textarea"
           />
 
-          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
 
           <FieldArray
             fields={instructionFields}
@@ -179,40 +180,37 @@ export const Admin = (): ReactElement => {
             inputOrTextarea="textarea"
           />
 
-          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
-
-
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
 
           {ingredientGroupingsFields.map((field, index) => (
             <Fragment key={field.id}>
-              <div 
-                className="flex flex-row flex-nowrap items-start"
-              >
+              <div className="flex flex-row flex-nowrap items-start">
                 <div className="w-full">
                   <Input
                     id={`ingredientGroupings-${index}`}
                     label={'Ingredient Grouping'}
-                    // error={errors.ingredientGroupings?.[index]?.paragraph}
-                    {...register(`ingredientGroupings.${index}.groupingName` as const)}
+                    error={errors.ingredientGroupings?.[index]?.groupingName}
+                    {...register(
+                      `ingredientGroupings.${index}.groupingName` as const
+                    )}
                   />
                 </div>
-                {
-                  index !== 0 && (
-                    <button
-                      type="button"
-                      className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer self-center"
-                      onClick={() => removeGrouping(index)}
-                    >
-                      <PlainX/>
-                    </button>
-                  )
-                }
+                {index !== 0 && (
+                  <button
+                    type="button"
+                    className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer self-center"
+                    onClick={() => removeGrouping(index)}
+                  >
+                    <PlainX />
+                  </button>
+                )}
               </div>
               <div>
                 <IngredientFieldArray
                   nestIndex={index}
                   control={control}
                   register={register}
+                  error={errors.ingredientGroupings?.[index]}
                 />
               </div>
             </Fragment>
@@ -223,10 +221,7 @@ export const Admin = (): ReactElement => {
             className="focus-visible:bg-drkr-black"
           />
 
-          <hr className="border-t-3 border-drkr-black mt-9 mb-8"/>
-
-       
-
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
 
           <Button
             type="submit"

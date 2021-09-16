@@ -1,22 +1,23 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, ReactElement } from 'react'
 
 import { useFieldArray, FieldError } from 'react-hook-form'
 
-import {Button, Input, Textarea} from 'components'
-import {PlainX} from 'icons'
-
+import { Button, Input, Textarea } from 'components'
+import { PlainX } from 'icons'
 
 interface IngredientFieldArrayProps {
   nestIndex: number
   control: any
   register: any
+  error: any
 }
 
 export const IngredientFieldArray = ({
+  error,
   nestIndex,
   control,
-  register
-}: IngredientFieldArrayProps) => {
+  register,
+}: IngredientFieldArrayProps): ReactElement => {
   const {
     fields: ingredientFields,
     append: appendIngredient,
@@ -32,29 +33,30 @@ export const IngredientFieldArray = ({
     }
   }, [])
 
-  // this is all still a mess and isn't working at all
   return (
     <div className="">
       {ingredientFields.map((field, index) => (
         <div key={field.id}>
-
           <div className="flex flex-row">
             <div className="flex-1">
               <div className="flex flex-row">
                 <div className="ml-8 flex-1">
                   <Input
                     id={`num-${index}`}
+                    error={error?.ingredients?.[index]?.num}
                     label="Num"
-                    hideErrorSection={true}
-                    {...register(`ingredientGroupings.${nestIndex}.ingredients.${index}.num` as const)}
+                    {...register(
+                      `ingredientGroupings.${nestIndex}.ingredients.${index}.num` as const
+                    )}
                   />
                 </div>
                 <div className="flex-1 ml-2">
                   <Input
                     id={`unit-${index}`}
                     label="Unit"
-                    hideErrorSection={true}
-                    {...register(`ingredientGroupings.${nestIndex}.ingredients.${index}.unit` as const)}
+                    {...register(
+                      `ingredientGroupings.${nestIndex}.ingredients.${index}.unit` as const
+                    )}
                   />
                 </div>
               </div>
@@ -64,33 +66,39 @@ export const IngredientFieldArray = ({
                     id={`ingredient-${index}`}
                     label="Ingredient"
                     labelClassName="mt-2"
-                    // error={fieldErrors?.[index]?.[fieldKey]}
-                    // iconWrapperClassName={index !== 0 && 'mt-2'}
-                    {...register(`ingredientGroupings.${nestIndex}.ingredients.${index}.ingredient` as const)}
+                    error={error?.ingredients?.[index]?.ingredient}
+                    {...register(
+                      `ingredientGroupings.${nestIndex}.ingredients.${index}.ingredient` as const
+                    )}
                   />
                 </div>
               </div>
             </div>
-            <div className="flex items-center">
-              <button
-                type="button"
-                className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
-                onClick={() => removeIngredient(index)}
-              >
-                <PlainX/>
-              </button>
-            </div>
+            {index !== 0 && (
+              <div className="flex items-center">
+                <button
+                  type="button"
+                  className="ml-3 text-center drkr-focus text-drkr-hover cursor-pointer"
+                  onClick={() => removeIngredient(index)}
+                >
+                  <PlainX />
+                </button>
+              </div>
+            )}
           </div>
 
-
-          {ingredientFields.length > 1 && <hr className="border-t-3 border-drkr-mid-gray mx-8 mt-3 mb-8"/>}
+          {ingredientFields.length > 1 && (
+            <hr className="border-t-3 border-drkr-mid-gray mx-8 mt-3 mb-8" />
+          )}
         </div>
       ))}
       <div className="flex">
         <Button
           text="Add Ingredient"
           onClick={() => appendIngredient({})}
-          className="focus-visible:bg-drkr-black block ml-auto mr-8 mb-6"
+          className={`focus-visible:bg-drkr-black block ml-auto mb-6 mt-1 ${
+            ingredientFields.length > 1 ? 'mr-8' : ''
+          }`}
         />
       </div>
     </div>

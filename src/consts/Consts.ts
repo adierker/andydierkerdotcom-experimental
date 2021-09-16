@@ -38,6 +38,7 @@ export const COLLECTIONS = {
 }
 
 export const REGEX = {
+  EMPTY_STRING: /^$/,
   NUMBERS_AND_DECIMALS: /^[0-9]\d*(\.\d+)?$/,
   LOWERCASE_AND_NUMBERS_AND_DASHES: /^([a-z0-9-]+)$/,
   URL: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,
