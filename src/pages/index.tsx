@@ -2,9 +2,10 @@ import { ReactElement } from 'react'
 
 import { GetStaticPropsResult } from 'next'
 
-import { HomePage, PageWrapper } from 'components'
+import { PageWrapper } from 'components'
 import { COLLECTIONS } from 'consts'
 import { ModalContextProvider } from 'contexts'
+import { HomePage } from 'page'
 import { getDocumentFromFirestore, getCollectionFromFirestore } from 'services'
 import { HomePageContent, ModalsContent } from 'types'
 import { convertContentToGetStaticPropsResult } from 'utils'

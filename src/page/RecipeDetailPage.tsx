@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 
-import { ServingsForm, ExternalLink } from 'components'
+import { ExternalLink } from 'components'
+import { ServingsForm } from 'forms'
 import { useServings } from 'hooks'
 import { RecipeContent, IngredientGrouping, Ingredient } from 'types'
 
