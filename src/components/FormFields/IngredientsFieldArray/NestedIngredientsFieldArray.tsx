@@ -1,23 +1,29 @@
-import { Fragment, useEffect, ReactElement } from 'react'
+import { useEffect, ReactElement } from 'react'
 
-import { useFieldArray, FieldError } from 'react-hook-form'
+import {
+  useFieldArray,
+  FieldErrors,
+  UseFormRegister,
+  FieldValues,
+  Control,
+} from 'react-hook-form'
 
-import { Button, Input, Textarea } from 'components'
+import { Button, Input } from 'components'
 import { PlainX } from 'icons'
 
-interface IngredientFieldArrayProps {
+interface NestedIngredientsFieldArrayProps {
   nestIndex: number
-  control: any
-  register: any
-  error: any
+  control: Control
+  register: UseFormRegister<FieldValues>
+  fieldErrors: FieldErrors
 }
 
-export const IngredientFieldArray = ({
-  error,
+export const NestedIngredientsFieldArray = ({
+  fieldErrors,
   nestIndex,
   control,
   register,
-}: IngredientFieldArrayProps): ReactElement => {
+}: NestedIngredientsFieldArrayProps): ReactElement => {
   const {
     fields: ingredientFields,
     append: appendIngredient,
@@ -43,7 +49,7 @@ export const IngredientFieldArray = ({
                 <div className="ml-8 flex-1">
                   <Input
                     id={`num-${index}`}
-                    error={error?.ingredients?.[index]?.num}
+                    error={fieldErrors?.ingredients?.[index]?.num}
                     label="Num"
                     {...register(
                       `ingredientGroupings.${nestIndex}.ingredients.${index}.num` as const
@@ -66,7 +72,7 @@ export const IngredientFieldArray = ({
                     id={`ingredient-${index}`}
                     label="Ingredient"
                     labelClassName="mt-2"
-                    error={error?.ingredients?.[index]?.ingredient}
+                    error={fieldErrors?.ingredients?.[index]?.ingredient}
                     {...register(
                       `ingredientGroupings.${nestIndex}.ingredients.${index}.ingredient` as const
                     )}

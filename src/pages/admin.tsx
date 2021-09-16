@@ -1,4 +1,4 @@
-import { ReactElement, Fragment, useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
@@ -10,10 +10,9 @@ import {
   Radio,
   Button,
   FieldArray,
-  IngredientFieldArray,
+  IngredientsFieldArray,
 } from 'components'
 import { REGEX } from 'consts'
-import { PlainX } from 'icons'
 
 const formSchema = yup.object().shape({
   name: yup.string().required(`Name is required.`),
@@ -36,7 +35,6 @@ const formSchema = yup.object().shape({
         .required(`Any visible Description field is required.`),
     })
   ),
-  // this looks correct to me, eventually
   ingredientGroupings: yup.array().of(
     yup.object().shape({
       groupingName: yup
@@ -65,7 +63,7 @@ export const Admin = (): ReactElement => {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     control,
     formState: { errors },
   } = useForm({
@@ -73,7 +71,7 @@ export const Admin = (): ReactElement => {
   })
   const onSubmit = (data) => console.log(data)
 
-  console.log(watch(['ingredientGroupings']))
+  // console.log(watch(['ingredientGroupings']))
 
   const {
     fields: descriptionFields,
@@ -154,7 +152,7 @@ export const Admin = (): ReactElement => {
 
           <FieldArray
             fields={descriptionFields}
-            fieldErrors={errors.descriptions}
+            fieldError={errors.descriptions}
             label="Descriptions"
             fieldName="descriptions"
             fieldKey="paragraph"
@@ -169,7 +167,7 @@ export const Admin = (): ReactElement => {
 
           <FieldArray
             fields={instructionFields}
-            fieldErrors={errors.instructions}
+            fieldError={errors.instructions}
             label="Instructions"
             fieldName="instructions"
             fieldKey="step"
@@ -182,43 +180,13 @@ export const Admin = (): ReactElement => {
 
           <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
 
-          {ingredientGroupingsFields.map((field, index) => (
-            <Fragment key={field.id}>
-              <div className="flex flex-row flex-nowrap items-start">
-                <div className="w-full">
-                  <Input
-                    id={`ingredientGroupings-${index}`}
-                    label={'Ingredient Grouping'}
-                    error={errors.ingredientGroupings?.[index]?.groupingName}
-                    {...register(
-                      `ingredientGroupings.${index}.groupingName` as const
-                    )}
-                  />
-                </div>
-                {index !== 0 && (
-                  <button
-                    type="button"
-                    className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer self-center"
-                    onClick={() => removeGrouping(index)}
-                  >
-                    <PlainX />
-                  </button>
-                )}
-              </div>
-              <div>
-                <IngredientFieldArray
-                  nestIndex={index}
-                  control={control}
-                  register={register}
-                  error={errors.ingredientGroupings?.[index]}
-                />
-              </div>
-            </Fragment>
-          ))}
-          <Button
-            text="Add Grouping"
-            onClick={() => appendGrouping({})}
-            className="focus-visible:bg-drkr-black"
+          <IngredientsFieldArray
+            ingredientGroupingsFields={ingredientGroupingsFields}
+            register={register}
+            control={control}
+            fieldErrors={errors.ingredientGroupings}
+            appendGrouping={appendGrouping}
+            removeGrouping={removeGrouping}
           />
 
           <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
