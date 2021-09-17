@@ -25,6 +25,7 @@ interface FieldArrayProps {
   register: UseFormRegister<FieldValues>
   passThruLabelClassName?: string
   inputOrTextarea: 'input' | 'textarea'
+  firstIsRemovable?: boolean
 }
 
 export const FieldArray = ({
@@ -39,6 +40,7 @@ export const FieldArray = ({
   register,
   passThruLabelClassName, // used to add extra spacing
   inputOrTextarea,
+  firstIsRemovable = false,
 }: FieldArrayProps): ReactElement => {
   const Component = inputOrTextarea === 'input' ? Input : Textarea
   return (
@@ -55,10 +57,12 @@ export const FieldArray = ({
               {...register(`${fieldName}.${index}.${fieldKey}` as const)}
             />
           </div>
-          {index !== 0 && (
+          {(index !== 0 || firstIsRemovable) && (
             <button
               type="button"
-              className="ml-2 mt-2 text-center drkr-focus text-drkr-hover cursor-pointer"
+              className={`ml-2 text-center drkr-focus text-drkr-hover cursor-pointer ${
+                index === 0 ? 'mt-8' : 'mt-2'
+              }`}
               onClick={() => removeFunction(index)}
             >
               <PlainX />

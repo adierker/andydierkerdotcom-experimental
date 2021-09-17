@@ -12,10 +12,10 @@ export interface IngredientGrouping {
 export interface RecipeContent {
   name: string
   path: string
-  descriptions: string[]
   url: string
-  isScalable: boolean
   defaultServings: number
+  isScalable: boolean
+  descriptions: string[]
   ingredients: IngredientGrouping[]
   instructions: string[]
   notes?: string[]

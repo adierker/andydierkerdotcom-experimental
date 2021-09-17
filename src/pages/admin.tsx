@@ -27,6 +27,10 @@ const formSchema = yup.object().shape({
     .string()
     .required(`URL is required.`)
     .matches(REGEX.URL, `Must be a valid URL.`),
+  defaultServings: yup
+    .string()
+    .required(`Default servings is required.`)
+    .matches(REGEX.NUMBERS, 'Must be a number.'),
   scalable: yup.string().required(`Scalability is required.`).nullable(true),
   descriptions: yup.array().of(
     yup.object().shape({
@@ -57,21 +61,23 @@ const formSchema = yup.object().shape({
       step: yup.string().required(`Any visible Instruction field is required.`),
     })
   ),
+  notes: yup.array().of(
+    yup.object().shape({
+      note: yup.string(),
+    })
+  ),
 })
 
 export const Admin = (): ReactElement => {
   const {
     register,
     handleSubmit,
-    // watch,
     control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
   })
   const onSubmit = (data) => console.log(data)
-
-  // console.log(watch(['ingredientGroupings']))
 
   const {
     fields: descriptionFields,
@@ -98,6 +104,15 @@ export const Admin = (): ReactElement => {
   } = useFieldArray({
     control,
     name: 'instructions',
+  })
+
+  const {
+    fields: noteFields,
+    append: appendNote,
+    remove: removeNote,
+  } = useFieldArray({
+    control,
+    name: 'notes',
   })
 
   useEffect(() => {
@@ -137,17 +152,6 @@ export const Admin = (): ReactElement => {
             {...register('url')}
           />
 
-          <Radio
-            id="scalable"
-            label="Scalable?"
-            options={[
-              { label: 'Yes', value: 'true' },
-              { label: 'No', value: 'false' },
-            ]}
-            error={errors.scalable}
-            {...register('scalable', { required: true })}
-          />
-
           <hr className="border-t-3 border-drkr-black mt-3 mb-8" />
 
           <FieldArray
@@ -161,6 +165,37 @@ export const Admin = (): ReactElement => {
             buttonLabel="Add Paragraph"
             register={register}
             inputOrTextarea="textarea"
+          />
+
+          <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
+
+          <Input
+            id="defaultServings"
+            label="Default servings"
+            error={errors.defaultServings}
+            {...register('defaultServings')}
+          />
+
+          <Radio
+            id="scalable"
+            label="Scalable?"
+            options={[
+              { label: 'Yes', value: 'true' },
+              { label: 'No', value: 'false' },
+            ]}
+            error={errors.scalable}
+            {...register('scalable', { required: true })}
+          />
+
+          <hr className="border-t-3 border-drkr-black mt-3 mb-8" />
+
+          <IngredientsFieldArray
+            ingredientGroupingsFields={ingredientGroupingsFields}
+            register={register}
+            control={control}
+            fieldErrors={errors.ingredientGroupings}
+            appendGrouping={appendGrouping}
+            removeGrouping={removeGrouping}
           />
 
           <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
@@ -180,13 +215,18 @@ export const Admin = (): ReactElement => {
 
           <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
 
-          <IngredientsFieldArray
-            ingredientGroupingsFields={ingredientGroupingsFields}
+          <FieldArray
+            fields={noteFields}
+            fieldError={errors.notes}
+            label="Notes"
+            fieldName="notes"
+            fieldKey="note"
+            appendFunction={appendNote}
+            removeFunction={removeNote}
+            buttonLabel="Add Note"
             register={register}
-            control={control}
-            fieldErrors={errors.ingredientGroupings}
-            appendGrouping={appendGrouping}
-            removeGrouping={removeGrouping}
+            inputOrTextarea="textarea"
+            firstIsRemovable={true}
           />
 
           <hr className="border-t-3 border-drkr-black mt-9 mb-8" />
