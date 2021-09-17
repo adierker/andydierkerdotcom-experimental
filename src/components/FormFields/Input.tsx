@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <div className={`drkr-error ${errorClassName}`}>
             {error && error.message}
           </div>
-        ) }
+        )}
       </>
     )
   }

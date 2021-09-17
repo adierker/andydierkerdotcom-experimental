@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, useFieldArray } from 'react-hook-form'
@@ -69,10 +69,14 @@ const formSchema = yup.object().shape({
 })
 
 export const Admin = (): ReactElement => {
+  const [componentHasFinishedInit, setComponentHasFinishedInit] = useState<
+    boolean | null
+  >(null)
   const {
     register,
     handleSubmit,
     control,
+    setFocus,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
@@ -125,7 +129,18 @@ export const Admin = (): ReactElement => {
     if (ingredientGroupingsFields.length < 1) {
       appendGrouping({})
     }
-  }, [])
+    setComponentHasFinishedInit(false)
+  }, [appendParagraph, appendStep, appendGrouping, setComponentHasFinishedInit])
+
+  // componentHasFinishedInit will start as null, then the appendParagraph/appendStep/appendGrouping
+  // useEffect above will set it to false, which will trigger this useEffect,
+  // and will set the focus to the first input on the page
+  useEffect(() => {
+    if (componentHasFinishedInit === false) {
+      setFocus('name')
+      setComponentHasFinishedInit(true)
+    }
+  }, [componentHasFinishedInit, setComponentHasFinishedInit])
 
   return (
     <PageWrapper pageTitle="andydierker.com | admin" hasHeader={true}>
