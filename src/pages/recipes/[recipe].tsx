@@ -7,9 +7,8 @@ import {
   GetStaticPropsResult,
 } from 'next'
 
-import { PageWrapper } from 'components'
+import { PageWrapper, RecipeDetailPage } from 'components'
 import { SITEPATHS, COLLECTIONS } from 'consts'
-import { RecipeDetailPage } from 'page'
 import { getCollectionFromFirestore, getDocumentFromFirestore } from 'services'
 import { RecipeContent, RecipeListContent } from 'types'
 import {

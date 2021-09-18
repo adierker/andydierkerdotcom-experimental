@@ -2,9 +2,8 @@ import { ReactElement } from 'react'
 
 import { GetStaticPropsResult } from 'next'
 
-import { PageWrapper } from 'components'
+import { PageWrapper, RecipeListPage } from 'components'
 import { COLLECTIONS } from 'consts'
-import { RecipeListPage } from 'page'
 import { getDocumentFromFirestore, getCollectionFromFirestore } from 'services'
 import {
   RecipeListPageContent,
