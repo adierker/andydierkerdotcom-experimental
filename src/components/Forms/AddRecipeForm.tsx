@@ -10,7 +10,11 @@ import {
   FieldArray,
   IngredientsFieldArray,
 } from 'components'
+import { useModalContext } from 'contexts'
 import { ADD_RECIPE_FORM_RESOLVER } from 'resolvers'
+import { RecipeContent } from 'types'
+
+// const validateData = (data) => {}
 
 export const AddRecipeForm = (): ReactElement => {
   const [componentHasFinishedInit, setComponentHasFinishedInit] = useState<
@@ -26,8 +30,6 @@ export const AddRecipeForm = (): ReactElement => {
   } = useForm({
     resolver: yupResolver(ADD_RECIPE_FORM_RESOLVER),
   })
-
-  const onSubmit = (data) => console.log(data)
 
   const {
     fields: descriptionFields,
@@ -87,6 +89,72 @@ export const AddRecipeForm = (): ReactElement => {
       setComponentHasFinishedInit(true)
     }
   }, [componentHasFinishedInit, setComponentHasFinishedInit])
+
+  const { openModal } = useModalContext()
+
+  const onSubmit = (data) => {
+    const {
+      name,
+      path,
+      url,
+      defaultServings: defaultServingsAsString,
+      isScalable: isScalableAsString,
+      descriptions: descriptionsNestedInParagraphs,
+      ingredientGroupings: formGroupings,
+      instructions: instructionsNestedInSteps,
+      notes,
+    } = data
+
+    console.log('formGroupings:', formGroupings)
+
+    // convert defaultServings to a number (from a string)
+    const defaultServings = parseInt(defaultServingsAsString, 10)
+    // convert isScalable to an actual boolean (from a string)
+    const isScalable = isScalableAsString === 'true' ? true : false
+    // convert descriptions to a flat array of strings (from array of objects)
+    const descriptions = descriptionsNestedInParagraphs.map((obj) => {
+      return obj.paragraph
+    })
+    // convert ingredients to IngredientGrouping[] from a very different shape
+    const ingredients = formGroupings.map((grouping) => {
+      const items = grouping.ingredients.map(({ num, unit, ingredient }) => {
+        let parsedNum
+        // convert the num field to a float (from a string) if it was included
+        if (num) {
+          parsedNum = parseFloat(parseFloat(num).toFixed(2))
+        }
+        // num and unit can be undefined, but ingredient is required and is a string
+        return {
+          num: parsedNum || undefined, // if its 0, make it undefined
+          unit: unit || undefined, // if its empty string, make it undefined,
+          ingredient,
+        }
+      })
+      // return each grouping as a name and a list of items
+      return {
+        name: grouping?.groupingName || null,
+        items,
+      }
+    })
+    // convert instructions to a flat array of strings (from array of objects)
+    const instructions = instructionsNestedInSteps.map((obj) => {
+      return obj.step
+    })
+
+    const recipe: RecipeContent = {
+      name,
+      path,
+      url,
+      defaultServings,
+      isScalable,
+      descriptions,
+      ingredients,
+      instructions,
+      notes,
+    }
+
+    console.log('recipe:', JSON.stringify(recipe, undefined, 2))
+  }
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
