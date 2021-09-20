@@ -1,3 +1,4 @@
+export * from 'types/ApiTypes'
 export * from 'types/PageContentTypes'
 export * from 'types/ButtonTypes'
 export * from 'types/NavigationTypes'

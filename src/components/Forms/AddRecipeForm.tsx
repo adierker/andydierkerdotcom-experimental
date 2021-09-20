@@ -11,7 +11,9 @@ import {
   IngredientsFieldArray,
 } from 'components'
 import { useModalContext } from 'contexts'
-import { ADD_RECIPE_FORM_RESOLVER } from 'resolvers'
+import { addRecipeFormSchema } from 'schemas'
+import { postRecipeContentToApi } from 'services'
+import { transformAddRecipeFormDataToRecipeContent } from 'transformers'
 import { RecipeContent } from 'types'
 
 // const validateData = (data) => {}
@@ -28,7 +30,7 @@ export const AddRecipeForm = (): ReactElement => {
     setFocus,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(ADD_RECIPE_FORM_RESOLVER),
+    resolver: yupResolver(addRecipeFormSchema),
   })
 
   const {
@@ -92,68 +94,18 @@ export const AddRecipeForm = (): ReactElement => {
 
   const { openModal } = useModalContext()
 
-  const onSubmit = (data) => {
-    const {
-      name,
-      path,
-      url,
-      defaultServings: defaultServingsAsString,
-      isScalable: isScalableAsString,
-      descriptions: descriptionsNestedInParagraphs,
-      ingredientGroupings: formGroupings,
-      instructions: instructionsNestedInSteps,
-      notes,
-    } = data
+  const onSubmit = async (formData) => {
+    const recipe: RecipeContent =
+      transformAddRecipeFormDataToRecipeContent(formData)
 
-    console.log('formGroupings:', formGroupings)
+    const response = await postRecipeContentToApi(recipe)
 
-    // convert defaultServings to a number (from a string)
-    const defaultServings = parseInt(defaultServingsAsString, 10)
-    // convert isScalable to an actual boolean (from a string)
-    const isScalable = isScalableAsString === 'true' ? true : false
-    // convert descriptions to a flat array of strings (from array of objects)
-    const descriptions = descriptionsNestedInParagraphs.map((obj) => {
-      return obj.paragraph
-    })
-    // convert ingredients to IngredientGrouping[] from a very different shape
-    const ingredients = formGroupings.map((grouping) => {
-      const items = grouping.ingredients.map(({ num, unit, ingredient }) => {
-        let parsedNum
-        // convert the num field to a float (from a string) if it was included
-        if (num) {
-          parsedNum = parseFloat(parseFloat(num).toFixed(2))
-        }
-        // num and unit can be undefined, but ingredient is required and is a string
-        return {
-          num: parsedNum || undefined, // if its 0, make it undefined
-          unit: unit || undefined, // if its empty string, make it undefined,
-          ingredient,
-        }
-      })
-      // return each grouping as a name and a list of items
-      return {
-        name: grouping?.groupingName || null,
-        items,
-      }
-    })
-    // convert instructions to a flat array of strings (from array of objects)
-    const instructions = instructionsNestedInSteps.map((obj) => {
-      return obj.step
-    })
-
-    const recipe: RecipeContent = {
-      name,
-      path,
-      url,
-      defaultServings,
-      isScalable,
-      descriptions,
-      ingredients,
-      instructions,
-      notes,
+    if (response?.ok) {
+      openModal('addRecipeSuccess')
+    } else {
+      openModal('addRecipeFailure')
+      console.error('Add recipe failed.', response)
     }
-
-    console.log('recipe:', JSON.stringify(recipe, undefined, 2))
   }
 
   return (
@@ -204,14 +156,14 @@ export const AddRecipeForm = (): ReactElement => {
       />
 
       <Radio
-        id="scalable"
+        id="isScalable"
         label="Scalable?"
         options={[
           { label: 'Yes', value: 'true' },
           { label: 'No', value: 'false' },
         ]}
-        error={errors.scalable}
-        {...register('scalable', { required: true })}
+        error={errors.isScalable}
+        {...register('isScalable', { required: true })}
       />
 
       <hr className="border-t-3 border-drkr-black mt-3 mb-8" />

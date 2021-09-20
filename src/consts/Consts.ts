@@ -28,6 +28,7 @@ export const SITEPATHS = {
 
 export const ENDPOINTS = {
   RECIPES: 'api/recipes',
+  ADD_RECIPE: 'api/add-recipe',
 }
 
 // firestore database collections

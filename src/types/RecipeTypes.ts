@@ -1,3 +1,7 @@
+import type { Asserts } from 'yup'
+
+import { addRecipeFormSchema } from 'schemas'
+
 export interface Ingredient {
   num?: number
   unit?: string
@@ -22,3 +26,28 @@ export interface RecipeContent {
 }
 
 export type RecipeListContent = RecipeContent[]
+
+export interface AddRecipeFormType {
+  name: string
+  path: string
+  url: string
+  defaultServings: string
+  isScalable: string
+  descriptions: {
+    paragraph: string
+  }[]
+  ingredientGroupings: {
+    groupingName: string
+    ingredients?: {
+      num?: string
+      unit?: string
+      ingredient: string
+    }[]
+  }[]
+  instructions: {
+    step: string
+  }[]
+  notes?: {
+    note: string
+  }[]
+}
