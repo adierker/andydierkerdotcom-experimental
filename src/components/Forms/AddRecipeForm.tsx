@@ -10,13 +10,12 @@ import {
   FieldArray,
   IngredientsFieldArray,
 } from 'components'
+import { ADD_RECIPE_MODALS } from 'content'
 import { useModalContext } from 'contexts'
 import { addRecipeFormSchema } from 'schemas'
 import { postRecipeContentToApi } from 'services'
 import { transformAddRecipeFormDataToRecipeContent } from 'transformers'
 import { ApiResponse, RecipeContent } from 'types'
-
-// const validateData = (data) => {}
 
 export const AddRecipeForm = (): ReactElement => {
   const [componentHasFinishedInit, setComponentHasFinishedInit] = useState<
@@ -93,35 +92,22 @@ export const AddRecipeForm = (): ReactElement => {
     }
   }, [componentHasFinishedInit, setComponentHasFinishedInit])
 
-  const resetThisForm = () => {
+  const resetThisForm = (): void => {
     reset()
     appendParagraph({})
     appendStep({})
     appendGrouping({})
   }
 
-  const { openModal, closeModal } = useModalContext()
+  const { openCustomModal, closeModal } = useModalContext()
 
-  const submitRecipeToApi = async (recipe: RecipeContent) => {
+  const submitRecipeToApi = async (recipe: RecipeContent): Promise<void> => {
     const response: ApiResponse = await postRecipeContentToApi(recipe)
 
     if (response?.ok) {
-      openModal('addRecipeSuccess', [
-        {
-          text: 'Nice',
-          onClick: () => {
-            resetThisForm()
-            closeModal()
-          },
-        },
-      ])
+      openCustomModal(ADD_RECIPE_MODALS.success(closeModal, resetThisForm))
     } else {
-      openModal('addRecipeFailure', [
-        {
-          text: 'Oh, okay...',
-          onClick: closeModal,
-        },
-      ])
+      openCustomModal(ADD_RECIPE_MODALS.failure(closeModal))
       console.error('Add recipe failed.', response)
     }
   }
@@ -131,28 +117,13 @@ export const AddRecipeForm = (): ReactElement => {
     try {
       recipe = transformAddRecipeFormDataToRecipeContent(formData)
     } catch (e) {
+      openCustomModal(ADD_RECIPE_MODALS.invalid(closeModal))
       console.error('Add recipe validation failed.', e)
-      openModal('failedValidation', [
-        {
-          text: 'Hmm...',
-          onClick: closeModal,
-        },
-      ])
     }
 
-    openModal('passedValidation', [
-      {
-        text: 'Yes',
-        onClick: () => {
-          closeModal()
-          submitRecipeToApi(recipe)
-        },
-      },
-      {
-        text: 'No, wait',
-        onClick: closeModal,
-      },
-    ])
+    openCustomModal(
+      ADD_RECIPE_MODALS.confirm(closeModal, submitRecipeToApi, recipe)
+    )
   }
 
   return (

@@ -25,7 +25,8 @@ export interface ModalContent {
 
 export type ModalsContent = ModalContent[]
 
-export type OpenModalType = (
+export type OpenCustomModalType = (modalContent: ModalContent) => void
+export type OpenModalByIdType = (
   modalId: string,
   customButtons?: ModalButtonsType[]
 ) => void

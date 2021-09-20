@@ -4,12 +4,18 @@ import { useRouter, NextRouter } from 'next/router'
 
 import { Modal } from 'components'
 import { useModal } from 'hooks'
-import { ModalsContent, OpenModalType, CloseModalType } from 'types'
+import {
+  ModalsContent,
+  OpenCustomModalType,
+  OpenModalByIdType,
+  CloseModalType,
+} from 'types'
 
 const ModalContext = createContext(null)
 
 interface UseModalContextHook {
-  openModal: OpenModalType
+  openCustomModal: OpenCustomModalType
+  openModalById: OpenModalByIdType
   closeModal: CloseModalType
 }
 
@@ -18,18 +24,21 @@ export const useModalContext = (): UseModalContextHook =>
 
 interface ModalContextProviderProps {
   children: ReactElement
-  modalsContent: ModalsContent
+  modalsContent?: ModalsContent
 }
 
 export const ModalContextProvider = ({
   children,
   modalsContent,
 }: ModalContextProviderProps): ReactElement => {
-  const { openModal, closeModal, modalContent } = useModal(modalsContent)
+  const { openCustomModal, openModalById, closeModal, modalContent } =
+    useModal(modalsContent)
   const router: NextRouter = useRouter()
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal, modalContent }}>
+    <ModalContext.Provider
+      value={{ openCustomModal, openModalById, closeModal, modalContent }}
+    >
       {children}
       <Modal
         modalContent={modalContent}

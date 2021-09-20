@@ -12,7 +12,7 @@ export const HomePage = ({
   links,
   socials,
 }: HomePageContent): ReactElement => {
-  const { openModal } = useModalContext()
+  const { openModalById } = useModalContext()
 
   return (
     <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 py-10 sm:py-20 text-drkr-black">
@@ -55,7 +55,7 @@ export const HomePage = ({
           const { type, linkTo } = link.link
           let onClick
           if (type === LINKS.MODAL) {
-            onClick = () => openModal(linkTo)
+            onClick = () => openModalById(linkTo)
           } else if (type === LINKS.EXTERNAL) {
             onClick = () => onClickOpenLink(linkTo, true)
           }
