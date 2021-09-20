@@ -1,16 +1,32 @@
 import { Link } from 'types'
 
-export type OpenModalType = (x: string) => void
-export type CloseModalType = () => void
+interface ButtonTextType {
+  text: string
+}
+
+interface LinkButton extends ButtonTextType {
+  link: Link
+  onClick?: never
+}
+
+interface OnClickButton extends ButtonTextType {
+  link?: never
+  onClick?: () => void
+}
+
+export type ModalButtonsType = LinkButton | OnClickButton
 
 export interface ModalContent {
   id: string
   title: string
   content: string[]
-  buttons: {
-    text: string
-    link: Link
-  }[]
+  buttons: ModalButtonsType[]
 }
 
 export type ModalsContent = ModalContent[]
+
+export type OpenModalType = (
+  modalId: string,
+  customButtons?: ModalButtonsType[]
+) => void
+export type CloseModalType = () => void

@@ -10,22 +10,7 @@ const ADD_RECIPE_MODALS = [
     content: [
       'This recipe passed validation. Are you sure you would like to add this recipe?',
     ],
-    buttons: [
-      {
-        text: 'Add recipe',
-        link: {
-          type: 'some type of submit will go here i guess',
-          linkTo: 'dont know what will go here',
-        },
-      },
-      {
-        text: 'Cancel',
-        link: {
-          type: 'modal',
-          linkTo: 'close',
-        },
-      },
-    ],
+    buttons: null, // buttons will be passed-in via openModal
   },
   {
     id: 'failedValidation',
@@ -34,43 +19,19 @@ const ADD_RECIPE_MODALS = [
       'There is something wrong with the recipe you created.',
       'Go back and check the form.',
     ],
-    buttons: [
-      {
-        text: 'Cancel',
-        link: {
-          type: 'modal',
-          linkTo: 'close',
-        },
-      },
-    ],
+    buttons: null, // buttons will be passed-in via openModal
   },
   {
     id: 'addRecipeSuccess',
     title: 'Recipe added!',
     content: ['Your recipe was added successfully. Good job.'],
-    buttons: [
-      {
-        text: 'Close',
-        link: {
-          type: 'modal',
-          linkTo: 'close',
-        },
-      },
-    ],
+    buttons: null, // buttons will be passed-in via openModal
   },
   {
     id: 'addRecipeFailure',
     title: 'Add recipe failed!',
     content: ['Something got fucked up. What did you do wrong?'],
-    buttons: [
-      {
-        text: 'Close',
-        link: {
-          type: 'modal',
-          linkTo: 'close',
-        },
-      },
-    ],
+    buttons: null, // buttons will be passed-in via openModal
   },
 ]
 

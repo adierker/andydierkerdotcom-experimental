@@ -85,32 +85,43 @@ export const Modal = ({
                   })}
                 </div>
                 <div className="flex flex-col md:flex-row justify-end p-6">
-                  {modalContent.buttons.map(({ text, link }, index) => {
-                    const isLastItem = modalContent.buttons.length === index + 1
-                    const classes = isLastItem
-                      ? ''
-                      : 'mr-0 mb-3 md:mr-3 md:mb-0'
+                  {modalContent.buttons.map(
+                    ({ text, link, onClick: onClickOverride }, index) => {
+                      const isLastItem =
+                        modalContent.buttons.length === index + 1
+                      const classes = isLastItem
+                        ? ''
+                        : 'mr-0 mb-3 md:mr-3 md:mb-0'
 
-                    const { type, linkTo } = link
-                    let onClick
-                    if (type === LINKS.MODAL && linkTo === CLOSEMODAL) {
-                      onClick = closeModal
-                    } else if (type === LINKS.INTERNAL) {
-                      onClick = () => {
-                        closeModal()
-                        router.push(linkTo)
+                      let onClick
+
+                      // if the button has onClick, use it
+                      if (onClickOverride) {
+                        onClick = onClickOverride
+                      } else {
+                        // if there is no onClick, assume it is a Link type
+                        const { type, linkTo } = link
+
+                        if (type === LINKS.MODAL && linkTo === CLOSEMODAL) {
+                          onClick = closeModal
+                        } else if (type === LINKS.INTERNAL) {
+                          onClick = () => {
+                            closeModal()
+                            router.push(linkTo)
+                          }
+                        }
                       }
-                    }
 
-                    return (
-                      <Button
-                        text={text}
-                        onClick={onClick}
-                        className={`${classes} focus-visible:bg-drkr-black`}
-                        key={`button-${index}`}
-                      />
-                    )
-                  })}
+                      return (
+                        <Button
+                          text={text}
+                          onClick={onClick}
+                          className={`${classes} focus-visible:bg-drkr-black`}
+                          key={`button-${index}`}
+                        />
+                      )
+                    }
+                  )}
                 </div>
               </section>
             ) : (

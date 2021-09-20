@@ -14,7 +14,7 @@ import { useModalContext } from 'contexts'
 import { addRecipeFormSchema } from 'schemas'
 import { postRecipeContentToApi } from 'services'
 import { transformAddRecipeFormDataToRecipeContent } from 'transformers'
-import { RecipeContent } from 'types'
+import { ApiResponse, RecipeContent } from 'types'
 
 // const validateData = (data) => {}
 
@@ -28,6 +28,7 @@ export const AddRecipeForm = (): ReactElement => {
     handleSubmit,
     control,
     setFocus,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addRecipeFormSchema),
@@ -92,20 +93,66 @@ export const AddRecipeForm = (): ReactElement => {
     }
   }, [componentHasFinishedInit, setComponentHasFinishedInit])
 
-  const { openModal } = useModalContext()
+  const resetThisForm = () => {
+    reset()
+    appendParagraph({})
+    appendStep({})
+    appendGrouping({})
+  }
 
-  const onSubmit = async (formData) => {
-    const recipe: RecipeContent =
-      transformAddRecipeFormDataToRecipeContent(formData)
+  const { openModal, closeModal } = useModalContext()
 
-    const response = await postRecipeContentToApi(recipe)
+  const submitRecipeToApi = async (recipe: RecipeContent) => {
+    const response: ApiResponse = await postRecipeContentToApi(recipe)
 
     if (response?.ok) {
-      openModal('addRecipeSuccess')
+      openModal('addRecipeSuccess', [
+        {
+          text: 'Nice',
+          onClick: () => {
+            resetThisForm()
+            closeModal()
+          },
+        },
+      ])
     } else {
-      openModal('addRecipeFailure')
+      openModal('addRecipeFailure', [
+        {
+          text: 'Oh, okay...',
+          onClick: closeModal,
+        },
+      ])
       console.error('Add recipe failed.', response)
     }
+  }
+
+  const onSubmit = async (formData) => {
+    let recipe: RecipeContent
+    try {
+      recipe = transformAddRecipeFormDataToRecipeContent(formData)
+    } catch (e) {
+      console.error('Add recipe validation failed.', e)
+      openModal('failedValidation', [
+        {
+          text: 'Hmm...',
+          onClick: closeModal,
+        },
+      ])
+    }
+
+    openModal('passedValidation', [
+      {
+        text: 'Yes',
+        onClick: () => {
+          closeModal()
+          submitRecipeToApi(recipe)
+        },
+      },
+      {
+        text: 'No, wait',
+        onClick: closeModal,
+      },
+    ])
   }
 
   return (

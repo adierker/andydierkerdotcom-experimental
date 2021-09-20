@@ -4,12 +4,13 @@ import { useRouter, NextRouter } from 'next/router'
 
 import { Modal } from 'components'
 import { useModal } from 'hooks'
-import { ModalsContent, OpenModalType } from 'types'
+import { ModalsContent, OpenModalType, CloseModalType } from 'types'
 
 const ModalContext = createContext(null)
 
 interface UseModalContextHook {
   openModal: OpenModalType
+  closeModal: CloseModalType
 }
 
 export const useModalContext = (): UseModalContextHook =>

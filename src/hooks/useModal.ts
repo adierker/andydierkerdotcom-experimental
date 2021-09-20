@@ -5,6 +5,7 @@ import {
   OpenModalType,
   CloseModalType,
   ModalsContent,
+  ModalButtonsType,
 } from 'types'
 
 interface UseModalHook {
@@ -22,10 +23,14 @@ export const useModal = (modalsContent: ModalsContent): UseModalHook => {
   )
 
   const openModal: OpenModalType = useCallback(
-    (modalId: string) => {
+    (modalId: string, customButtons: ModalButtonsType[] = undefined) => {
       const modalContent = modalsContent.find(
         (content) => content.id === modalId
       )
+      // replace the default buttons if customButtons are passed
+      if (customButtons && customButtons.length > 0) {
+        modalContent.buttons = customButtons
+      }
       modalContent
         ? setModalContent(modalContent)
         : console.warn(`No modal found for id: ${modalId}`)
