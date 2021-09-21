@@ -24,6 +24,8 @@ export const SITEPATHS = {
   HOME: '/',
   RECIPES: '/recipes',
   PHOTOS: '/photos',
+  ADMIN: '/admin',
+  ADD_RECIPE: '/admin/add-recipe',
 }
 
 export const ENDPOINTS = {
