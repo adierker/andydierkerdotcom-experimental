@@ -44,7 +44,7 @@ NextJS can generate static site content automatically through a few different he
 
 ```
   export const getStaticProps = async (): Promise<GetStaticPropsResult<RecipeListPageContent>> => {
-    const recipeListPageContent = await getDocumentFromFirestore<RecipeListPageContent>(COLLECTIONS.PAGES, '/recipes')
+    const recipeListPageContent = await getDocumentFromFirestore<RecipeListPageContent>(DB_COLLECTIONS.PAGES, '/recipes')
     return convertContentToGetStaticPropsResult<RecipeListPageContent>(recipeListPageContent)
   }
 
@@ -83,7 +83,7 @@ The NextJS backend API accesses Firestore and sends it back:
 ```
   export default async (req: NextApiRequest, res: NextApiResponse<RecipeListContent>) => {
     res.setHeader('Content-Type', 'application/json')
-    const recipeListContent: RecipeListContent = await getCollectionFromFirestore(COLLECTIONS.RECIPES)
+    const recipeListContent: RecipeListContent = await getCollectionFromFirestore(DB_COLLECTIONS.RECIPES)
     return res.status(200).json(recipeListContent)
   }
 ```

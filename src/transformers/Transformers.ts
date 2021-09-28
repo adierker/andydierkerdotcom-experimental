@@ -1,7 +1,7 @@
-import { RecipeContent, AddRecipeFormType } from 'types'
+import { RecipeContent, RecipeFormData } from 'types'
 
-export const transformAddRecipeFormDataToRecipeContent = (
-  addRecipeFormData: AddRecipeFormType
+export const transformRecipeFormDataToRecipeContent = (
+  addRecipeFormData: RecipeFormData
 ): RecipeContent => {
   const {
     name,
@@ -67,4 +67,60 @@ export const transformAddRecipeFormDataToRecipeContent = (
   }
 
   return recipe
+}
+
+export const transformRecipeContentToRecipeFormData = ({
+  name,
+  path,
+  url,
+  defaultServings: defaultServingsAsANumber,
+  isScalable: isScalableAsABoolean,
+  descriptions: descriptionsAsStringArray,
+  ingredients: ingredientsAsGroupings,
+  instructions: instructionsAsStringArray,
+  notes: notesAsStringArray,
+}: RecipeContent): RecipeFormData => {
+  // convert defaultServings to a string (from a number)
+  const defaultServings = defaultServingsAsANumber.toString()
+
+  // convert isScalable to a string from a boolean
+  const isScalable = isScalableAsABoolean === true ? 'true' : 'false'
+
+  // convert descriptions to an array of paragraph objects (from an array of strings)
+  const descriptions = descriptionsAsStringArray.map((x) => ({
+    paragraph: x,
+  }))
+
+  // convert ingredientGroupings to an array of grouping objects (from an array of groupings)
+  const ingredientGroupings = ingredientsAsGroupings.map((grouping) => ({
+    groupingName: grouping.name,
+    ingredients: grouping.items.map((item) => ({
+      num: item?.num?.toString(),
+      unit: item.unit,
+      ingredient: item.ingredient,
+    })),
+  }))
+
+  // convert instructions to an array of step objects (from an array of strings)
+  const instructions = instructionsAsStringArray.map((x) => ({
+    step: x,
+  }))
+
+  // convert instructions to an array of step objects (from an array of strings)
+  const notes = notesAsStringArray?.map((x) => ({
+    note: x,
+  }))
+
+  const formData: RecipeFormData = {
+    name,
+    path,
+    url,
+    defaultServings,
+    isScalable,
+    descriptions,
+    ingredientGroupings,
+    instructions,
+    notes,
+  }
+  return formData
 }

@@ -27,7 +27,7 @@ export interface RecipeContent {
 
 export type RecipeListContent = RecipeContent[]
 
-export interface AddRecipeFormType {
+export interface RecipeFormData {
   name: string
   path: string
   url: string

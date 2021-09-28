@@ -1,7 +1,7 @@
 import { doc, setDoc } from 'firebase/firestore'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { COLLECTIONS } from 'consts'
+import { DB_COLLECTIONS } from 'consts'
 import { db } from 'database'
 import { RecipeContent } from 'types'
 
@@ -35,7 +35,7 @@ export default async (
   }
 
   try {
-    await setDoc(doc(db, COLLECTIONS.RECIPES, documentId), recipe)
+    await setDoc(doc(db, DB_COLLECTIONS.RECIPES, documentId), recipe)
   } catch (e) {
     return res.status(500).send({ message: 'Error creating document.' })
   }

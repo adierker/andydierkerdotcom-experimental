@@ -18,4 +18,5 @@ export interface RecipeListPageContent {
 export type RecipeListPageProps = {
   recipeListPageContent: RecipeListPageContent
   recipeList: RecipeListContent
+  recipePath: string
 }

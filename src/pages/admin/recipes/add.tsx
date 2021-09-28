@@ -8,7 +8,7 @@ export const AddRecipe = (): ReactElement => {
   return (
     <ModalContextProvider>
       <PageWrapper
-        pageTitle="andydierker.com | add new recipe"
+        pageTitle="admin | add new recipe"
         hasHeader={true}
         backText={'Admin'}
         backPath={SITEPATHS.ADMIN}

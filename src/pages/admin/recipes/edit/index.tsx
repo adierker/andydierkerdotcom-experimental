@@ -4,6 +4,7 @@ import { GetStaticPropsResult } from 'next'
 
 import { PageWrapper, RecipeListPage } from 'components'
 import { DB_COLLECTIONS, SITEPATHS } from 'consts'
+import { ModalContextProvider } from 'contexts'
 import { getDocumentFromFirestore, getCollectionFromFirestore } from 'services'
 import {
   RecipeListPageContent,
@@ -18,13 +19,12 @@ export const getStaticProps = async (): Promise<
   const recipeListPageContent =
     await getDocumentFromFirestore<RecipeListPageContent>(
       DB_COLLECTIONS.PAGES,
-      'recipes'
+      'edit-recipes'
     )
   const recipeList = await getCollectionFromFirestore<RecipeListContent>(
     DB_COLLECTIONS.RECIPES
   )
-  const recipePath = SITEPATHS.RECIPES
-
+  const recipePath = SITEPATHS.EDIT_RECIPE
   return convertContentToGetStaticPropsResult<RecipeListPageProps>({
     recipeListPageContent,
     recipeList,
@@ -32,12 +32,19 @@ export const getStaticProps = async (): Promise<
   })
 }
 
-export const Recipes = (props: RecipeListPageProps): ReactElement => {
+export const EditRecipes = (props: RecipeListPageProps): ReactElement => {
   return (
-    <PageWrapper pageTitle="andydierker.com | recipes" hasHeader={true}>
-      <RecipeListPage {...props} />
-    </PageWrapper>
+    <ModalContextProvider>
+      <PageWrapper
+        pageTitle="admin | edit recipes"
+        hasHeader={true}
+        backText={'Admin'}
+        backPath={SITEPATHS.ADMIN}
+      >
+        <RecipeListPage {...props} />
+      </PageWrapper>
+    </ModalContextProvider>
   )
 }
 
-export default Recipes
+export default EditRecipes

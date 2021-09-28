@@ -1,9 +1,9 @@
 import * as yup from 'yup'
 
 import { REGEX } from 'consts'
-import { AddRecipeFormType } from 'types'
+import { RecipeFormData } from 'types'
 
-export const addRecipeFormSchema: yup.SchemaOf<AddRecipeFormType> = yup
+export const addRecipeFormSchema: yup.SchemaOf<RecipeFormData> = yup
   .object()
   .shape({
     name: yup.string().required(`Name is required.`),

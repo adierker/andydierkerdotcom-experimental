@@ -25,7 +25,8 @@ export const SITEPATHS = {
   RECIPES: '/recipes',
   PHOTOS: '/photos',
   ADMIN: '/admin',
-  ADD_RECIPE: '/admin/add-recipe',
+  ADD_RECIPE: '/admin/recipes/add',
+  EDIT_RECIPE: '/admin/recipes/edit',
 }
 
 export const ENDPOINTS = {
@@ -34,10 +35,32 @@ export const ENDPOINTS = {
 }
 
 // firestore database collections
-export const COLLECTIONS = {
+export const DB_COLLECTIONS = {
   PAGES: 'pages',
-  RECIPES: 'recipes',
+  RECIPES: 'recipes', // dynamic
   MODALS: 'modals',
+}
+
+// firestore database documents in DE_COLLECTIONS.PAGES
+export const DB_PAGES = {
+  HOME: 'home',
+  RECIPES: 'recipes',
+  EDIT_RECIPES: 'edit-recipes',
+}
+
+// firestore database documents in DE_COLLECTIONS.MODALS
+export const DB_MODALS = {
+  ABOUT: 'about',
+  CONTACT: 'contact',
+  PROJECTS: 'projects',
+}
+
+// firestore database documents, by collection
+export const DOCUMENTS_BY_COLLECTION = {
+  [DB_COLLECTIONS.PAGES]: {
+    DB_PAGES,
+    DB_MODALS,
+  },
 }
 
 export const REGEX = {

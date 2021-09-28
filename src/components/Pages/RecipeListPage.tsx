@@ -1,12 +1,12 @@
 import { ReactElement } from 'react'
 
 import { InternalLink } from 'components'
-import { SITEPATHS } from 'consts'
 import { RecipeListPageProps } from 'types'
 
 export const RecipeListPage = ({
   recipeListPageContent,
   recipeList,
+  recipePath,
 }: RecipeListPageProps): ReactElement => {
   const { heading, texts } = recipeListPageContent
 
@@ -32,7 +32,7 @@ export const RecipeListPage = ({
         {recipeList.map((recipe, index) => (
           <div className="mb-4" key={`recipe-${index}`}>
             <InternalLink
-              href={`${SITEPATHS.RECIPES}/${recipe.path}`}
+              href={`${recipePath}/${recipe.path}`}
               className="drkr-focus text-drkr-hover"
             >
               {recipe.name}

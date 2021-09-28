@@ -13,11 +13,18 @@ export const Admin = (): ReactElement => {
         <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
           Admin
         </h1>
-        <Button
-          text="Add new recipe"
-          onClick={() => router.push(SITEPATHS.ADD_RECIPE)}
-          className="focus-visible:bg-drkr-black"
-        />
+        <div className="flex flex-col w-64">
+          <Button
+            text="Add recipe"
+            onClick={() => router.push(SITEPATHS.ADD_RECIPE)}
+            className="focus-visible:bg-drkr-black mb-2"
+          />
+          <Button
+            text="Edit recipes"
+            onClick={() => router.push(SITEPATHS.EDIT_RECIPE)}
+            className="focus-visible:bg-drkr-black"
+          />
+        </div>
       </main>
     </PageWrapper>
   )

@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import { GetStaticPropsResult } from 'next'
 
 import { PageWrapper, HomePage } from 'components'
-import { COLLECTIONS } from 'consts'
+import { DB_COLLECTIONS } from 'consts'
 import { ModalContextProvider } from 'contexts'
 import { getDocumentFromFirestore, getCollectionFromFirestore } from 'services'
 import { HomePageContent, ModalsContent } from 'types'
@@ -18,11 +18,11 @@ export const getStaticProps = async (): Promise<
   GetStaticPropsResult<IndexPageProps>
 > => {
   const homePageContent = await getDocumentFromFirestore<HomePageContent>(
-    COLLECTIONS.PAGES,
-    '/home'
+    DB_COLLECTIONS.PAGES,
+    'home'
   )
   const modalsContent = await getCollectionFromFirestore<ModalsContent>(
-    COLLECTIONS.MODALS
+    DB_COLLECTIONS.MODALS
   )
   return convertContentToGetStaticPropsResult<IndexPageProps>({
     homePageContent,

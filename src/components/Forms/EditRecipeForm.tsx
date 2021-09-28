@@ -14,13 +14,17 @@ import { ADD_RECIPE_MODALS } from 'content'
 import { useModalContext } from 'contexts'
 import { addRecipeFormSchema } from 'schemas'
 import { postRecipeContentToApi } from 'services'
-import { transformRecipeFormDataToRecipeContent } from 'transformers'
+import { transformRecipeContentToRecipeFormData } from 'transformers'
 import { ApiResponse, RecipeContent } from 'types'
 
-export const AddRecipeForm = (): ReactElement => {
+export const EditRecipeForm = (props: RecipeContent): ReactElement => {
   const [componentHasFinishedInit, setComponentHasFinishedInit] = useState<
     boolean | null
   >(null)
+
+  console.log('props:', props)
+  const defaultFields = transformRecipeContentToRecipeFormData(props)
+  console.log('defaultFields:', defaultFields)
 
   const {
     register,
@@ -99,15 +103,15 @@ export const AddRecipeForm = (): ReactElement => {
     appendGrouping({})
   }
 
-  const { openCustomModal, closeModal } = useModalContext()
+  // const { openCustomModal, closeModal } = useModalContext()
 
   const submitRecipeToApi = async (recipe: RecipeContent): Promise<void> => {
     const response: ApiResponse = await postRecipeContentToApi(recipe)
 
     if (response?.ok) {
-      openCustomModal(ADD_RECIPE_MODALS.success(closeModal, resetThisForm))
+      // openCustomModal(ADD_RECIPE_MODALS.success(closeModal, resetThisForm))
     } else {
-      openCustomModal(ADD_RECIPE_MODALS.failure(closeModal))
+      // openCustomModal(ADD_RECIPE_MODALS.failure(closeModal))
       console.error('Add recipe failed.', response)
     }
   }
@@ -115,15 +119,15 @@ export const AddRecipeForm = (): ReactElement => {
   const onSubmit = async (formData) => {
     let recipe: RecipeContent
     try {
-      recipe = transformRecipeFormDataToRecipeContent(formData)
+      // recipe = transformRecipeFormDataToRecipeContent(formData)
     } catch (e) {
-      openCustomModal(ADD_RECIPE_MODALS.invalid(closeModal))
+      // openCustomModal(ADD_RECIPE_MODALS.invalid(closeModal))
       console.error('Add recipe validation failed.', e)
     }
 
-    openCustomModal(
-      ADD_RECIPE_MODALS.confirm(closeModal, submitRecipeToApi, recipe)
-    )
+    // openCustomModal(
+    //   ADD_RECIPE_MODALS.confirm(closeModal, submitRecipeToApi, recipe)
+    // )
   }
 
   return (
