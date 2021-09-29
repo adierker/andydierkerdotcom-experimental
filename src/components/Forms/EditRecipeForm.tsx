@@ -35,6 +35,7 @@ export const EditRecipeForm = (props: RecipeContent): ReactElement => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addRecipeFormSchema),
+    defaultValues: defaultFields,
   })
 
   const {
