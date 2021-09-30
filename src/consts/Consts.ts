@@ -30,8 +30,8 @@ export const SITEPATHS = {
 }
 
 export const ENDPOINTS = {
-  RECIPES: 'api/recipes',
-  ADD_RECIPE: 'api/add-recipe',
+  ADD_RECIPE: '/api/add-recipe',
+  EDIT_RECIPE: '/api/edit-recipe',
 }
 
 // firestore database collections

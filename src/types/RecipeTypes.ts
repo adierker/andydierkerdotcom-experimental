@@ -25,6 +25,10 @@ export interface RecipeContent {
   notes?: string[]
 }
 
+export interface RecipeContentWithOriginalRecipePath extends RecipeContent {
+  originalRecipePath: string
+}
+
 export type RecipeListContent = RecipeContent[]
 
 export interface RecipeFormData {

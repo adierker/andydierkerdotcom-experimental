@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter, NextRouter } from 'next/router'
 import { useForm, useFieldArray } from 'react-hook-form'
 
 import {
@@ -10,32 +11,28 @@ import {
   FieldArray,
   IngredientsFieldArray,
 } from 'components'
-import { ADD_RECIPE_MODALS } from 'content'
+import { SITEPATHS } from 'consts'
+import { EDIT_RECIPE_MODALS } from 'content'
 import { useModalContext } from 'contexts'
 import { addRecipeFormSchema } from 'schemas'
-import { postRecipeContentToApi } from 'services'
-import { transformRecipeContentToRecipeFormData } from 'transformers'
-import { ApiResponse, RecipeContent } from 'types'
+import { postEditedRecipeContentToApi } from 'services'
+import { transformRecipeFormDataToRecipeContent } from 'transformers'
+import { ApiResponse, RecipeContent, RecipeFormData } from 'types'
 
-export const EditRecipeForm = (props: RecipeContent): ReactElement => {
+export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
   const [componentHasFinishedInit, setComponentHasFinishedInit] = useState<
     boolean | null
   >(null)
-
-  console.log('props:', props)
-  const defaultFields = transformRecipeContentToRecipeFormData(props)
-  console.log('defaultFields:', defaultFields)
 
   const {
     register,
     handleSubmit,
     control,
     setFocus,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(addRecipeFormSchema),
-    defaultValues: defaultFields,
+    defaultValues: props,
   })
 
   const {
@@ -97,38 +94,56 @@ export const EditRecipeForm = (props: RecipeContent): ReactElement => {
     }
   }, [componentHasFinishedInit, setComponentHasFinishedInit])
 
-  const resetThisForm = (): void => {
-    reset()
-    appendParagraph({})
-    appendStep({})
-    appendGrouping({})
-  }
+  const { openCustomModal, closeModal } = useModalContext()
+  const router: NextRouter = useRouter()
 
-  // const { openCustomModal, closeModal } = useModalContext()
+  const originalRecipePath = props.path
 
-  const submitRecipeToApi = async (recipe: RecipeContent): Promise<void> => {
-    const response: ApiResponse = await postRecipeContentToApi(recipe)
+  const submitRecipeChangesToApi = async (
+    recipe: RecipeContent
+  ): Promise<void> => {
+    const response: ApiResponse = await postEditedRecipeContentToApi(
+      recipe,
+      originalRecipePath
+    )
 
     if (response?.ok) {
-      // openCustomModal(ADD_RECIPE_MODALS.success(closeModal, resetThisForm))
+      openCustomModal(
+        EDIT_RECIPE_MODALS.success(closeModal, () =>
+          router.push(SITEPATHS.EDIT_RECIPE)
+        )
+      )
     } else {
-      // openCustomModal(ADD_RECIPE_MODALS.failure(closeModal))
-      console.error('Add recipe failed.', response)
+      openCustomModal(EDIT_RECIPE_MODALS.failure(closeModal))
+      console.error('Edit recipe failed.', response)
     }
   }
 
   const onSubmit = async (formData) => {
+    const recipePathHasChanged = formData.path !== originalRecipePath
+
     let recipe: RecipeContent
     try {
-      // recipe = transformRecipeFormDataToRecipeContent(formData)
+      recipe = transformRecipeFormDataToRecipeContent(formData)
     } catch (e) {
-      // openCustomModal(ADD_RECIPE_MODALS.invalid(closeModal))
-      console.error('Add recipe validation failed.', e)
+      openCustomModal(EDIT_RECIPE_MODALS.invalid(closeModal))
+      console.error('Edit recipe validation failed.', e)
     }
 
-    // openCustomModal(
-    //   ADD_RECIPE_MODALS.confirm(closeModal, submitRecipeToApi, recipe)
-    // )
+    if (recipePathHasChanged) {
+      openCustomModal(
+        EDIT_RECIPE_MODALS.confirmPathChange(
+          closeModal,
+          submitRecipeChangesToApi,
+          recipe,
+          originalRecipePath
+        )
+      )
+    } else {
+      openCustomModal(
+        EDIT_RECIPE_MODALS.confirm(closeModal, submitRecipeChangesToApi, recipe)
+      )
+    }
   }
 
   return (

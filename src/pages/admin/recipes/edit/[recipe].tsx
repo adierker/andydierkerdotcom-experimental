@@ -9,8 +9,10 @@ import {
 
 import { PageWrapper, EditRecipeForm } from 'components'
 import { SITEPATHS, DB_COLLECTIONS } from 'consts'
+import { ModalContextProvider } from 'contexts'
 import { getCollectionFromFirestore, getDocumentFromFirestore } from 'services'
-import { RecipeContent, RecipeListContent } from 'types'
+import { transformRecipeContentToRecipeFormData } from 'transformers'
+import { RecipeContent, RecipeListContent, RecipeFormData } from 'types'
 import {
   convertContentToGetStaticPathsResult,
   convertContentToGetStaticPropsResult,
@@ -36,21 +38,25 @@ export const getStaticProps: GetStaticProps = async ({
 
 export const EditRecipe = (props: RecipeContent): ReactElement => {
   const recipeContent = props
+  const recipeFormData: RecipeFormData =
+    transformRecipeContentToRecipeFormData(props)
 
   return (
-    <PageWrapper
-      pageTitle={`admin | edit ${recipeContent.name.toLowerCase()}`}
-      hasHeader={true}
-      backText={'Edit Recipes'}
-      backPath={SITEPATHS.EDIT_RECIPE}
-    >
-      <main className="flex flex-col items-center justify-center px-10 xs:px-20 py-10 text-drkr-black">
-        <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
-          {`Edit ${recipeContent.name}`}
-        </h1>
-        <EditRecipeForm {...recipeContent} />
-      </main>
-    </PageWrapper>
+    <ModalContextProvider>
+      <PageWrapper
+        pageTitle={`admin | edit ${recipeContent.name.toLowerCase()}`}
+        hasHeader={true}
+        backText={'Edit Recipes'}
+        backPath={SITEPATHS.EDIT_RECIPE}
+      >
+        <main className="flex flex-col items-center justify-center px-10 xs:px-20 py-10 text-drkr-black">
+          <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
+            {`Edit ${recipeContent.name}`}
+          </h1>
+          <EditRecipeForm {...recipeFormData} />
+        </main>
+      </PageWrapper>
+    </ModalContextProvider>
   )
 }
 

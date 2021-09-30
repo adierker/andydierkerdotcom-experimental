@@ -13,7 +13,9 @@ export const postRecipeContentToApi = async (
   let response: AxiosResponse<any>
 
   try {
+    console.log('trying...')
     response = await axios.post(ENDPOINTS.ADD_RECIPE, recipe)
+    console.log('done!')
     if (response?.status === 200) {
       return {
         ok: true,
@@ -30,6 +32,38 @@ export const postRecipeContentToApi = async (
     return {
       ok: false,
       message: 'Recipe not added. Unspecified server error.',
+      errorData: e,
+    }
+  }
+}
+
+export const postEditedRecipeContentToApi = async (
+  recipe: RecipeContent,
+  originalRecipePath: string
+): Promise<ApiResponse> => {
+  let response: AxiosResponse<any>
+
+  try {
+    response = await axios.post(ENDPOINTS.EDIT_RECIPE, {
+      ...recipe,
+      originalRecipePath,
+    })
+    if (response?.status === 200) {
+      return {
+        ok: true,
+        message: 'Recipe edited.',
+      }
+    } else {
+      return {
+        ok: false,
+        message: 'Recipe not edited, returned non-200 status.',
+        errorData: response,
+      }
+    }
+  } catch (e) {
+    return {
+      ok: false,
+      message: 'Recipe not edited. Unspecified server error.',
       errorData: e,
     }
   }
