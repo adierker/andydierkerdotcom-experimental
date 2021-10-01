@@ -1,7 +1,6 @@
 import {
   deleteDoc,
   doc,
-  updateDoc,
   setDoc,
   DocumentData,
   DocumentReference,
@@ -76,12 +75,10 @@ export default async (
   try {
     await deleteDoc(existingRecipeRef)
   } catch (e) {
-    return res
-      .status(500)
-      .send({
-        message:
-          'Error deleting old document. Replacement was created already, though.',
-      })
+    return res.status(500).send({
+      message:
+        'Error deleting old document. Replacement was created already, though.',
+    })
   }
 
   return res.status(200).send({ message: 'Recipe replaced successfully!' })

@@ -45,6 +45,7 @@ export const postEditedRecipeContentToApi = async (
   const recipePathHasChanged = recipe.path !== originalRecipePath
 
   try {
+    // if the recipe path has changed, we need to create a new recipe and delete the old one
     response = recipePathHasChanged
       ? await axios.post(ENDPOINTS.REPLACE_RECIPE, {
           ...recipe,

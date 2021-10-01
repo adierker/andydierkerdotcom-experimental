@@ -33,6 +33,7 @@ export const ENDPOINTS = {
   ADD_RECIPE: '/api/add-recipe',
   EDIT_RECIPE: '/api/edit-recipe',
   REPLACE_RECIPE: '/api/replace-recipe',
+  DELETE_RECIPE: '/api/delete-recipe',
 }
 
 // firestore database collections
