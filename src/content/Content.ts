@@ -121,6 +121,27 @@ export const EDIT_RECIPE_MODALS = {
       },
     ],
   }),
+  confirmDelete: (
+    closeModal: CloseModalType,
+    submitRecipeDeletionToApi: () => void
+  ): ModalContent => ({
+    id: 'confirm',
+    title: 'Delete recipe?',
+    content: [`Are you sure you would like to delete this recipe?`],
+    buttons: [
+      {
+        text: 'Yes',
+        onClick: () => {
+          closeModal()
+          submitRecipeDeletionToApi()
+        },
+      },
+      {
+        text: 'No, wait',
+        onClick: closeModal,
+      },
+    ],
+  }),
   invalid: (closeModal: CloseModalType): ModalContent => ({
     id: 'invalid',
     title: 'Invalid edit',
@@ -155,6 +176,34 @@ export const EDIT_RECIPE_MODALS = {
   failure: (closeModal: CloseModalType): ModalContent => ({
     id: 'failure',
     title: 'Edit recipe failed!',
+    content: ['Something got all fucked up. What did you do wrong?'],
+    buttons: [
+      {
+        text: 'Oh, okay...',
+        onClick: closeModal,
+      },
+    ],
+  }),
+  successDelete: (
+    closeModal: CloseModalType,
+    redirect: () => void
+  ): ModalContent => ({
+    id: 'success',
+    title: 'Recipe deleted!',
+    content: ['Your recipe was deleted successfully. Good job.'],
+    buttons: [
+      {
+        text: 'Nice',
+        onClick: () => {
+          closeModal()
+          redirect()
+        },
+      },
+    ],
+  }),
+  failureDelete: (closeModal: CloseModalType): ModalContent => ({
+    id: 'failure',
+    title: 'Delete recipe failed!',
     content: ['Something got all fucked up. What did you do wrong?'],
     buttons: [
       {

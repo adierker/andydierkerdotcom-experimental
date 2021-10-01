@@ -15,7 +15,7 @@ import { SITEPATHS } from 'consts'
 import { EDIT_RECIPE_MODALS } from 'content'
 import { useModalContext } from 'contexts'
 import { addRecipeFormSchema } from 'schemas'
-import { postEditedRecipeContentToApi } from 'services'
+import { postEditedRecipeContentToApi, postRecipeDeletionToApi } from 'services'
 import { transformRecipeFormDataToRecipeContent } from 'transformers'
 import { ApiResponse, RecipeContent, RecipeFormData } from 'types'
 
@@ -99,6 +99,30 @@ export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
 
   const originalRecipePath = props.path
 
+  const deleteRecipe = async () => {
+    openCustomModal(
+      EDIT_RECIPE_MODALS.confirmDelete(closeModal, submitRecipeDeletionToApi)
+    )
+  }
+
+  const submitRecipeDeletionToApi = async () => {
+    console.log('deleting...', originalRecipePath)
+    const response: ApiResponse = await postRecipeDeletionToApi(
+      originalRecipePath
+    )
+
+    if (response?.ok) {
+      openCustomModal(
+        EDIT_RECIPE_MODALS.successDelete(closeModal, () =>
+          router.push(SITEPATHS.EDIT_RECIPE)
+        )
+      )
+    } else {
+      openCustomModal(EDIT_RECIPE_MODALS.failureDelete(closeModal))
+      console.error('Delete recipe failed.', response)
+    }
+  }
+
   const submitRecipeChangesToApi = async (
     recipe: RecipeContent
   ): Promise<void> => {
@@ -148,6 +172,13 @@ export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+      <Button
+        type="button"
+        text="Delete Recipe"
+        onClick={deleteRecipe}
+        className="focus-visible:bg-drkr-black mt-12 w-full !block"
+      />
+
       <Input
         id="name"
         label="Recipe name"

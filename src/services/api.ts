@@ -73,3 +73,32 @@ export const postEditedRecipeContentToApi = async (
     }
   }
 }
+
+export const postRecipeDeletionToApi = async (
+  documentId: string
+): Promise<ApiResponse> => {
+  let response: AxiosResponse<any>
+
+  try {
+    response = await axios.post(ENDPOINTS.DELETE_RECIPE, { documentId })
+
+    if (response?.status === 200) {
+      return {
+        ok: true,
+        message: 'Recipe deleted.',
+      }
+    } else {
+      return {
+        ok: false,
+        message: 'Recipe not deleted, returned non-200 status.',
+        errorData: response,
+      }
+    }
+  } catch (e) {
+    return {
+      ok: false,
+      message: 'Recipe not deleted. Unspecified server error.',
+      errorData: e,
+    }
+  }
+}
