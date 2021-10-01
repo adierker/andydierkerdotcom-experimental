@@ -42,12 +42,16 @@ export const postEditedRecipeContentToApi = async (
   originalRecipePath: string
 ): Promise<ApiResponse> => {
   let response: AxiosResponse<any>
+  const recipePathHasChanged = recipe.path !== originalRecipePath
 
   try {
-    response = await axios.post(ENDPOINTS.EDIT_RECIPE, {
-      ...recipe,
-      originalRecipePath,
-    })
+    response = recipePathHasChanged
+      ? await axios.post(ENDPOINTS.REPLACE_RECIPE, {
+          ...recipe,
+          originalRecipePath,
+        })
+      : await axios.post(ENDPOINTS.EDIT_RECIPE, recipe)
+
     if (response?.status === 200) {
       return {
         ok: true,

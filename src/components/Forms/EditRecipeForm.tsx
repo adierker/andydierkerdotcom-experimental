@@ -120,8 +120,6 @@ export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
   }
 
   const onSubmit = async (formData) => {
-    const recipePathHasChanged = formData.path !== originalRecipePath
-
     let recipe: RecipeContent
     try {
       recipe = transformRecipeFormDataToRecipeContent(formData)
@@ -129,6 +127,8 @@ export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
       openCustomModal(EDIT_RECIPE_MODALS.invalid(closeModal))
       console.error('Edit recipe validation failed.', e)
     }
+
+    const recipePathHasChanged = recipe.path !== originalRecipePath
 
     if (recipePathHasChanged) {
       openCustomModal(

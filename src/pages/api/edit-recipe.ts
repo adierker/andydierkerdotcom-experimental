@@ -8,7 +8,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { DB_COLLECTIONS } from 'consts'
 import { db } from 'database'
-import { RecipeContent, RecipeContentWithOriginalRecipePath } from 'types'
+import { RecipeContent } from 'types'
 
 export default async (
   req: NextApiRequest,
@@ -23,40 +23,33 @@ export default async (
     return
   }
 
-  const reqBody: RecipeContentWithOriginalRecipePath = req.body
-
   let recipeChanges: RecipeContent
-  let originalDocumentId: string
+  let documentId: string
 
   try {
-    originalDocumentId = reqBody.originalRecipePath
-    // we have stored the originalDocumentId above and no longer
-    // want it included with the rest of the recipe changes
-    // so we delete it off the request body
-    delete reqBody.originalRecipePath
-    recipeChanges = reqBody
+    recipeChanges = req.body
+    documentId = recipeChanges.path
 
-    if (!recipeChanges || !originalDocumentId) {
-      throw 'Missing recipeChanges or originalRecipePath.'
+    if (!recipeChanges || !documentId) {
+      throw 'Missing recipeChanges or documentId.'
     }
   } catch (e) {
     return res.status(500).send({
       message:
-        'Error accessing request body or document ID (originalRecipePath).',
+        'Error accessing request body (recipeChanges) or document ID (path).',
     })
   }
 
   let existingRecipeRef: DocumentReference<DocumentData>
 
   try {
-    existingRecipeRef = doc(db, DB_COLLECTIONS.RECIPES, originalDocumentId)
+    existingRecipeRef = doc(db, DB_COLLECTIONS.RECIPES, documentId)
     if (!existingRecipeRef) {
-      throw 'Could not find existing recipe with that document ID (originalRecipePath).'
+      throw 'Could not find existing recipe with that document ID (path).'
     }
   } catch (e) {
     return res.status(500).send({
-      message:
-        'Error fetching existing recipe with that document ID (originalRecipePath).',
+      message: 'Error fetching existing recipe with that document ID (path).',
     })
   }
 
