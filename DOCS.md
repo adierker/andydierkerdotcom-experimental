@@ -50,7 +50,7 @@ NextJS can generate static site content automatically through a few different he
 
   export const Recipes = (props: RecipeListPageContent) => {
     return (
-      <PageWrapper pageTitle="andydierker.com | recipes" hasHeader={true}>
+      <PageWrapper pageTitle="andydierker.com | recipes" hasNavigation={true}>
         <RecipeListPage {...props}/>
       </PageWrapper>
     )

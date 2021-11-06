@@ -7,7 +7,7 @@ import {
   GetStaticPropsResult,
 } from 'next'
 
-import { PageWrapper, EditRecipeForm } from 'components'
+import { Container, Heading, PageWrapper, EditRecipeForm } from 'components'
 import { SITEPATHS, DB_COLLECTIONS } from 'consts'
 import { ModalContextProvider } from 'contexts'
 import { getCollectionFromFirestore, getDocumentFromFirestore } from 'services'
@@ -45,16 +45,14 @@ export const EditRecipe = (props: RecipeContent): ReactElement => {
     <ModalContextProvider>
       <PageWrapper
         pageTitle={`admin | edit ${recipeContent.name.toLowerCase()}`}
-        hasHeader={true}
+        hasNavigation={true}
         backText={'Edit Recipes'}
         backPath={SITEPATHS.EDIT_RECIPE}
       >
-        <main className="flex flex-col items-center justify-center px-10 xs:px-20 py-10 text-drkr-black">
-          <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
-            {`Edit ${recipeContent.name}`}
-          </h1>
+        <Container>
+          <Heading text={`Edit ${recipeContent.name}`} />
           <EditRecipeForm {...recipeFormData} />
-        </main>
+        </Container>
       </PageWrapper>
     </ModalContextProvider>
   )

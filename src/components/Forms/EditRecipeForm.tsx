@@ -176,7 +176,7 @@ export const EditRecipeForm = (props: RecipeFormData): ReactElement => {
         type="button"
         text="Delete Recipe"
         onClick={deleteRecipe}
-        className="focus-visible:bg-drkr-black mt-12 w-full !block"
+        className="focus-visible:bg-drkr-black mb-8 w-full !block"
       />
 
       <Input

@@ -37,7 +37,7 @@ export const EditRecipes = (props: RecipeListPageProps): ReactElement => {
     <ModalContextProvider>
       <PageWrapper
         pageTitle="admin | edit recipes"
-        hasHeader={true}
+        hasNavigation={true}
         backText={'Admin'}
         backPath={SITEPATHS.ADMIN}
       >

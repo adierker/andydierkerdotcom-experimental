@@ -1,12 +1,8 @@
 import { ReactElement, ReactNode } from 'react'
 
-import { ExternalLink, ServingsForm } from 'components'
+import { Container, ExternalLink, Heading, ServingsForm } from 'components'
 import { useServings } from 'hooks'
 import { RecipeContent, IngredientGrouping, Ingredient } from 'types'
-
-const Heading = ({ heading }: { heading: string }) => (
-  <h2 className="text-4xl mb-6 headline-font">{heading}</h2>
-)
 
 const Ul = ({ children }: { children: ReactNode }) => (
   <ul className="list-disc list-inside mb-4">{children}</ul>
@@ -27,11 +23,9 @@ RecipeContent): ReactElement => {
   const scalingCoeff: number = servings / defaultServings
 
   return (
-    <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-8 md:max-w-xl md:mx-auto text-drkr-black text-base body-font">
+    <Container>
       <section id="intro" className="mb-10">
-        <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
-          {name}
-        </h1>
+        <Heading text={name} />
         <div>
           {descriptions.map((description, index) => (
             <p className="mb-3" key={`desc-${index}`}>
@@ -54,7 +48,7 @@ RecipeContent): ReactElement => {
       </section>
 
       <section id="ingredients" className="mb-10">
-        <Heading heading="Ingredients" />
+        <Heading text="Ingredients" level={2} />
         {ingredients.map(
           ({ name, items }: IngredientGrouping, groupingIndex) => (
             <div key={`grouping-${groupingIndex}`}>
@@ -91,8 +85,8 @@ RecipeContent): ReactElement => {
         )}
       </section>
 
-      <section id="instructions" className="mb-10">
-        <Heading heading="Instructions" />
+      <section id="instructions">
+        <Heading text="Instructions" level={2} />
         <Ul>
           {instructions.map((instruction, index) => (
             <li key={`${instruction}-${index}`} className="mb-4">
@@ -101,6 +95,6 @@ RecipeContent): ReactElement => {
           ))}
         </Ul>
       </section>
-    </main>
+    </Container>
   )
 }

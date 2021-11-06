@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { InternalLink } from 'components'
+import { Heading, InternalLink, Container } from 'components'
 import { RecipeListPageProps } from 'types'
 
 export const RecipeListPage = ({
@@ -11,11 +11,9 @@ export const RecipeListPage = ({
   const { heading, texts } = recipeListPageContent
 
   return (
-    <main className="flex flex-col w-full px-10 xs:px-20 md:px-0 py-6 md:max-w-xl md:mx-auto">
+    <Container>
       <section id="intro" className="text-drkr-black">
-        <h1 className="text-5xl sm:text-6xl mb-4 text-center headline-font">
-          {heading}
-        </h1>
+        <Heading text={heading} />
         <div className="text-base mb-4 body-font">
           {texts.map((text, index) => (
             <p className="mb-3" key={`text-${index}`}>
@@ -40,6 +38,6 @@ export const RecipeListPage = ({
           </div>
         ))}
       </section>
-    </main>
+    </Container>
   )
 }

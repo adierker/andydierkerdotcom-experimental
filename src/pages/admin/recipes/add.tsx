@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { PageWrapper, AddRecipeForm } from 'components'
+import { Container, Heading, PageWrapper, AddRecipeForm } from 'components'
 import { SITEPATHS } from 'consts'
 import { ModalContextProvider } from 'contexts'
 
@@ -9,16 +9,14 @@ export const AddRecipe = (): ReactElement => {
     <ModalContextProvider>
       <PageWrapper
         pageTitle="admin | add new recipe"
-        hasHeader={true}
+        hasNavigation={true}
         backText={'Admin'}
         backPath={SITEPATHS.ADMIN}
       >
-        <main className="flex flex-col items-center justify-center px-10 xs:px-20 py-10 text-drkr-black">
-          <h1 className="text-4xl xs:text-5xl sm:text-6xl mb-8 text-center headline-font">
-            Add New Recipe
-          </h1>
+        <Container>
+          <Heading text="Add New Recipe" />
           <AddRecipeForm />
-        </main>
+        </Container>
       </PageWrapper>
     </ModalContextProvider>
   )

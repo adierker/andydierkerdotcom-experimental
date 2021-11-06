@@ -2,13 +2,13 @@ import { ReactElement } from 'react'
 
 import Head from 'next/head'
 
-import { BreakpointHelper, Header } from 'components'
+import { BreakpointHelper, Navigation } from 'components'
 import { SitePathsType } from 'types'
 
 interface PageWrapperProps {
   children: ReactElement
   pageTitle: string
-  hasHeader?: boolean
+  hasNavigation?: boolean
   backText?: string
   backPath?: SitePathsType
 }
@@ -16,7 +16,7 @@ interface PageWrapperProps {
 export const PageWrapper = ({
   children,
   pageTitle,
-  hasHeader = false,
+  hasNavigation = false,
   backText,
   backPath,
 }: PageWrapperProps): ReactElement => {
@@ -27,9 +27,9 @@ export const PageWrapper = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {hasHeader && <Header backText={backText} backPath={backPath} />}
+      {hasNavigation && <Navigation backText={backText} backPath={backPath} />}
 
-      <BreakpointHelper show={false} />
+      <BreakpointHelper show={true} />
 
       {children}
     </div>

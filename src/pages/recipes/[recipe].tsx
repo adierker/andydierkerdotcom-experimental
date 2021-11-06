@@ -40,7 +40,7 @@ export const Recipe = (props: RecipeContent): ReactElement => {
   return (
     <PageWrapper
       pageTitle={`andydierker.com | ${recipeContent.name.toLowerCase()}`}
-      hasHeader={true}
+      hasNavigation={true}
       backText={'Recipes'}
       backPath={SITEPATHS.RECIPES}
     >

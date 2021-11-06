@@ -34,7 +34,7 @@ export const getStaticProps = async (): Promise<
 
 export const Recipes = (props: RecipeListPageProps): ReactElement => {
   return (
-    <PageWrapper pageTitle="andydierker.com | recipes" hasHeader={true}>
+    <PageWrapper pageTitle="andydierker.com | recipes" hasNavigation={true}>
       <RecipeListPage {...props} />
     </PageWrapper>
   )

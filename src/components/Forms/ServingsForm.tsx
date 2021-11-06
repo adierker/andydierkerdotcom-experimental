@@ -33,7 +33,7 @@ export const ServingsForm = ({
       // the setServings function will only be called if the form is valid (see "validate" function below)
       onSubmit={handleSubmit(({ servings }) => setServings(servings))}
     >
-      <label className="text-2xl headline-spaced-font mr-3">Servings</label>
+      <label className="text-xl headline-spaced-font mr-3">Servings</label>
       <Controller
         control={control}
         name="servings"
