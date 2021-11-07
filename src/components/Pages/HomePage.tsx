@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { ExternalLink } from 'components'
+import { Container, ExternalLink } from 'components'
 import { LINKS, SOCIALS_MAP } from 'consts'
 import { useModalContext } from 'contexts'
 import { HomePageContent } from 'types'
@@ -15,7 +15,7 @@ export const HomePage = ({
   const { openModalById } = useModalContext()
 
   return (
-    <main className="flex flex-col flex-1 items-center justify-start w-full px-10 xs:px-20 py-10 sm:py-20 text-drkr-black">
+    <Container isHomepage={true}>
       <section id="avatar" className="max-w-xxs xs:max-w-xs">
         <img
           className="rounded-full border-4 border-drkr-black"
@@ -90,6 +90,6 @@ export const HomePage = ({
           )
         })}
       </section>
-    </main>
+    </Container>
   )
 }

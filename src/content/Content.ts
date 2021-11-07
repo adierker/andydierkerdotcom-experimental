@@ -213,3 +213,17 @@ export const EDIT_RECIPE_MODALS = {
     ],
   }),
 }
+
+export const TIC_TAC_TOE_MODALS = {
+  howToPlay: (closeModal: CloseModalType): ModalContent => ({
+    id: 'howToPlay',
+    title: 'How To Play',
+    content: ['Instructions for how to play this shit will show up next.'],
+    buttons: [
+      {
+        text: 'Got it',
+        onClick: closeModal,
+      },
+    ],
+  }),
+}

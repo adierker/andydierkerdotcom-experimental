@@ -27,6 +27,8 @@ export const SITEPATHS = {
   ADMIN: '/admin',
   ADD_RECIPE: '/admin/recipes/add',
   EDIT_RECIPE: '/admin/recipes/edit',
+  TIC_TAC_TOE_INTRO: '/tic-tac-toe',
+  TIC_TAC_TOE_GAME: '/tic-tac-toe/game',
 }
 
 export const ENDPOINTS = {
