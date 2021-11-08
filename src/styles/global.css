@@ -26,6 +26,8 @@ body {
     box-shadow: 0px 0px 0px 4px #fff inset;
   }
 
+  /* flipper card utils */
+
   /* when you highlight text with mouse */
   *::selection {
     background: #2a9d8f;
