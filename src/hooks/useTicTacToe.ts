@@ -24,6 +24,12 @@ type GamePiece = 'small' | 'medium' | 'large'
 
 const GamePieceHierarchy = ['small', 'medium', 'large']
 
+const pieceAIsBiggerThanPieceB = (a: GamePiece, b: GamePiece): boolean => {
+  const indexOfA = GamePieceHierarchy.indexOf(a)
+  const indexOfB = GamePieceHierarchy.indexOf(b)
+  return indexOfA > indexOfB
+}
+
 interface GamePiecesRemaining {
   small: number
   medium: number
@@ -100,6 +106,10 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     if (!piece || currentTurn !== 'player') {
       return null
     }
+    if (playerPieces[piece] < 1) {
+      setInvalidSelectionMessage(`No pieces of that size remaining.`)
+      return null
+    }
     setSelectedPiece(piece)
     setSelectedSquare(null)
     setCurrentPhase('selectSquare')
@@ -115,9 +125,19 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     ) {
       return null
     }
-    setSelectedSquare(square)
-    setCurrentPhase('confirmSelection')
-    setInvalidSelectionMessage(null) // TODO: this is naive
+
+    if (
+      boardState[square] === null ||
+      pieceAIsBiggerThanPieceB(selectedPiece, boardState[square].piece)
+    ) {
+      setSelectedSquare(square)
+      setCurrentPhase('confirmSelection')
+      setInvalidSelectionMessage(null)
+    } else {
+      setInvalidSelectionMessage(
+        'Your selected piece needs to be bigger than the current occupying piece to replace it.'
+      )
+    }
   }
 
   const nextTurn = () => {
@@ -133,6 +153,7 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     }
 
     const selectionIsValid = true
+
     if (selectionIsValid) {
       setBoardState({
         ...boardState,
@@ -141,6 +162,12 @@ export const useTicTacToe = (): UseTicTacToeHook => {
           piece: selectedPiece,
         },
       })
+
+      setPlayerPieces({
+        ...playerPieces,
+        [selectedPiece]: playerPieces[selectedPiece] - 1,
+      })
+
       nextTurn()
     }
   }

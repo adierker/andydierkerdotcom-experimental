@@ -80,11 +80,8 @@ export const TicTacToe = (): ReactElement => {
     handleSquareClick,
     boardState,
     submitSelection,
+    invalidSelectionMessage,
   } = useTicTacToe()
-
-  useEffect(() => {
-    console.log('boardState:', boardState)
-  }, [])
 
   return (
     <>
@@ -106,6 +103,7 @@ export const TicTacToe = (): ReactElement => {
         id="controls"
         className="flex w-full items-center justify-center h-12 mb-8"
       >
+        {invalidSelectionMessage && <p>{invalidSelectionMessage}</p>}
         {currentPhase === 'confirmSelection' && (
           <Button text="Confirm Selection" onClick={() => submitSelection()} />
         )}
