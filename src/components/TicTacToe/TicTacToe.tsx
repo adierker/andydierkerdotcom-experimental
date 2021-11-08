@@ -1,6 +1,73 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 
+import { Button } from 'components'
 import { useTicTacToe } from 'hooks'
+
+const squares = [
+  'r1c1',
+  'r1c2',
+  'r1c3',
+  'r2c1',
+  'r2c2',
+  'r2c3',
+  'r3c1',
+  'r3c2',
+  'r3c3',
+]
+
+const pieces = ['small', 'medium', 'large']
+
+const sizes = {
+  small: 'sq-8',
+  medium: 'sq-12',
+  large: 'sq-20',
+}
+
+const Square = ({ id, handleSquareClick, isSelected, boardState }: any) => {
+  let squareContent = null
+  if (boardState[id]) {
+    squareContent = boardState[id]
+  }
+  return (
+    <div
+      id={id}
+      className={`flex items-center justify-center h-32 text-2xl bg-drkr-green headline-spaced-font ${
+        isSelected && 'border-4 border-drkr-black'
+      }`}
+      onClick={() => handleSquareClick(id)}
+    >
+      {squareContent && (
+        <div
+          className={`rounded-full ${
+            squareContent.owner === 'player' ? 'bg-drkr-white' : 'bg-drkr-black'
+          } ${sizes[squareContent.piece]}`}
+        />
+      )}
+    </div>
+  )
+}
+
+const PiecesRemaining = ({
+  id,
+  handlePieceClick,
+  isSelected,
+  remaining,
+}: any) => {
+  const size = sizes[id]
+
+  return (
+    <div
+      id={id}
+      className={`flex items-center mb-2 ${
+        isSelected && 'border-4 border-drkr-black'
+      }`}
+      onClick={() => handlePieceClick(id)}
+    >
+      <div className={`bg-drkr-green rounded-full inline-block mr-2 ${size}`} />{' '}
+      x {remaining[id]}
+    </div>
+  )
+}
 
 export const TicTacToe = (): ReactElement => {
   const {
@@ -11,126 +78,48 @@ export const TicTacToe = (): ReactElement => {
     selectedSquare,
     handlePieceClick,
     handleSquareClick,
+    boardState,
+    submitSelection,
   } = useTicTacToe()
-  const squareStyles =
-    'flex items-center justify-center h-32 text-2xl bg-drkr-green headline-spaced-font'
-  const circleStyles = `bg-drkr-green rounded-full inline-block mr-2 mb-2`
+
+  useEffect(() => {
+    console.log('boardState:', boardState)
+  }, [])
+
   return (
     <>
       <section
         id="game-board"
         className="grid grid-cols-3 grid-rows-3 gap-3 mb-4"
       >
-        <div
-          id="r1c1"
-          className={`${squareStyles} ${
-            selectedSquare === 'r1c1' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r1c1')}
-        >
-          r1c1
-        </div>
-        <div
-          id="r1c2"
-          className={`${squareStyles} ${
-            selectedSquare === 'r1c2' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r1c2')}
-        >
-          r1c2
-        </div>
-        <div
-          id="r1c3"
-          className={`${squareStyles} ${
-            selectedSquare === 'r1c3' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r1c3')}
-        >
-          r1c3
-        </div>
-        <div
-          id="r2c1"
-          className={`${squareStyles} ${
-            selectedSquare === 'r2c1' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r2c1')}
-        >
-          r2c1
-        </div>
-        <div
-          id="r2c2"
-          className={`${squareStyles} ${
-            selectedSquare === 'r2c2' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r2c2')}
-        >
-          r2c2
-        </div>
-        <div
-          id="r2c3"
-          className={`${squareStyles} ${
-            selectedSquare === 'r2c3' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r2c3')}
-        >
-          r2c3
-        </div>
-        <div
-          id="r3c1"
-          className={`${squareStyles} ${
-            selectedSquare === 'r3c1' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r3c1')}
-        >
-          r3c1
-        </div>
-        <div
-          id="r3c2"
-          className={`${squareStyles} ${
-            selectedSquare === 'r3c2' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r3c2')}
-        >
-          r3c2
-        </div>
-        <div
-          id="r3c3"
-          className={`${squareStyles} ${
-            selectedSquare === 'r3c3' && 'border-4'
-          }`}
-          onClick={() => handleSquareClick('r3c3')}
-        >
-          r3c3
-        </div>
+        {squares.map((id) => (
+          <Square
+            id={id}
+            key={id}
+            handleSquareClick={handleSquareClick}
+            isSelected={selectedSquare === id}
+            boardState={boardState}
+          />
+        ))}
+      </section>
+      <section
+        id="controls"
+        className="flex w-full items-center justify-center h-12 mb-8"
+      >
+        {currentPhase === 'confirmSelection' && (
+          <Button text="Confirm Selection" onClick={() => submitSelection()} />
+        )}
       </section>
       <section id="game-pieces" className="flex flex-col items-center">
-        <div
-          id="small"
-          className={`flex items-center ${
-            selectedPiece === 'small' && 'border-4'
-          }`}
-          onClick={() => handlePieceClick('small')}
-        >
-          <div className={`${circleStyles} sq-8`} /> x 100
-        </div>
-        <div
-          id="medium"
-          className={`flex items-center ${
-            selectedPiece === 'medium' && 'border-4'
-          }`}
-          onClick={() => handlePieceClick('medium')}
-        >
-          <div className={`${circleStyles} sq-12`} /> x {playerPieces.medium}
-        </div>
-        <div
-          id="large"
-          className={`flex items-center ${
-            selectedPiece === 'large' && 'border-4'
-          }`}
-          onClick={() => handlePieceClick('large')}
-        >
-          <div className={`${circleStyles} sq-20`} /> x {playerPieces.large}
-        </div>
+        {pieces.map((id) => (
+          <PiecesRemaining
+            id={id}
+            key={id}
+            handlePieceClick={handlePieceClick}
+            isSelected={selectedPiece === id}
+            remaining={playerPieces}
+          />
+        ))}
       </section>
       <section id="turn-indicator">turn: {currentTurn}</section>
       <section id="phase-indicator">phase: {currentPhase}</section>
