@@ -1,7 +1,5 @@
 import { ReactElement } from 'react'
 
-import styles from './FlipperCard.module.css'
-
 interface FlipperCardProps {
   unflippedColor: string
   flippedColor: string
@@ -13,11 +11,18 @@ export const FlipperCard = ({
   flippedColor,
   isFlipped,
 }: FlipperCardProps): ReactElement => {
+  const frontAndBackCardStyles = `absolute w-full h-full backface-hidden`
   return (
-    <div className={styles.card}>
-      <div className={styles.content}>
-        <div className={styles.front}>front</div>
-        <div className={styles.back}>back</div>
+    <div className={`sq-64 perspective-500`}>
+      <div
+        className={`absolute w-full h-full content-shadow content-transition ${
+          isFlipped && 'flip-transition rotated-x'
+        }`}
+      >
+        <div className={`${frontAndBackCardStyles} ${unflippedColor}`} />
+        <div
+          className={`${frontAndBackCardStyles} ${flippedColor} rotated-x`}
+        />
       </div>
     </div>
   )
