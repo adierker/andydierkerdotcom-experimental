@@ -6,14 +6,14 @@ import { getRandom } from 'utils'
 export const FlipperPage = (): ReactElement => {
   const [flippedIds, setFlippedIds] = useState<string[]>([])
 
-  const gridHeight = 8
-  const gridWidth = 80
+  const gridHeight = 6
+  const gridWidth = 71
 
   const generateRandomIdsAndFlipThem = (numberToGenerate: number) => {
     const idArray = []
     while (idArray.length <= numberToGenerate) {
-      const row = getRandom(gridHeight)
-      const col = getRandom(gridWidth)
+      const row = getRandom(gridHeight + 1)
+      const col = getRandom(gridWidth + 1)
       const id = `${row}-${col}`
       idArray.push(id)
     }
@@ -32,7 +32,7 @@ export const FlipperPage = (): ReactElement => {
         <Button
           text="flip card"
           className="mt-8"
-          onClick={() => generateRandomIdsAndFlipThem(50)}
+          onClick={() => generateRandomIdsAndFlipThem(100)}
         />
       </div>
     </PageWrapper>
