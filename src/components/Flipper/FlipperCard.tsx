@@ -1,23 +1,29 @@
-import { ReactElement, forwardRef } from 'react'
+import { Dispatch, ReactElement, forwardRef, SetStateAction } from 'react'
 
 interface FlipperCardProps {
   unflippedColor: string
   flippedColor: string
   isFlipped: boolean
   id: string
+  flipCard: Dispatch<SetStateAction<string>>
 }
 
 export const FlipperCard = forwardRef<HTMLDivElement, FlipperCardProps>(
   (
-    { unflippedColor, flippedColor, isFlipped, id }: FlipperCardProps,
+    { unflippedColor, flippedColor, isFlipped, id, flipCard }: FlipperCardProps,
     ref
   ): ReactElement => {
     const frontAndBackCardStyles = `absolute w-full h-full backface-hidden`
     return (
-      <div className={`perspective-500 flex-grow`} id={id} ref={ref}>
+      <div
+        className={`perspective-500 flex-grow`}
+        id={id}
+        ref={ref}
+        onClick={() => flipCard(id)}
+      >
         {/* add 'content-shadow' class to div below to add shadow */}
         <div
-          className={`absolute w-full h-full content-transition ${
+          className={`absolute w-full h-full content-transition content-shadow ${
             isFlipped && 'flip-transition rotated-x'
           }`}
         >

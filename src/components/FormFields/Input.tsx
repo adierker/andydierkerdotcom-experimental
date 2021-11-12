@@ -10,6 +10,7 @@ interface InputProps {
   labelClassName?: string
   errorClassName?: string
   hideErrorSection?: boolean
+  onChange?: (any) => void
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -21,6 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className,
       labelClassName,
       errorClassName,
+      onChange,
       hideErrorSection,
       ...rest // used to pass the "name", "onChange", "onBlur", "ref" from react-hook-form "register" as well as any other native HTML props I forgot about
     }: InputProps,
@@ -38,6 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           autoComplete="off"
           spellCheck="false"
+          onChange={onChange || null}
           className={`drkr-input-focus border-2 h-10 px-2 body-font w-full ${
             error ? 'border-drkr-green' : 'border-drkr-mid-gray'
           } ${className}`}

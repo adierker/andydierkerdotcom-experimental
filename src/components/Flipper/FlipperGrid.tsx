@@ -1,4 +1,11 @@
-import { ReactElement, useRef, useState, useEffect } from 'react'
+import {
+  Dispatch,
+  ReactElement,
+  useRef,
+  useState,
+  useEffect,
+  SetStateAction,
+} from 'react'
 
 import { FlipperCard } from 'components'
 
@@ -6,12 +13,14 @@ interface FlipperGridProps {
   width: number
   height: number
   flippedIds: string[]
+  flipCard: Dispatch<SetStateAction<string>>
 }
 
 export const FlipperGrid = ({
   width,
   height,
   flippedIds,
+  flipCard,
 }: FlipperGridProps): ReactElement => {
   // we want the flippercards in the grid to be square in shape, but still want the grid to be responsive
   // so we need to: 1. let each row fill up all the available width (via flex-grow in the flexbox)
@@ -52,6 +61,7 @@ export const FlipperGrid = ({
                 unflippedColor="bg-drkr-white"
                 flippedColor="bg-drkr-green"
                 isFlipped={isFlipped}
+                flipCard={flipCard}
               />
             )
           })}

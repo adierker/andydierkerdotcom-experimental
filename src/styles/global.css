@@ -28,7 +28,7 @@ body {
 
   /* flipper card utils */
   .perspective-500 {
-    perspective: 500px;
+    perspective: 200px;
   }
   .content-shadow {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
