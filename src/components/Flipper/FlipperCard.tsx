@@ -5,7 +5,7 @@ interface FlipperCardProps {
   flippedColor: string
   isFlipped: boolean
   id: string
-  flipCard: Dispatch<SetStateAction<string>>
+  flipCard: Dispatch<SetStateAction<string>> | null
 }
 
 export const FlipperCard = forwardRef<HTMLDivElement, FlipperCardProps>(

@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# fonts file to stop arrays from taking up so much space
+/src/consts/Fonts.ts

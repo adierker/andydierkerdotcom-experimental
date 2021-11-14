@@ -13,7 +13,7 @@ interface FlipperGridProps {
   width: number
   height: number
   flippedIds: string[]
-  flipCard: Dispatch<SetStateAction<string>>
+  flipCard: Dispatch<SetStateAction<string>> | null
 }
 
 export const FlipperGrid = ({
