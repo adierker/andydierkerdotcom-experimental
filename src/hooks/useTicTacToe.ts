@@ -70,6 +70,14 @@ interface BoardState {
   r3c3: SquareState | null
 }
 
+type OwnedSquares = OwnedSquare[]
+
+interface OwnedSquare {
+  square: Squares
+  owner: TurnType
+  piece: GamePiece
+}
+
 const startingBoardState = {
   r1c1: null,
   r1c2: null,
@@ -145,6 +153,7 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     setCurrentPhase('selectPiece')
     setSelectedSquare(null)
     setSelectedPiece(null)
+    getOwnedSquares()
   }
 
   const submitSelection = () => {
@@ -172,6 +181,21 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     }
   }
 
+  const getOwnedSquares = (): OwnedSquares => {
+    const squaresWithOwners = Object.entries(boardState)
+      .filter((entryKeyAndValue) => {
+        const squareOwnerAndPiece = entryKeyAndValue[1]
+        return squareOwnerAndPiece?.owner
+      })
+      .map(([square, { owner, piece }]) => ({
+        square,
+        owner,
+        piece,
+      }))
+    console.log('squaresWithOwners:', squaresWithOwners)
+    return squaresWithOwners as OwnedSquares
+  }
+
   useEffect(() => {
     if (currentTurn === 'computer') {
       console.log('detected computers turn...')
@@ -179,64 +203,83 @@ export const useTicTacToe = (): UseTicTacToeHook => {
       let validTurn = null
 
       const takeComputersTurn = () => {
-        const randomlyChosenSquareId = getRandom(allSquares)
-        console.log(boardState)
-        const randomlyChosenSquare = boardState[randomlyChosenSquareId]
-        console.log(
-          `attempting computers turn, randomlyChosenSquare (${randomlyChosenSquareId}):`,
-          randomlyChosenSquare
+        let playerIsAboutToWin = null
+        let computerHasAChanceToWin = null
+
+        const ownedSquares = getOwnedSquares()
+        const playerOwnedSquares = ownedSquares.filter(
+          ({ owner }) => owner === 'player'
         )
-        if (randomlyChosenSquare === null) {
-          console.log('empty square! choosing!')
-          validTurn = true
-          setBoardState({
-            ...boardState,
-            [randomlyChosenSquareId]: {
-              owner: 'computer',
-              piece: 'small',
-            },
-          })
-        } else if (randomlyChosenSquare.owner === 'player') {
-          console.log('player owns chosen square...')
-          if (
-            randomlyChosenSquare.piece === 'small' &&
-            computerPieces.medium > 0
-          ) {
-            console.log('found a small piece, replacing it with medium')
+        const computerOwnedSquares = ownedSquares.filter(
+          ({ owner }) => owner === 'computer'
+        )
+        // TODO: determine if either player or computer has 2 in a row or 2 in a column
+
+        if (computerHasAChanceToWin) {
+          // TODO: make the move that would win
+        } else if (playerIsAboutToWin) {
+          // TODO: make the move that blocks the player
+        } else {
+          // make a random move
+          const randomlyChosenSquareId = getRandom(allSquares)
+          console.log(boardState)
+          const randomlyChosenSquare = boardState[randomlyChosenSquareId]
+          console.log(
+            `attempting computers turn, randomlyChosenSquare (${randomlyChosenSquareId}):`,
+            randomlyChosenSquare
+          )
+          if (randomlyChosenSquare === null) {
+            console.log('empty square! choosing!')
             validTurn = true
             setBoardState({
               ...boardState,
               [randomlyChosenSquareId]: {
                 owner: 'computer',
-                piece: 'medium',
+                piece: 'small',
               },
             })
-            setComputerPieces({
-              ...computerPieces,
-              medium: computerPieces.medium - 1,
-            })
-          } else if (
-            randomlyChosenSquare.piece === 'medium' &&
-            computerPieces.large > 0
-          ) {
-            console.log('found a medium piece, replacing it with large')
-            validTurn = true
-            setBoardState({
-              ...boardState,
-              [randomlyChosenSquareId]: {
-                owner: 'computer',
-                piece: 'large',
-              },
-            })
-            setComputerPieces({
-              ...computerPieces,
-              large: computerPieces.large - 1,
-            })
+          } else if (randomlyChosenSquare.owner === 'player') {
+            console.log('player owns chosen square...')
+            if (
+              randomlyChosenSquare.piece === 'small' &&
+              computerPieces.medium > 0
+            ) {
+              console.log('found a small piece, replacing it with medium')
+              validTurn = true
+              setBoardState({
+                ...boardState,
+                [randomlyChosenSquareId]: {
+                  owner: 'computer',
+                  piece: 'medium',
+                },
+              })
+              setComputerPieces({
+                ...computerPieces,
+                medium: computerPieces.medium - 1,
+              })
+            } else if (
+              randomlyChosenSquare.piece === 'medium' &&
+              computerPieces.large > 0
+            ) {
+              console.log('found a medium piece, replacing it with large')
+              validTurn = true
+              setBoardState({
+                ...boardState,
+                [randomlyChosenSquareId]: {
+                  owner: 'computer',
+                  piece: 'large',
+                },
+              })
+              setComputerPieces({
+                ...computerPieces,
+                large: computerPieces.large - 1,
+              })
+            }
           }
-        }
-        if (!validTurn) {
-          console.log('no valid turn found, trying again...')
-          takeComputersTurn()
+          if (!validTurn) {
+            console.log('no valid turn found, trying again...')
+            takeComputersTurn()
+          }
         }
       }
 
