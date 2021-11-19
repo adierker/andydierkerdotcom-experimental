@@ -4,15 +4,15 @@ import { Button } from 'components'
 import { useTicTacToe } from 'hooks'
 
 const squares = [
-  'r1c1',
-  'r1c2',
-  'r1c3',
-  'r2c1',
-  'r2c2',
-  'r2c3',
-  'r3c1',
-  'r3c2',
-  'r3c3',
+  'r1-c1',
+  'r1-c2',
+  'r1-c3',
+  'r2-c1',
+  'r2-c2',
+  'r2-c3',
+  'r3-c1',
+  'r3-c2',
+  'r3-c3',
 ]
 
 const pieces = ['small', 'medium', 'large']
