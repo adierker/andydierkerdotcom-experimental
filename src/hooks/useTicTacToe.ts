@@ -19,6 +19,18 @@ const pieceAIsBiggerThanPieceB = (a: GamePiece, b: GamePiece): boolean => {
   return indexOfA > indexOfB
 }
 
+const getNextBiggestPiece = (piece: GamePiece | null): GamePiece | null => {
+  if (piece === null) {
+    return 'small'
+  } else if (piece === 'small') {
+    return 'medium'
+  } else if (piece === 'medium') {
+    return 'large'
+  } else {
+    return null
+  }
+}
+
 const defaultPieces = {
   small: 10,
   medium: 2,
@@ -26,15 +38,15 @@ const defaultPieces = {
 }
 
 const startingBoardState = {
-  'r1-c1': null,
-  'r1-c2': null,
-  'r1-c3': null,
-  'r2-c1': null,
-  'r2-c2': null,
-  'r2-c3': null,
-  'r3-c1': null,
-  'r3-c2': null,
-  'r3-c3': null,
+  'r1-c1': { owner: null, piece: null },
+  'r1-c2': { owner: null, piece: null },
+  'r1-c3': { owner: null, piece: null },
+  'r2-c1': { owner: null, piece: null },
+  'r2-c2': { owner: null, piece: null },
+  'r2-c3': { owner: null, piece: null },
+  'r3-c1': { owner: null, piece: null },
+  'r3-c2': { owner: null, piece: null },
+  'r3-c3': { owner: null, piece: null },
 }
 
 interface UseTicTacToeHook {
@@ -101,9 +113,6 @@ export const useTicTacToe = (): UseTicTacToeHook => {
       return null
     }
 
-    console.log('boardState:', boardState)
-    console.log('square:', square)
-
     if (
       boardState[square] === null ||
       pieceAIsBiggerThanPieceB(selectedPiece, boardState[square].piece)
@@ -146,9 +155,77 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     }
   }
 
-  const evaluateBoard = () => {}
+  const gameOver = (message: string) => {
+    alert(message)
+  }
+
+  const evaluateBoard = () => {
+    let thereIsAWinner: PlayerOrComputer | null = null
+    const computerHasAWinnableSquare: WinnableSquare[] = []
+    const playerHasAWinnableSquare: WinnableSquare[] = []
+
+    const checkRowsAndCols = () => {
+      const rowsAndCols = ['r1', 'r2', 'r3', 'c1', 'c2', 'c3']
+      rowsAndCols.forEach((rowOrCol) => {
+        const owners = {
+          player: 0,
+          computer: 0,
+          null: 0,
+        }
+        const squaresInThisRowOrCol = Object.entries(boardState).filter(
+          ([square]) => square.includes(rowOrCol)
+        )
+        squaresInThisRowOrCol.forEach(([square, { owner, piece }]) => {
+          owners[owner] += 1
+        })
+        if (owners.player === 3) {
+          thereIsAWinner = 'player'
+          return
+        } else if (owners.computer === 3) {
+          thereIsAWinner = 'computer'
+          return
+        } else if (owners.null >= 2) {
+          // there are still two unclaimed squares in this row -
+          // no one can win in the next turn with this row
+          // so we can skip it
+          return
+        } else if (owners.computer === 2) {
+          // if computer owns 2 square, they can potentially win in this row
+          squaresInThisRowOrCol.forEach(([square, { owner, piece }]) => {
+            if (owner !== 'computer' && piece !== 'large') {
+              computerHasAWinnableSquare.push({
+                square: square as Squares,
+                minimumPieceRequired: getNextBiggestPiece(piece),
+              })
+            }
+          })
+        } else if (owners.player === 2) {
+          // if player owns 2 squares, they can potentially win in this row
+          squaresInThisRowOrCol.forEach(([square, { owner, piece }]) => {
+            if (owner !== 'player' && piece !== 'large') {
+              playerHasAWinnableSquare.push({
+                square: square as Squares,
+                minimumPieceRequired: getNextBiggestPiece(piece),
+              })
+            }
+          })
+        }
+      })
+    }
+
+    checkRowsAndCols()
+
+    if (thereIsAWinner) {
+      gameOver(`${thereIsAWinner} wins!`)
+    }
+
+    console.log('computerHasAWinnableSquare:', computerHasAWinnableSquare)
+    console.log('playerHasAWinnableSquare:', playerHasAWinnableSquare)
+  }
 
   useEffect(() => {
+    evaluateBoard()
+
     if (currentTurn === 'computer') {
       const allSquares = Object.keys(boardState)
       let validTurnHasBeenMade = null
@@ -156,7 +233,7 @@ export const useTicTacToe = (): UseTicTacToeHook => {
       const takeComputersTurn = () => {
         const randomlyChosenSquareId = getRandom(allSquares)
         const randomlyChosenSquare = boardState[randomlyChosenSquareId]
-        if (randomlyChosenSquare === null) {
+        if (randomlyChosenSquare.owner === null) {
           validTurnHasBeenMade = true
           setBoardState({
             ...boardState,

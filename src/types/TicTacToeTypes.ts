@@ -19,20 +19,20 @@ export interface GamePiecesRemaining {
 }
 
 export interface SquareState {
-  owner: PlayerOrComputer
-  piece: GamePiece
+  owner: PlayerOrComputer | null
+  piece: GamePiece | null
 }
 
 export interface BoardState {
-  'r1-c1': SquareState | null
-  'r1-c2': SquareState | null
-  'r1-c3': SquareState | null
-  'r2-c1': SquareState | null
-  'r2-c2': SquareState | null
-  'r2-c3': SquareState | null
-  'r3-c1': SquareState | null
-  'r3-c2': SquareState | null
-  'r3-c3': SquareState | null
+  'r1-c1': SquareState
+  'r1-c2': SquareState
+  'r1-c3': SquareState
+  'r2-c1': SquareState
+  'r2-c2': SquareState
+  'r2-c3': SquareState
+  'r3-c1': SquareState
+  'r3-c2': SquareState
+  'r3-c3': SquareState
 }
 
 export interface WinnableSquare {
