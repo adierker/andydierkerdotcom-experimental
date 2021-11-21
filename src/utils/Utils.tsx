@@ -1,6 +1,8 @@
 import { QuerySnapshot, DocumentData } from 'firebase/firestore'
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 
+import { GamePiece } from 'types'
+
 export const onClickOpenLink = (url: string, newTab = true): void => {
   const newTabArgs = newTab ? ['_blank', 'noopener, noreferrer'] : ['_self']
   const newWindow = window.open(url, ...newTabArgs)
@@ -55,4 +57,29 @@ export const getRandom = (arrayOrNumber: any[] | number) => {
   return Array.isArray(arrayOrNumber)
     ? shuffleArray(arrayOrNumber)[0]
     : Math.floor(Math.random() * arrayOrNumber)
+}
+
+// tic tac toe utils
+export const pieceAIsBiggerThanPieceB = (
+  a: GamePiece,
+  b: GamePiece
+): boolean => {
+  const GamePieceHierarchy = ['small', 'medium', 'large']
+  const indexOfA = GamePieceHierarchy.indexOf(a)
+  const indexOfB = GamePieceHierarchy.indexOf(b)
+  return indexOfA > indexOfB
+}
+
+export const getNextBiggestPiece = (
+  piece: GamePiece | null
+): GamePiece | null => {
+  if (piece === null) {
+    return 'small'
+  } else if (piece === 'small') {
+    return 'medium'
+  } else if (piece === 'medium') {
+    return 'large'
+  } else {
+    return null
+  }
 }

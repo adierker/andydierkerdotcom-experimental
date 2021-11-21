@@ -9,27 +9,7 @@ import {
   BoardState,
   WinnableSquare,
 } from 'types'
-import { getRandom } from 'utils'
-
-export const GamePieceHierarchy = ['small', 'medium', 'large']
-
-const pieceAIsBiggerThanPieceB = (a: GamePiece, b: GamePiece): boolean => {
-  const indexOfA = GamePieceHierarchy.indexOf(a)
-  const indexOfB = GamePieceHierarchy.indexOf(b)
-  return indexOfA > indexOfB
-}
-
-const getNextBiggestPiece = (piece: GamePiece | null): GamePiece | null => {
-  if (piece === null) {
-    return 'small'
-  } else if (piece === 'small') {
-    return 'medium'
-  } else if (piece === 'medium') {
-    return 'large'
-  } else {
-    return null
-  }
-}
+import { getRandom, getNextBiggestPiece, pieceAIsBiggerThanPieceB } from 'utils'
 
 const defaultPieces = {
   small: 10,
@@ -64,8 +44,6 @@ interface UseTicTacToeHook {
   submitSelection: () => void
 }
 
-// TODO: these properties are placeholders and don't do anything, and will need to be replaced
-// we don't need to track hasGameStarted at all - we'll just use a new URL
 export const useTicTacToe = (): UseTicTacToeHook => {
   const [currentTurn, setCurrentTurn] = useState<PlayerOrComputer>('player')
   const [currentPhase, setCurrentPhase] = useState<TurnPhase>('selectPiece')
@@ -227,6 +205,33 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     }
   }
 
+  // make sure you validate that this is a valid move before calling this function
+  // or it will blow up
+  const makeMove = (
+    square: Squares,
+    owner: PlayerOrComputer,
+    piece: GamePiece
+  ) => {
+    setBoardState({
+      ...boardState,
+      [square]: {
+        owner,
+        piece,
+      },
+    })
+    if (owner === 'computer') {
+      setComputerPieces({
+        ...computerPieces,
+        [piece]: computerPieces[piece] - 1,
+      })
+    } else {
+      setPlayerPieces({
+        ...playerPieces,
+        [piece]: playerPieces[piece] - 1,
+      })
+    }
+  }
+
   useEffect(() => {
     if (isGameOver) {
       return
@@ -242,52 +247,49 @@ export const useTicTacToe = (): UseTicTacToeHook => {
       let validTurnHasBeenMade = null
 
       const takeComputersTurn = () => {
-        const randomlyChosenSquareId = getRandom(allSquares)
-        const randomlyChosenSquare = boardState[randomlyChosenSquareId]
-        if (randomlyChosenSquare.owner === null) {
-          validTurnHasBeenMade = true
-          setBoardState({
-            ...boardState,
-            [randomlyChosenSquareId]: {
-              owner: 'computer',
-              piece: 'small',
-            },
-          })
-        } else if (randomlyChosenSquare.owner === 'player') {
-          if (
-            randomlyChosenSquare.piece === 'small' &&
-            computerPieces.medium > 0
-          ) {
+        if (computerWinnableSquares.length > 0) {
+          const { square, minimumPieceRequired } = computerWinnableSquares[0]
+          // make the move required to win
+          if (computerPieces[minimumPieceRequired] > 0) {
             validTurnHasBeenMade = true
-            setBoardState({
-              ...boardState,
-              [randomlyChosenSquareId]: {
-                owner: 'computer',
-                piece: 'medium',
-              },
-            })
-            setComputerPieces({
-              ...computerPieces,
-              medium: computerPieces.medium - 1,
-            })
-          } else if (
-            randomlyChosenSquare.piece === 'medium' &&
-            computerPieces.large > 0
-          ) {
+            makeMove(square, 'computer', minimumPieceRequired)
+          } else {
+            setComputerWinnableSquares(computerWinnableSquares.slice(1))
+          }
+          return
+        } else if (playerWinnableSquares.length > 0) {
+          // block the player's win
+          const { square, minimumPieceRequired } = playerWinnableSquares[0]
+          if (computerPieces[minimumPieceRequired] > 0) {
             validTurnHasBeenMade = true
-            setBoardState({
-              ...boardState,
-              [randomlyChosenSquareId]: {
-                owner: 'computer',
-                piece: 'large',
-              },
-            })
-            setComputerPieces({
-              ...computerPieces,
-              large: computerPieces.large - 1,
-            })
+            makeMove(square, 'computer', minimumPieceRequired)
+          } else {
+            setPlayerWinnableSquares(playerWinnableSquares.slice(1))
+          }
+          return
+        } else {
+          const randomlyChosenSquareId = getRandom(allSquares)
+          const randomlyChosenSquare = boardState[randomlyChosenSquareId]
+          if (randomlyChosenSquare.owner === null) {
+            validTurnHasBeenMade = true
+            makeMove(randomlyChosenSquareId, 'computer', 'small')
+          } else if (randomlyChosenSquare.owner === 'player') {
+            if (
+              randomlyChosenSquare.piece === 'small' &&
+              computerPieces.medium > 0
+            ) {
+              validTurnHasBeenMade = true
+              makeMove(randomlyChosenSquareId, 'computer', 'medium')
+            } else if (
+              randomlyChosenSquare.piece === 'medium' &&
+              computerPieces.large > 0
+            ) {
+              validTurnHasBeenMade = true
+              makeMove(randomlyChosenSquareId, 'computer', 'large')
+            }
           }
         }
+
         if (!validTurnHasBeenMade) {
           takeComputersTurn()
         }
