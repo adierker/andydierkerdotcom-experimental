@@ -70,6 +70,8 @@ export const useTicTacToe = (): UseTicTacToeHook => {
   const [currentTurn, setCurrentTurn] = useState<PlayerOrComputer>('player')
   const [currentPhase, setCurrentPhase] = useState<TurnPhase>('selectPiece')
 
+  const [isGameOver, setIsGameOver] = useState<boolean>(false)
+
   const [playerPieces, setPlayerPieces] =
     useState<GamePiecesRemaining>(defaultPieces)
   const [computerPieces, setComputerPieces] =
@@ -84,10 +86,12 @@ export const useTicTacToe = (): UseTicTacToeHook => {
 
   const [boardState, setBoardState] = useState<BoardState>(startingBoardState)
 
-  const [computerWinnableSquares, setComputerWinnableSquares] =
-    useState<WinnableSquare | null>(null)
-  const [playerWinnableSquares, setPlayerWinnableSquares] =
-    useState<WinnableSquare | null>(null)
+  const [computerWinnableSquares, setComputerWinnableSquares] = useState<
+    WinnableSquare[]
+  >([])
+  const [playerWinnableSquares, setPlayerWinnableSquares] = useState<
+    WinnableSquare[]
+  >([])
 
   const handlePieceClick = (piece: GamePiece) => {
     if (!piece || currentTurn !== 'player') {
@@ -161,8 +165,6 @@ export const useTicTacToe = (): UseTicTacToeHook => {
 
   const evaluateBoard = () => {
     let thereIsAWinner: PlayerOrComputer | null = null
-    const computerHasAWinnableSquare: WinnableSquare[] = []
-    const playerHasAWinnableSquare: WinnableSquare[] = []
 
     const checkRowsAndCols = () => {
       const rowsAndCols = ['r1', 'r2', 'r3', 'c1', 'c2', 'c3']
@@ -191,24 +193,28 @@ export const useTicTacToe = (): UseTicTacToeHook => {
           return
         } else if (owners.computer === 2) {
           // if computer owns 2 square, they can potentially win in this row
+          const computerWinnableSquares: WinnableSquare[] = []
           squaresInThisRowOrCol.forEach(([square, { owner, piece }]) => {
             if (owner !== 'computer' && piece !== 'large') {
-              computerHasAWinnableSquare.push({
+              computerWinnableSquares.push({
                 square: square as Squares,
                 minimumPieceRequired: getNextBiggestPiece(piece),
               })
             }
           })
+          setComputerWinnableSquares(computerWinnableSquares)
         } else if (owners.player === 2) {
           // if player owns 2 squares, they can potentially win in this row
+          const playerWinnableSquares: WinnableSquare[] = []
           squaresInThisRowOrCol.forEach(([square, { owner, piece }]) => {
             if (owner !== 'player' && piece !== 'large') {
-              playerHasAWinnableSquare.push({
+              playerWinnableSquares.push({
                 square: square as Squares,
                 minimumPieceRequired: getNextBiggestPiece(piece),
               })
             }
           })
+          setPlayerWinnableSquares(playerWinnableSquares)
         }
       })
     }
@@ -216,14 +222,19 @@ export const useTicTacToe = (): UseTicTacToeHook => {
     checkRowsAndCols()
 
     if (thereIsAWinner) {
+      setIsGameOver(true)
       gameOver(`${thereIsAWinner} wins!`)
     }
-
-    console.log('computerHasAWinnableSquare:', computerHasAWinnableSquare)
-    console.log('playerHasAWinnableSquare:', playerHasAWinnableSquare)
   }
 
   useEffect(() => {
+    if (isGameOver) {
+      return
+    }
+
+    setComputerWinnableSquares([])
+    setPlayerWinnableSquares([])
+
     evaluateBoard()
 
     if (currentTurn === 'computer') {
