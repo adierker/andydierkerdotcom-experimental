@@ -24,6 +24,7 @@ export const getDocumentFromFirestore = async <T extends unknown>(
   requestedCollection: CollectionsType,
   requestedDocument: string
 ): Promise<T> => {
+  console.log('DB IS:', db, requestedCollection, requestedDocument)
   const docRef: DocumentReference<DocumentData> = doc(
     db,
     requestedCollection,

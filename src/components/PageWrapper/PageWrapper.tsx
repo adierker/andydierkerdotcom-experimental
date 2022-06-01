@@ -29,7 +29,7 @@ export const PageWrapper = ({
 
       {hasNavigation && <Navigation backText={backText} backPath={backPath} />}
 
-      <BreakpointHelper show={false} />
+      <BreakpointHelper show={true} />
 
       {children}
     </div>
