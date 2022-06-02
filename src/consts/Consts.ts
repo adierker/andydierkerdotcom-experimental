@@ -38,6 +38,12 @@ export const ENDPOINTS = {
   DELETE_RECIPE: '/api/delete-recipe',
 }
 
+// interview prep stuff
+export const EXTERNAL_ENDPOINTS = {
+  // uses the https://api.petfinder.com proxy in package.json
+  PETFINDER: 'https://api.petfinder.com/v2/animals',
+}
+
 // firestore database collections
 export const DB_COLLECTIONS = {
   PAGES: 'pages',

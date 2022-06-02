@@ -1,3 +1,5 @@
+export * from 'components/AnimalCollection/AnimalCollection'
+export * from 'components/AnimalCollection/AnimalCard'
 export * from 'components/BreakpointHelper/BreakpointHelper'
 export * from 'components/Button/Button'
 export * from 'components/Navigation/Navigation'
