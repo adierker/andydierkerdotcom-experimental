@@ -13,8 +13,8 @@ interface AnimalCardProps {
 
 export const AnimalCard = ({
   animal: {
-    // id,
-    url,
+    id,
+    // url,
     // type,
     breeds,
     age,
@@ -24,8 +24,9 @@ export const AnimalCard = ({
     photos,
   },
 }: AnimalCardProps): ReactElement => {
-  const { primary, secondary, mixed, unknown }: Breed = breeds
+  const { primary }: Breed = breeds
   if (photos[0] === undefined) {
+    console.log('dog with no photo filtered out:', id)
     return null
   }
   return (

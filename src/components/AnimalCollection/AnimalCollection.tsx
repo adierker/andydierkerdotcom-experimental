@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 
+import Pagination from '@mui/material/Pagination'
+import Stack from '@mui/material/Stack'
 import axios, { AxiosResponse } from 'axios'
 
 import { AnimalCard, Loader } from 'components'
@@ -25,14 +27,22 @@ const transformApiDataToAnimalData = (arrayOfAnimalObjs: any): Animal[] => {
   }))
 }
 
-const fetchAnimals = async (token): Promise<any> => {
+const fetchAnimals = async (
+  token,
+  page = 1,
+  countPerPage = 20
+): Promise<any> => {
   let responseData: AxiosResponse<any>
   await axios
-    .get(EXTERNAL_ENDPOINTS.PETFINDER + '?type=dog', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .get(
+      EXTERNAL_ENDPOINTS.PETFINDER +
+        `?type=dog&page=${page}&limit=${countPerPage}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((response) => {
       responseData = response?.data
     })
@@ -59,8 +69,8 @@ export const AnimalCollection = ({
   } = usePaginationContext()
 
   const { data, error, isLoading } = useEffectAsync(
-    () => fetchAnimals(oauthToken),
-    [fetchAnimals]
+    () => fetchAnimals(oauthToken, currentPage),
+    [fetchAnimals, currentPage]
   )
 
   useEffect(() => {
@@ -69,7 +79,6 @@ export const AnimalCollection = ({
       data.animals !== undefined &&
       data.pagination !== undefined
     ) {
-      console.log('data')
       const { animals: animalData, pagination: paginationData } = data
       const transformedAnimals = transformApiDataToAnimalData(animalData)
       setAnimals(transformedAnimals)
@@ -80,16 +89,32 @@ export const AnimalCollection = ({
     }
   }, [data])
 
+  const onPaginationChange = (event, page) => {
+    setCurrentPage(page)
+  }
+
   return (
-    <div className="flex justify-center flex-wrap mt-12">
+    <div className="mx-auto mt-12">
       {error && <div>there was some kind of error...</div>}
-      {isLoading && (
-        <div className="flex justify-center">
-          <Loader className="sq-48" />
+      {isLoading && <Loader className="sq-48" />}
+      {!isLoading && (
+        <div className="flex flex-wrap justify-center">
+          {animals.map((animal) => (
+            <AnimalCard animal={animal} key={animal.id} />
+          ))}
         </div>
       )}
-      {!isLoading &&
-        animals.map((animal) => <AnimalCard animal={animal} key={animal.id} />)}
+      {!isLoading && totalCount && (
+        <div className="flex justify-center mt-4">
+          <Stack spacing={2}>
+            <Pagination
+              count={totalPages}
+              onChange={onPaginationChange}
+              page={currentPage}
+            />
+          </Stack>
+        </div>
+      )}
     </div>
   )
 }
