@@ -10,11 +10,8 @@ interface AnimalCollectionProps {
 export const AnimalCollection = ({
   animals,
 }: AnimalCollectionProps): ReactElement => {
-  useEffect(() => {
-    console.log('animals:', animals, !!animals)
-  }, animals)
   return (
-    <div className="flex justify-center flex-wrap mt-24">
+    <div className="flex justify-center flex-wrap mt-12">
       {animals &&
         animals.map((animal) => <AnimalCard animal={animal} key={animal.id} />)}
     </div>

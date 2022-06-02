@@ -13,13 +13,13 @@ interface AnimalCardProps {
 
 export const AnimalCard = ({
   animal: {
-    id,
+    // id,
     url,
-    type,
+    // type,
     breeds,
     age,
-    gender,
-    description,
+    // gender,
+    // description,
     animalName,
     photos,
   },

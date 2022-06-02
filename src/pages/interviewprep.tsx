@@ -2,7 +2,13 @@ import { ReactElement, useState, useEffect } from 'react'
 
 import axios, { AxiosResponse } from 'axios'
 
-import { Button, PageWrapper, Heading, AnimalCollection } from 'components'
+import {
+  Button,
+  PageWrapper,
+  Heading,
+  AnimalCollection,
+  Loader,
+} from 'components'
 import { EXTERNAL_ENDPOINTS } from 'consts'
 import { useEffectAsync } from 'hooks'
 import { Animal } from 'types'
@@ -13,7 +19,6 @@ import { Animal } from 'types'
 // Oauth token (will expire, regenerate with above):
 
 const transformApiDataToAnimalData = (arrayOfAnimalObjs: any): Animal[] => {
-  console.log('transforming...:', arrayOfAnimalObjs)
   if (!arrayOfAnimalObjs || arrayOfAnimalObjs.length < 1) {
     return []
   }
@@ -30,45 +35,47 @@ const transformApiDataToAnimalData = (arrayOfAnimalObjs: any): Animal[] => {
   }))
 }
 
-const PETFINDER_OAUTH_TOKEN =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJTS1ZGWlR0WFR1b2lmNGExT1FyRHhmUWw5dW5zaGNVa1ZSTVAwdUFxekFzcjl4b096bSIsImp0aSI6IjE3YTA3NDIzNmMzYWUyZDliMmQxNTY4NDBjOTI2NDEwYTNkNzhiNTUzZGFiMGUyM2Q3NmJkNGE0MzZkMzdhYTFiMjFhNGQ2Njg0N2JjOWI0IiwiaWF0IjoxNjU0MTU0ODExLCJuYmYiOjE2NTQxNTQ4MTEsImV4cCI6MTY1NDE1ODQxMSwic3ViIjoiIiwic2NvcGVzIjpbXX0.Y2in4n5Y0f4jCpyIgemt-AQDUs9MsOBCQgFTjL5ASS54MCORSITteN6BNHzKrl31FV8xJu599U1Het5UpqjtsoZohE6b8c2Mz_7qKhKtag_0NXSLSxV-H_0ze_giEjS9zzpdF0H6Cxyxy7kLzYtcZkeXf1UbJElKne_q69Xhbu0mkYXuPHt7hC6trOjz4FdbiHoit0Snb1yo3ExXoHgZGGr5YnvWuzPyNKXJRAhXi7R6pLsaHyfrWGf9PwqiNTrYm5z-EKbltKSUiBkQG1tTTfWgpRPTL6EEqQ8YLoYcwWkJ5MFwXplXanXk3gUuLXluZXJjBjgtpMaFspebB34wvg'
+const fetchAnimals = async (): Promise<any> => {
+  let responseData: AxiosResponse<any>
+  await axios
+    .get(EXTERNAL_ENDPOINTS.PETFINDER + '?type=dog', {
+      headers: {
+        Authorization: `Bearer ${PETFINDER_OAUTH_TOKEN}`,
+      },
+    })
+    .then((response) => {
+      responseData = response?.data?.animals
+    })
+  const transformedAnimals = transformApiDataToAnimalData(responseData)
+  return transformedAnimals
+}
 
+const PETFINDER_OAUTH_TOKEN =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJTS1ZGWlR0WFR1b2lmNGExT1FyRHhmUWw5dW5zaGNVa1ZSTVAwdUFxekFzcjl4b096bSIsImp0aSI6Ijg4ODlhNjc4MDMyNmE2NDYxNmI5NGQ0Nzc5ZjRjOTg1NzM5ZTViYjk5ZjRjYjk5ZTZiNDU4YjE2ZjBlMWZkNGJjYWFkYzdhOTdjZGFjYjEyIiwiaWF0IjoxNjU0MTYwNjM2LCJuYmYiOjE2NTQxNjA2MzYsImV4cCI6MTY1NDE2NDIzNiwic3ViIjoiIiwic2NvcGVzIjpbXX0.sIb6pEO9ynCn2C2OZ1rOXZkKy3RGRYh01IXPWIAp9ItfzEXy0n-XI6gWyX3fFDfkdhG25-X4Bj_tWLt3VBbZrUev509yvcvvNBcG3cQdSPyVt8Arw6gJ5WChSwtwHZkLY5QoyHDsxZCRHW4_7gOmCSmT-034CzgBC-xWxMDPHx7i3N7K_fuk1mb59RfS5TxNIYZFMt19LLnNpOeI71JhIxjfvFQkIJvcOgeplWkwQw5LQZepSLAwFK_HbNv7lmPT3T8nk0MPQai8v0169Tm-fWIazXysBkby3FInNxNGHEBynZl_6X0PuDnowZ6LVOI1Px4SMrDBkrUbz3nRKInY6A'
 export const InterviewPrepPage = (): ReactElement => {
   const [animals, setAnimals] = useState<Animal[]>([])
 
-  const fetchAnimals = async (): Promise<any> => {
-    let responseData: AxiosResponse<any>
+  const { data, error, isLoading } = useEffectAsync(fetchAnimals, [
+    fetchAnimals,
+  ])
 
-    try {
-      await axios
-        .get(EXTERNAL_ENDPOINTS.PETFINDER + '?type=dog', {
-          headers: {
-            Authorization: `Bearer ${PETFINDER_OAUTH_TOKEN}`,
-          },
-        })
-        .then((response) => {
-          responseData = response?.data?.animals
-        })
-      const transformedAnimals = transformApiDataToAnimalData(responseData)
-      setAnimals(transformedAnimals)
-    } catch (e) {
-      console.log('ERROR!', e)
-      return e
+  useEffect(() => {
+    if (data !== undefined) {
+      setAnimals(data)
     }
-  }
+  }, [data])
 
   return (
     <PageWrapper pageTitle="hello">
       <>
-        <Heading text="Find Animals" className="text-center mt-10" />
-        <div className="flex justify-center">
-          <Button
-            text="fetch all animals"
-            type="button"
-            onClick={fetchAnimals}
-          />
-        </div>
-        {animals.length && <AnimalCollection animals={animals} />}
+        <Heading text="Here Are Some Dogs" className="text-center mt-10" />
+        {error && <div>there was some kind of error...</div>}
+        {isLoading && (
+          <div className="flex justify-center">
+            <Loader className="sq-48" />
+          </div>
+        )}
+        {!isLoading && animals.length && <AnimalCollection animals={animals} />}
       </>
     </PageWrapper>
   )
