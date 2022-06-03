@@ -4,11 +4,13 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
+import { useRouter, NextRouter } from 'next/router'
 
 import { Animal, Breed } from 'types'
 
 interface AnimalCardProps {
   animal: Animal
+  oauthToken: string
 }
 
 export const AnimalCard = ({
@@ -23,12 +25,21 @@ export const AnimalCard = ({
     animalName,
     photos,
   },
+  oauthToken,
 }: AnimalCardProps): ReactElement => {
+  const router: NextRouter = useRouter()
+
   const { primary }: Breed = breeds
-  if (photos[0] === undefined) {
-    console.log('dog with no photo filtered out:', id)
-    return null
+  const dogPhoto =
+    photos[0] === undefined ? '/dog-placeholder.jpg' : photos[0].large
+
+  const goToDogDetails = () => {
+    router.push({
+      pathname: `/interviewprep/dog/${id}`,
+      query: { token: oauthToken },
+    })
   }
+
   return (
     <Card
       sx={{
@@ -38,12 +49,13 @@ export const AnimalCard = ({
         marginRight: '12px',
         marginBottom: '12px',
       }}
+      onClick={goToDogDetails}
     >
       <CardMedia
         component="img"
         alt={animalName}
         height="100"
-        image={photos[0].large}
+        image={dogPhoto}
         sx={{ height: '200px' }}
       />
       <CardContent>

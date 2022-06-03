@@ -33,19 +33,38 @@ const fetchAnimals = async (
   countPerPage = 20
 ): Promise<any> => {
   let responseData: AxiosResponse<any>
+  const query = `?type=dog&page=${page}&limit=${countPerPage}`
+  const cachedData = window.localStorage.getItem(query)
+
+  // if we have data cached for this query...
+  if (cachedData) {
+    const parsedData = JSON.parse(cachedData)
+    const currentTime = Date.now()
+
+    if (currentTime <= parsedData.invalidateAt) {
+      // we have cached data AND it is valid
+      return parsedData
+    }
+  }
+
   await axios
-    .get(
-      EXTERNAL_ENDPOINTS.PETFINDER +
-        `?type=dog&page=${page}&limit=${countPerPage}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    .get(EXTERNAL_ENDPOINTS.PETFINDER + query, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((response) => {
       responseData = response?.data
     })
+
+  const currentTimePlusFiveMinutes = Date.now() + 5 * 60 * 1000
+  window.localStorage.setItem(
+    query,
+    JSON.stringify({
+      ...responseData,
+      invalidateAt: currentTimePlusFiveMinutes,
+    })
+  )
   return responseData
 }
 
@@ -58,7 +77,6 @@ export const AnimalCollection = ({
 }: AnimalCollectionProps): ReactElement => {
   const [animals, setAnimals] = useState<Animal[]>([])
   const {
-    countPerPage,
     totalCount,
     currentPage,
     totalPages,
@@ -69,7 +87,7 @@ export const AnimalCollection = ({
   } = usePaginationContext()
 
   const { data, error, isLoading } = useEffectAsync(
-    () => fetchAnimals(oauthToken, currentPage),
+    () => fetchAnimals(oauthToken, currentPage || 1),
     [fetchAnimals, currentPage]
   )
 
@@ -93,6 +111,10 @@ export const AnimalCollection = ({
     setCurrentPage(page)
   }
 
+  if (error) {
+    console.log('error!', error)
+  }
+
   return (
     <div className="mx-auto mt-12">
       {error && <div>there was some kind of error...</div>}
@@ -100,12 +122,16 @@ export const AnimalCollection = ({
       {!isLoading && (
         <div className="flex flex-wrap justify-center">
           {animals.map((animal) => (
-            <AnimalCard animal={animal} key={animal.id} />
+            <AnimalCard
+              animal={animal}
+              oauthToken={oauthToken}
+              key={animal.id}
+            />
           ))}
         </div>
       )}
       {!isLoading && totalCount && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 mb-8">
           <Stack spacing={2}>
             <Pagination
               count={totalPages}
